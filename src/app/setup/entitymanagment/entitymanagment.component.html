@@ -1,0 +1,46 @@
+     
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="title">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            required
+            [(ngModel)]="entity.name"
+            name="title"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Country Code</label>
+          <input
+            class="form-control"
+            id="description"
+            required
+            [(ngModel)]="entity.countrycode"
+            name="description"
+          />
+        </div>
+  
+        <button (click)="saveEntity()" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+        <h4>entities List</h4>
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let entity of entities; let i = index"       >
+            {{ entity.name }}
+          </li>
+        </ul>
+    
+        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEntities()">
+          Remove All
+        </button>
+      </div>
+  </div>
+      
