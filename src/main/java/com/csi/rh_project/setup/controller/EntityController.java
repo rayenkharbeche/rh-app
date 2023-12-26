@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
 public class EntityController {
@@ -50,7 +50,6 @@ public class EntityController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 	@PostMapping("/Entities")
 	public ResponseEntity<Entity> createEntity(@RequestBody Entity entity) {
 		try {
