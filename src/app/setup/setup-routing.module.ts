@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { EntitymanagmentComponent } from './entitymanagment/entitymanagment.component';
+import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
+import { ProfilelistComponent } from './profilelist/profilelist.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,22 @@ const routes: Routes = [
         data: {
           title: 'Entity Managment',
         },
+      },
+      {
+        path: 'profilemanagment',
+        component: ProfilemanagmentComponent,
+        data: {
+          title: 'Profile Managment',
+        },
+        
+      },
+      {
+        path: 'profileList',
+        component: ProfilelistComponent,
+        data: {
+          title: 'Profile List',
+        },
+        
       }
     ],
   },

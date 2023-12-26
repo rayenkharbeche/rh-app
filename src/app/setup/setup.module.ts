@@ -5,8 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // CoreUI Modules
 import {
   AccordionModule,
+  AvatarModule,
   BadgeModule,
   BreadcrumbModule,
+  ButtonGroupModule,
   ButtonModule,
   CardModule,
   CarouselModule,
@@ -39,6 +41,9 @@ import { SetupRoutingModule } from './setup-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { EntityService } from './service/entity.service';
+import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
+import { AuthService } from '../auth/service/auth.service';
+import { ProfilelistComponent } from './profilelist/profilelist.component';
 
 @NgModule({
   imports: [
@@ -46,14 +51,30 @@ import { EntityService } from './service/entity.service';
     SetupRoutingModule,
     MatButtonModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    CardModule,
+    ButtonModule,
+    GridModule,
+    IconModule,
+    ReactiveFormsModule,
+    TabsModule,
+    GridModule,
+    ProgressModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    FormModule,
+    ButtonGroupModule,
+    AvatarModule,
+    TableModule,
+    
     
   ],
   declarations: [
-    EntitymanagmentComponent
+    EntitymanagmentComponent,
+    ProfilemanagmentComponent,ProfilelistComponent
     
   ],
-  providers: [EntityService],
+  providers: [EntityService,AuthService],
 
 
 })

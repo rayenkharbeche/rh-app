@@ -1,30 +1,35 @@
 /*import { INavData } from '@coreui/angular';*/
-export interface INavData {
+export interface INavAdminData {
   name?: string;
   url?: string | any[];
   href?: string;
   icon?: string;
   iconComponent?: any;
   title?: boolean;
-  children?: INavData[];
+  children?: INavAdminData[];
   variant?: string;
 
+
 }
-export const navItems: INavData[] = [
+export const navAdminItems: INavAdminData[] = [
   
-  /*{
+  {
     name: 'setup',
-    url: '/setup',
+    url: '/home/setup',
     iconComponent: { name: 'cil-speedometer' },
     children: [
       {
         name: 'Entity Managment',
-        url: '/setup/entitymanagment'
+        url: '/home/setup/entitymanagment'
+      },
+      {
+        name: 'Profile Managment',
+        url: '/home/setup/profileList'
       }
     
       
     ]
-    },*/
+  }
   
  
 ];
