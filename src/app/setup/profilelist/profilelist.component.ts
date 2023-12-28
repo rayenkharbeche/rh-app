@@ -57,18 +57,24 @@ export class ProfilelistComponent {
     public users: User[] = [
       {
         id: '2',
-        firstName: 'Yiorgos Avraamu',
+        firstname: 'Yiorgos Avraamu',
         lastName: 'New',
         cotractStartDate: 'Jan 1, 2021',
         email: 'benhatrizine@hh.com',
-        poste: "consultant",
+        poste: {
+          id: 2,
+          name : "consultant",
+        },
         birthdayDate: 'Jun 11, 2021 - Jul 10, 2021',
         entity: {
           id: 2,
           name : "string",
-          countrycode: "Us",
+          countryCode: "Us",
         },
-        department: '10 sec ago',
+        department: {
+          id: 2,
+          name : "string",
+        },
 
         picture: './assets/img/avatars/1.jpg',
         active: false,
@@ -150,6 +156,11 @@ export class ProfilelistComponent {
 
   
     ngOnInit(): void {
+   
+      this.retrieveConsultant();
+
+    }
+    retrieveConsultant(){
       this.userService.getAll()
       .subscribe({
         next: (data) => {
@@ -165,20 +176,29 @@ export class ProfilelistComponent {
         },
         error: (e) => console.error(e)
       });
-   
-    }
 
+    }
 
     updateConsultant( user: User){
       console.log(user);
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/detail/'+ user.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/detail/'+ user.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   
     deleteConsultant (user: User){
-
+      console.log("test");
+      this.userService.delete(user.id)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.retrieveConsultant();
+          },
+          error: (e) => console.error(e)
+        });
 
     }
+    
+  
   
   
     

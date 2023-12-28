@@ -1,5 +1,5 @@
 export class Entity {
   id!: number;
   name!: string;
-  countrycode!: string;
+  countryCode!: string;
 }

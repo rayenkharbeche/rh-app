@@ -11,13 +11,13 @@ import { User } from '../model/user';
 export class AuthService {
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
-    /*headers = new HttpHeaders({'Access-Control-Allow-Origin' : '*'});
-    private httpOptions = {
+    httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
+          'Content-Type':  'application/json',
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCZW5oYXJpemluZXM5NTdAZ21haWwuY29tIiwiaWF0IjoxNzAzNTgzODc2LCJleHAiOjE3MDM2NzAyNzZ9.h7Mpb193FiLWehWxCug7568IAuYhHuXYRvHxHF2QmYI'
+       
         })
-        };*/
-        
+      };
      
     constructor(
         private router: Router,
@@ -64,36 +64,18 @@ export class AuthService {
     }
 
     getAll() {
-        var currentUser  = JSON.parse(localStorage.getItem('user')!);
-
-
-        /*var headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${currentUser.token}`
-          })*/
-          /*var reqHeader = new HttpHeaders({ 
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Headers' : '*',
-            'Authorization': currentUser.token
-         });
-         console.log(reqHeader);
-        return this.http.get<User[]>(`${environment.apiUrl}/users`,{headers: reqHeader});*/
-
-        /*const headers = new HttpHeaders({
-            'Access-Control-Allow-Origin': 'http://localhost:4200',
-
-
-
-        });*/
-
+      
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
 
     getById(id: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
+    resetpassword(user: User){
+        return this.http.put(`${environment.apiUrl}/auth/reset-password`, user)
 
+
+    }
     update(id: string, params: any) {
         return this.http.put(`${environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {
@@ -110,7 +92,7 @@ export class AuthService {
             }));
     }
 
-    delete(id: string) {
+    delete(id: any) {
         return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
