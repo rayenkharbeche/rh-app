@@ -1,0 +1,81 @@
+<c-row>
+    
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>Users</c-card-header>
+          <div  class="divider d-flex justify-content-center">
+            
+            <button routerLink="/home/requestleave/addrequestleave" color="light">Create Request
+            </button>
+    
+          </div>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                  <th>StartDate</th>
+                  <th>EndDate</th>
+                  <th >Type</th>
+                  <th >status</th> 
+                  <th >Action</th>          
+         
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let request of requests; index as i"
+                    [class.selected]="request.id === selectedId">
+                          
+                       
+                  <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.StartDate }} </div>
+                    </div>
+
+                  </td>
+                   <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.EndDate }} </div>
+                    </div>
+
+                    </td>     
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      <div class="float-start">
+                        <strong>{{ request.type }}</strong>
+                      </div>
+                    </div>           
+                  </td>
+                  <td>
+    
+                  <div class="float-end ms-1 text-nowrap">
+                    <small class="text-medium-emphasis">
+                      {{ request.status }}
+                    </small>
+                  </div>
+                  </td>
+                  <td>
+                    <button cButton shape="sm"  size="sm" color="primary">Update
+                    </button>              
+                    <button cButton shape="sm" size="sm" color="info">Delete
+                    </button>  
+                
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
