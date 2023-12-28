@@ -44,6 +44,10 @@ import { EntityService } from './service/entity.service';
 import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
 import { AuthService } from '../auth/service/auth.service';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { AddConsultantComponent } from './add-consultant/add-consultant.component';
 
 @NgModule({
   imports: [
@@ -58,20 +62,37 @@ import { ProfilelistComponent } from './profilelist/profilelist.component';
     IconModule,
     ReactiveFormsModule,
     TabsModule,
-    GridModule,
     ProgressModule,
     ReactiveFormsModule,
-    ButtonModule,
     FormModule,
     ButtonGroupModule,
     AvatarModule,
     TableModule,
+  
+    AccordionModule,
+    BadgeModule,
+    BreadcrumbModule,
+    CollapseModule,
+    UtilitiesModule,
+    SharedModule,
+    ListGroupModule,
+    IconModule,
+    PlaceholderModule,
+    SpinnerModule,
+    NavModule,
+    TooltipModule,
+    CarouselModule,
+    
+    DropdownModule,
+    PaginationModule,
+    PopoverModule,
     
     
   ],
   declarations: [
     EntitymanagmentComponent,
-    ProfilemanagmentComponent,ProfilelistComponent
+    ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
+    SettingsComponent,ResetpasswordComponent,AddConsultantComponent
     
   ],
   providers: [EntityService,AuthService],
