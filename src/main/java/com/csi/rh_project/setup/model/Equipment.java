@@ -44,4 +44,5 @@ public class Equipment {
 		this.reference = reference;
 	}
 
+
 }
