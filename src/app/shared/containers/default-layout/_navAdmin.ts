@@ -25,6 +25,15 @@ export const navAdminItems: INavAdminData[] = [
       {
         name: 'Profile Managment',
         url: '/home/setup/profileList'
+      },
+      {
+        name: 'Poste Managment',
+        url: '/home/setup/postemanagment'
+      }
+      ,
+      {
+        name: 'Department Managment',
+        url: '/home/setup/departmentmanagment'
       }
     
       

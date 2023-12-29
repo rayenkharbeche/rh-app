@@ -3,11 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { EntitymanagmentComponent } from './entitymanagment/entitymanagment.component';
 import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
+
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+
+import { PostemanagmentComponent } from './postemanagment/postemanagment.component';
+import { DepartmentmanagmentComponent } from './departmentmangment/departmentmanagment.component';
+
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+>
 
 const routes: Routes = [
   {
@@ -38,13 +44,28 @@ const routes: Routes = [
       },
       
       {
+        path: 'postemanagment',
+        component: PostemanagmentComponent,
+        data: {
+          title: 'Poste Managment',
+        },
+        
+      },
+      {
+        path: 'departmentmanagment',
+        component: DepartmentmanagmentComponent,
+        data: {
+          title: 'Department Managment',
+        },
+        
+      },
+      {
         path: 'profileList',
         component: ProfilelistComponent,
         data: {
           title: 'Profile List',
         },
         
-<<<<<<< Updated upstream
       },
       {
         path: 'detail/:id',
@@ -78,8 +99,6 @@ const routes: Routes = [
         },
         
       },
-=======
-      }
       {
         path: 'equipmentmanagement',
         component: ProfilelistComponent,
@@ -88,7 +107,6 @@ const routes: Routes = [
         },
         
       }
->>>>>>> Stashed changes
     ],
   },
 ];
