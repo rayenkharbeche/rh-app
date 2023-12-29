@@ -44,6 +44,7 @@ const routes: Routes = [
           title: 'Profile List',
         },
         
+<<<<<<< Updated upstream
       },
       {
         path: 'detail/:id',
@@ -77,6 +78,17 @@ const routes: Routes = [
         },
         
       },
+=======
+      }
+      {
+        path: 'equipmentmanagement',
+        component: ProfilelistComponent,
+        data: {
+          title: 'Equipment Management ',
+        },
+        
+      }
+>>>>>>> Stashed changes
     ],
   },
 ];

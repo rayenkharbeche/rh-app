@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AddRequestleaveComponent } from './add-requestleave/add-requestleave.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RequestleavelistComponent } from './requestleavelist/requestleavelist.component';
+<<<<<<< Updated upstream
 import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestleave.component';
 
+=======
+import { RequestleaveupdateComponent } from './requestleaveupdate/requestleaveupdate.component';
+>>>>>>> Stashed changes
 
 
 const routes: Routes = [
@@ -34,12 +38,22 @@ const routes: Routes = [
         },
       },
       {
+<<<<<<< Updated upstream
         path: 'detail/:id',
         component: UpdaterequestleaveComponent,
         data: {
           title: 'request list',
         },
       },      
+=======
+        path: 'requestleaveupdate',
+        component: RequestleaveupdateComponent,
+        data: {
+          title: 'request update',
+        },
+      },
+      
+>>>>>>> Stashed changes
     ],
   },
 ];
