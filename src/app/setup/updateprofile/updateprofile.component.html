@@ -7,6 +7,14 @@
               <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
                 <h1>Profile</h1>
                 <p class="text-medium-emphasis">Edit Profile</p>
+                <c-input-group  *ngIf="isNotUserConnected" class="mb-3">
+                  <div class="form-group">
+                    <div *ngIf=dbImage>
+                      <img [src]="dbImage" width="300" height="400">
+                  </div>
+                    <input  type="file" (change)="onImageUpload($event)" formControlName="image" value="Upload Image" class="btn1">        
+                  </div>         
+                   </c-input-group>
                 <c-input-group class="mb-3">
                   <input formControlName="firstName" autoComplete="name" cFormControl placeholder="firstName" />
                 </c-input-group>
@@ -23,6 +31,7 @@
                 placeholder="Birthday Date"
                 type="date">
                 </c-input-group>
+             
                 <c-input-group class="mb-3">
                     <select aria-label="Disabled select example" cSelect  formControlName="entity">
                         <option>Entity</option>
@@ -71,4 +80,4 @@
       </c-row>
     </c-container>
   </div>
-  
+

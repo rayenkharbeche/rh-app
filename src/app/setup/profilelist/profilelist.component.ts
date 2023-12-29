@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../auth/model/user';
 import { Entity } from '../model/entity';
 import { AuthService } from '../../auth/service/auth.service';
+import { HttpClient } from '@angular/common/http';
 interface IUser {
   id:string
   name: string;
@@ -27,10 +28,13 @@ interface IUser {
 })
 export class ProfilelistComponent {
   status!: string;
+  dbImage: any;
+  postResponse: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: AuthService,
+    private httpClient: HttpClient,
 
 
   ) { }
@@ -76,7 +80,7 @@ export class ProfilelistComponent {
           name : "string",
         },
 
-        picture: './assets/img/avatars/1.jpg',
+        image: './assets/img/avatars/1.jpg',
         active: false,
       },
       /*{
@@ -165,8 +169,11 @@ export class ProfilelistComponent {
       .subscribe({
         next: (data) => {
           this.users = data;
-          console.log(data);
           this.users.map(x =>  {
+            console.log(x.image);
+
+            this.viewImage(x);
+
            if ( x.active === false) {
             this.status = "info";
            } else {
@@ -196,6 +203,15 @@ export class ProfilelistComponent {
           error: (e) => console.error(e)
         });
 
+    }
+    viewImage(user: any) {
+      this.httpClient.get('http://localhost:8080/get/image/info/' + user.image)
+        .subscribe(
+          res => {
+            this.postResponse = res;
+            this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+          }
+        );
     }
     
   

@@ -14,7 +14,7 @@ export class User {
     poste?: Poste;
     department?: Department;
     token?: string;
-    picture?:string;
+    image?:String;
     active?:boolean
     country?:string
 
