@@ -1,18 +1,21 @@
 
 package com.csi.rh_project.auth.models;
 
+import com.csi.rh_project.setup.model.Department;
+import com.csi.rh_project.setup.model.Position;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.csi.rh_project.setup.model.Entity;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Table(name = "users")
-@Entity
+@jakarta.persistence.Entity
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,11 +49,25 @@ public class User implements UserDetails {
     private LocalDateTime tokenCreationDate;
 
     //@ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne(cascade = CascadeType.ALL)
-
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id")
     private Role role;
 
+    /*birthdayDate?: string;
+    entity?: Entity;
+    cotractStartDate?: string;
+    poste?: string;
+    department?: string;*/
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "entity_id")
+    private Entity entity;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "poste_id")
+    private Position poste;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
 
     @Override
@@ -65,12 +82,24 @@ public class User implements UserDetails {
         super();
         this.email=email;
     }
+    public User(String firstname,String lastname, String password,String email,Role role){
+        super();
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.password=password;
+        this.email=email;
+        this.role=role;
+
+    }
     public User(String token,LocalDateTime tokenCreationDate){
         super();
         this.token=token;
         this.tokenCreationDate=tokenCreationDate;
 
     }
+
+
+
     public String getPassword() {
         return password;
     }
@@ -197,6 +226,30 @@ public class User implements UserDetails {
 
     public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
         this.tokenCreationDate = tokenCreationDate;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public Position getPoste() {
+        return poste;
+    }
+
+    public void setPoste(Position poste) {
+        this.poste = poste;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
 

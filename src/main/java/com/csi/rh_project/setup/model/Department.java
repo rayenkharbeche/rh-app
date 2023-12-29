@@ -1,6 +1,9 @@
 package com.csi.rh_project.setup.model;
 
+import com.csi.rh_project.auth.models.User;
 import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @jakarta.persistence.Entity
 @Table(name = "departments")
@@ -35,4 +38,14 @@ public class Department {
 		this.name = name;
 	}
 
+	@OneToMany(mappedBy = "department")
+	private Collection<User> user;
+
+	public Collection<User> getUser() {
+		return user;
+	}
+
+	public void setUser(Collection<User> user) {
+		this.user = user;
+	}
 }

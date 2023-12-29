@@ -1,8 +1,11 @@
 package com.csi.rh_project.setup.model;
 
+import com.csi.rh_project.auth.models.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Collection;
 
 @Getter
 @jakarta.persistence.Entity
@@ -37,5 +40,6 @@ public class Entity {
 	public String toString() {
 		return "Tutorial [id=" + id + ", name=" + name + ", country code=" + countryCode + "]";
 	}
+
 
 }
