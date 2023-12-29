@@ -43,18 +43,6 @@ public class RegisterUserDto {
         this.lastname = lastname;
         return this;
     }
-
-    @Override
-    public String toString() {
-        return "RegisterUserDto{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-
-                '}';
-    }
-
     public Role getRole() {
         return role;
     }
@@ -62,4 +50,18 @@ public class RegisterUserDto {
     public void setRole(Role role) {
         this.role = role;
     }
+    @Override
+    public String toString() {
+        return "RegisterUserDto{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", role='" + role + '\'' +
+
+
+                '}';
+    }
+
+
 }
