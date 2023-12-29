@@ -44,6 +44,10 @@ import { EntityService } from './service/entity.service';
 import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
 import { AuthService } from '../auth/service/auth.service';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+import { PostemanagmentComponent } from './postemanagment/postemanagment.component';
+import { PosteService } from './service/poste.service';
+import { DepartmentService } from './service/department.service';
+import { DepartmentmanagmentComponent } from './departmentmangment/departmentmanagment.component';
 
 @NgModule({
   imports: [
@@ -71,10 +75,10 @@ import { ProfilelistComponent } from './profilelist/profilelist.component';
   ],
   declarations: [
     EntitymanagmentComponent,
-    ProfilemanagmentComponent,ProfilelistComponent
+    ProfilemanagmentComponent,ProfilelistComponent,PostemanagmentComponent, DepartmentmanagmentComponent
     
   ],
-  providers: [EntityService,AuthService],
+  providers: [EntityService,AuthService,PosteService, DepartmentService],
 
 
 })
