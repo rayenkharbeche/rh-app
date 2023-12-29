@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AddRequestleaveComponent } from './add-requestleave/add-requestleave.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RequestleavelistComponent } from './requestleavelist/requestleavelist.component';
+import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestleave.component';
+
 
 
 const routes: Routes = [
@@ -31,8 +33,13 @@ const routes: Routes = [
           title: 'request list',
         },
       },
-      
-      
+      {
+        path: 'detail/:id',
+        component: UpdaterequestleaveComponent,
+        data: {
+          title: 'request list',
+        },
+      },      
     ],
   },
 ];

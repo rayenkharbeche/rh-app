@@ -22,7 +22,8 @@ export class UpdateprofileComponent {
   successResponse!: string;
   image: any;
   i!: number;
-  isNotUserConnected!: boolean;
+  users!: User[];
+  isUserConnected!: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -36,17 +37,15 @@ export class UpdateprofileComponent {
     ngOnInit() {
       const id = this._activatedroute.snapshot.paramMap.get("id");
       var currentUser  = JSON.parse(localStorage.getItem('user')!);
-      if (currentUser.id === id){
-      this.isNotUserConnected = false;
+
+
+      if (currentUser.id == id){
+      this.isUserConnected = true;
       
       }else{
-        this.isNotUserConnected = true
+        this.isUserConnected = false
       }
-/*this.accountService.getById(id!).subscribe(v => {
-
-  this.user = v;
-});
-*/
+console.log(this.isUserConnected );
 this.form = this.formBuilder.group({
   firstName: ['', Validators.required],
   lastName: ['', Validators.required],
@@ -57,9 +56,18 @@ this.form = this.formBuilder.group({
   poste: ['' ],
   department: [''],
   image: [''],
-
 });
+this.accountService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.users = data;
+          
+         
+        },
+        error: (e) => console.error(e)
 
+      });
+     
 this.accountService.getById(id!)
       .subscribe({
         next: (data) => {
@@ -112,6 +120,20 @@ this.accountService.getById(id!)
     }
     public onImageUpload(event:any) {
       this.uploadedImage = event.target.files[0];
+      console.log("test");
+
+      console.log(this.uploadedImage.name);
+      this.users.map(x =>  {
+        if ( x.image ==  this.uploadedImage.name || this.uploadedImage.name == null  ){
+          this.form.value.image = this.user.image;
+          return;
+  
+        }
+        
+        ;})
+
+     
+
       this.imageUploadAction();
     }
 
@@ -124,6 +146,7 @@ this.accountService.getById(id!)
     imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
     }
     else {
+      
       console.log("error")
     }
     /*this.imageService.save(imageFormData)
@@ -144,6 +167,7 @@ console.log(imageFormData);
       .subscribe((response) => {
         if (response.status === 200) {
           this.postResponse = response;
+          console.log(response);
           this.successResponse = this.postResponse.body.message;
           this.viewImage(this.form.value);
         } else {

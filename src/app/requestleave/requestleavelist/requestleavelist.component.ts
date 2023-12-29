@@ -59,7 +59,10 @@ export class RequestleavelistComponent {
 
     }
     retrievRequest(){
-      /*this.requestleaveservice.getAll()
+
+      var currentUser  = JSON.parse(localStorage.getItem('user')!);
+
+      /*this.requestleaveservice.getAllbyuser(currentUser.id)
       .subscribe({
         next: (data) => {
           this.requests = data;
@@ -71,13 +74,15 @@ export class RequestleavelistComponent {
 */
     }
 
-    updateConsultant( rqleave: Requestleave){
+
+    updateRequest( rqleave: Requestleave){
       console.log(rqleave);
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/detail/'+ rqleave.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/requestleave/detail/'+ rqleave.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   
-    deleteConsultant (rqleave: Requestleave){
+    deleteRequest(rqleave: Requestleave){
+
       console.log("test");
       this.requestleaveservice.delete(rqleave.id)
         .subscribe({
