@@ -1,18 +1,20 @@
-﻿import { Entity } from "../../setup/model/entity";
+﻿import { Department } from "../../setup/model/department";
+import { Entity } from "../../setup/model/entity";
+import { Poste } from "../../setup/model/poste";
 
 export class User {
     id?: string;
     email?: string;
     password?: string;
-    firstName?: string;
+    firstname?: string;
     lastName?: string;
     birthdayDate?: string;
     entity?: Entity;
     cotractStartDate?: string;
-    poste?: string;
-    department?: string;
+    poste?: Poste;
+    department?: Department;
     token?: string;
-    picture?:string;
+    image?:String;
     active?:boolean
     country?:string
 

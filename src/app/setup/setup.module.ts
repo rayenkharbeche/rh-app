@@ -44,10 +44,16 @@ import { EntityService } from './service/entity.service';
 import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
 import { AuthService } from '../auth/service/auth.service';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+
 import { PostemanagmentComponent } from './postemanagment/postemanagment.component';
 import { PosteService } from './service/poste.service';
 import { DepartmentService } from './service/department.service';
 import { DepartmentmanagmentComponent } from './departmentmangment/departmentmanagment.component';
+import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+
 
 @NgModule({
   imports: [
@@ -62,20 +68,41 @@ import { DepartmentmanagmentComponent } from './departmentmangment/departmentman
     IconModule,
     ReactiveFormsModule,
     TabsModule,
-    GridModule,
     ProgressModule,
     ReactiveFormsModule,
-    ButtonModule,
     FormModule,
     ButtonGroupModule,
     AvatarModule,
     TableModule,
+  
+    AccordionModule,
+    BadgeModule,
+    BreadcrumbModule,
+    CollapseModule,
+    UtilitiesModule,
+    SharedModule,
+    ListGroupModule,
+    IconModule,
+    PlaceholderModule,
+    SpinnerModule,
+    NavModule,
+    TooltipModule,
+    CarouselModule,
+    
+    DropdownModule,
+    PaginationModule,
+    PopoverModule,
     
     
   ],
   declarations: [
     EntitymanagmentComponent,
+
     ProfilemanagmentComponent,ProfilelistComponent,PostemanagmentComponent, DepartmentmanagmentComponent
+
+    ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
+    SettingsComponent,ResetpasswordComponent,AddConsultantComponent
+
     
   ],
   providers: [EntityService,AuthService,PosteService, DepartmentService],

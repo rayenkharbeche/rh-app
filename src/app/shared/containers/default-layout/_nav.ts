@@ -12,19 +12,26 @@ export interface INavData {
 }
 export const navItems: INavData[] = [
   
-  /*{
-    name: 'setup',
-    url: '/setup',
+  {
+    name: 'Request Leave',
+    url: '/home/requestleave',
     iconComponent: { name: 'cil-speedometer' },
     children: [
       {
-        name: 'Entity Managment',
-        url: '/setup/entitymanagment'
+        name: 'Create',
+        url: 'requestleave/addrequestleave'
+      },
+      {
+        name: 'List',
+        url: 'requestleave/requestleavelist'
+      },
+      {
+        name: 'Update',
+        url: 'requestleave/requestleaveupdate'
       }
-    
       
     ]
-    },*/
+    },
   
  
 ];

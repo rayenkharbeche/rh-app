@@ -13,7 +13,7 @@ export class EntitymanagmentComponent implements OnInit {
   entity: Entity = {
     id: 0,
     name: '',
-    countrycode: '',
+    countryCode: '',
   };
   submitted = false;
   entities?: Entity[];
@@ -39,15 +39,17 @@ export class EntitymanagmentComponent implements OnInit {
   saveEntity(): void {
     const data = {
       name: this.entity.name,
-      countrycode: this.entity.countrycode
+      countryCode: this.entity.countryCode
     };
-    console.log(data.countrycode);
+    console.log(data.countryCode);
 
     this.entityService.create(data)
       .subscribe({
         next: (res) => {
           console.log(res); 
           this.submitted = true;
+          this.retrieveEntities();
+
         },
         error: (e) => console.error(e)
       });
@@ -58,7 +60,7 @@ export class EntitymanagmentComponent implements OnInit {
     this.entity = {
       id: 0 ,
       name: '',
-      countrycode: '',
+      countryCode: '',
     };
   }
   removeAllEntities(): void {
@@ -71,6 +73,18 @@ export class EntitymanagmentComponent implements OnInit {
         error: (e) => console.error(e)
       });
   }
+  removeEntities(id: any): void {
+    console.log("test");
+    this.entityService.delete(id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.retrieveEntities();
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
 
 
 

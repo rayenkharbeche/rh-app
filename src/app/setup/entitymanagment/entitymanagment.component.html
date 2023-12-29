@@ -1,7 +1,7 @@
      
 <div>
     <div class="submit-form">
-      <div *ngIf="!submitted">
+      <div>
         <div class="form-group">
           <label for="title">Name</label>
           <input
@@ -20,27 +20,43 @@
             class="form-control"
             id="description"
             required
-            [(ngModel)]="entity.countrycode"
+            [(ngModel)]="entity.countryCode"
             name="description"
           />
         </div>
-  
         <button (click)="saveEntity()" class="btn btn-success">Submit</button>
       </div>
     </div>
-    <div class="col-md-6">
-        <h4>entities List</h4>
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            *ngFor="let entity of entities; let i = index"       >
-            {{ entity.name }}
-          </li>
-        </ul>
-    
-        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEntities()">
-          Remove All
-        </button>
-      </div>
-  </div>
+    <div class="col-md-12">
+
+    <h4>entities List</h4>
+
+    <table class="table">
+      <thead>
+          <tr>
+            
+              <th>name</th>
+              <th>countryCode</th>
+              <th >Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr class="click" *ngFor="let entity of entities">
+            <td>{{ entity.name }}</td>
+            <td> {{ entity.countryCode }}</td>
+
+            <td>
+                <button class="btn btn-danger" (click)="removeEntities(entity.id)" ><span  
+                        class="glyphicon glyphicon-trash"></span>&nbsp; Remove</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEntities()">
+      Remove All
+    </button>
+</div>
+
+
+
       

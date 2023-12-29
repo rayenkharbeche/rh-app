@@ -1,0 +1,52 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+      <c-row class="justify-content-center">
+        <c-col lg="7" md="9" xl="6">
+          <c-card class="mx-4">
+            <c-card-body class="p-4">
+              <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
+                <h1>Request Leave</h1>
+                <p class="text-medium-emphasis">Create Request</p>
+                
+             
+                <c-input-group class="mb-3">
+                    <input aria-label="Disabled input example"
+                    cFormControl
+                    formControlName="StartDate"
+                    placeholder="Birthday Date"
+                    type="date">
+                    </c-input-group>
+
+                    
+                <c-input-group class="mb-3">
+                    <input aria-label="Disabled input example"
+                    cFormControl
+                    formControlName="EndDate"
+                    placeholder="End Date"
+                    type="date">
+                    </c-input-group>
+
+                <c-input-group class="mb-3">
+                    <select aria-label="Disabled select example" cSelect  formControlName="type">
+                        <option>type</option>
+                        <option value="1">One</option>
+                        <option  value="2">Selected: Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </c-input-group>
+
+               
+                <div class="d-grid">
+                  <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Add
+                </button>
+                </div>
+              </form>
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
+    </c-container>
+  </div>
+  

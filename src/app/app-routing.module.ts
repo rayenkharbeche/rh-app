@@ -61,6 +61,12 @@ const routes: Routes = [
 
       },
       {
+        path: 'requestleave',
+        loadChildren: () =>
+          import('./requestleave/requestleave.module').then((m) => m.RequestleaveModule)
+
+      },
+      {
         path: 'logout',
         component: LogoutComponent,
         data: {

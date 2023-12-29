@@ -5,11 +5,14 @@
     <c-card class="mb-4">
     
       <c-card-header>Users</c-card-header>
-      <div  class="divider d-flex justify-content-center">
-        
-        <button cButton color="light">Add Consultant
+      <div  class="divider d-flex justify-content-center">       
+        <c-col xl="11" md="6" sm="6">
+        </c-col>
+        <c-col xl="3" md="6" sm="6">
+        <button cCol="" routerLink="/home/setup/addConsulant" color="light">Add Consultant
             <svg cIcon name="cilPeople"></svg>
         </button>
+      </c-col>
 
       </div>
       <c-card-body>
@@ -44,14 +47,14 @@
                 
                 <c-avatar
                   size="md"
-                  src="{{ user.picture }}"
-                  status="{{ status }}"
+                [src]="user.dbImage"
+                  status="{{ user.active }}"
                 >
                
             </c-avatar>
               </td>
               <td>
-                <div>{{ user.firstName }} </div>
+                <div>{{ user.firstname }} </div>
                 <div>{{ user.lastName }} </div>
 
               </td>
@@ -66,10 +69,10 @@
               <td class="text-center">
                 <svg
                   cIcon
-                  id="{{ user.entity?.countrycode  + user.firstName! }}"
-                  name="cif{{ user.entity?.countrycode }}"
+                  id="{{ user.entity?.countryCode  + user.firstname! }}"
+                  name="cif{{ user.entity?.countryCode }}"
                   size="xl"
-                  title="{{ user.entity?.countrycode }}"
+                  title="{{ user.entity?.countryCode }}"
                 >
                     {{ user.entity?.name }} 
             </svg>
