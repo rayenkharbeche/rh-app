@@ -1,0 +1,84 @@
+<c-row>
+    
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>My Requests </c-card-header>
+
+          <div  class="divider d-flex justify-content-center">
+             <c-col xl="11" md="6" sm="6">
+        </c-col>
+        <c-col xl="3" md="6" sm="6">
+            <button routerLink="/home/requestleave/addrequestleave" color="light">Create Request
+            </button>
+        </c-col>
+          </div>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                  <th>StartDate</th>
+                  <th>EndDate</th>
+                  <th >Type</th>
+                  <th >status</th> 
+                  <th >Action</th>          
+         
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let request of requests; index as i"
+                    [class.selected]="request.id === selectedId">
+                          
+                       
+                  <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.StartDate | date: 'dd/MM/yyyy'}}</div>
+                    </div>
+
+                  </td>
+                   <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.EndDate | date: 'dd/MM/yyyy'}} </div>
+                    </div>
+
+                    </td>     
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      <div class="float-start">
+                        <strong>{{ request.type }}</strong>
+                      </div>
+                    </div>           
+                  </td>
+                  <td>
+    
+                  <div  class="d-flex justify-content-between">
+                    <small class="text-medium-emphasis">
+                      {{ request.status }}
+                    </small>
+                  </div>
+                  </td>
+                  <td>
+                    <button cButton shape="sm"  size="sm" (click)="updateRequest(request)" color="primary">Update
+                    </button>              
+                    <button cButton shape="sm" size="sm" (click)="deleteRequest(request)" color="info">Delete
+                    </button>  
+                
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
