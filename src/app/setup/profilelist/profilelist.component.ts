@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../auth/model/user';
 import { Entity } from '../model/entity';
 import { AuthService } from '../../auth/service/auth.service';
+import { HttpClient } from '@angular/common/http';
 interface IUser {
   id:string
   name: string;
