@@ -2,7 +2,6 @@ package com.csi.rh_project.auth.services;
 
 import com.csi.rh_project.auth.dtos.LoginUserDto;
 import com.csi.rh_project.auth.dtos.RegisterUserDto;
-import com.csi.rh_project.auth.models.Mail;
 import com.csi.rh_project.auth.models.Role;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.repositories.RoleRepository;
@@ -43,17 +42,30 @@ public class AuthenticationService {
 
         this.passwordEncoder = passwordEncoder;
     }
+    public Role GenerateRole() {
 
+            Role role = new Role();
+            role.setRole("admin");
+
+        return roleRepository.save(role);
+    }
     public User signup(RegisterUserDto input) {
-        System.out.println(input.getRole());
+        Optional<Role> role = findById(1);
+        if (role.isEmpty() ) {
+            Role role1 = GenerateRole();
+            role = Optional.ofNullable(role1);
+
+        }
+
+
         var user = new User()
                 .setFirstName(input.getFirstname())
                 .setLastName(input.getLastname())
                 .setEmail(input.getEmail())
-                .setRole(input.getRole())
-            .setPassword(passwordEncoder.encode(input.getPassword()))
-
+                .setPassword(passwordEncoder.encode(input.getPassword()))
+                .setRole(role.get())
                 ;
+        System.out.println(user);
 
         return userRepository.save(user);
 
@@ -147,7 +159,7 @@ public class AuthenticationService {
     }
 
     public String resetPassword(String token, String password) {
-System.out.println(token);
+        System.out.println(token);
         System.out.println(password);
 
         Optional<User> userOptional = Optional
@@ -165,8 +177,7 @@ System.out.println(token);
         }
 
         User user = userOptional.get();
-
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         user.setToken(null);
         user.setTokenCreationDate(null);
 
@@ -200,6 +211,10 @@ System.out.println(token);
         Duration diff = Duration.between(tokenCreationDate, now);
 
         return diff.toMinutes() >= EXPIRE_TOKEN_AFTER_MINUTES;
+    }
+    public Optional<Role> findById(long id) {
+        return roleRepository.findById(id);
+
     }
 
 }

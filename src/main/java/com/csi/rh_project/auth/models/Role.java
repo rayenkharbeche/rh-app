@@ -4,6 +4,8 @@ package com.csi.rh_project.auth.models;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "role")
 public class Role {
@@ -13,6 +15,12 @@ public class Role {
     private int id;
     @Column(name="role")
     private String role;
+public Role(){
+
+}
+public Role(String role){
+this.role = role;
+    }
 
     public int getId() {
         return id;

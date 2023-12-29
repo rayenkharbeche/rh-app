@@ -35,9 +35,8 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-        Role role = new Role();
-        role.setId(2);
-        registerUserDto.setRole(role);
+
+
         User registeredUser = authenticationService.signup(registerUserDto);
 
         return ResponseEntity.ok(registeredUser);
@@ -53,7 +52,7 @@ public class AuthenticationController {
         System.out.println(user.getRole().getRole());
         System.out.println(user.getEmail());
 
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime()).setRole(user.getRole().getRole());
+        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime()).setRole(user.getRole().getRole()).setId(user.getId());
         authenticationService.updateToken(jwtToken,loginUserDto.getEmail());
         System.out.println(loginResponse);
 

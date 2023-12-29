@@ -1,6 +1,8 @@
 package com.csi.rh_project.auth.responses;
 
 public class LoginResponse {
+    private Integer id;
+
     private String token;
 
     private long expiresIn;
@@ -39,6 +41,16 @@ public class LoginResponse {
 
     public LoginResponse setRole(String role) {
         this.role = role;
+        return this;
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public LoginResponse setId(Integer id) {
+        this.id = id;
         return this;
 
     }
