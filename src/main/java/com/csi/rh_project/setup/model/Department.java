@@ -42,14 +42,4 @@ public class Department {
 		this.name = name;
 	}
 
-	@OneToMany(mappedBy = "department")
-	private Collection<User> user;
-
-	public Collection<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Collection<User> user) {
-		this.user = user;
-	}
 }
