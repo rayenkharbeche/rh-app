@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Requestleave } from '../model/requestleave';
 
 const baseUrl = 'http://localhost:8080/api/RequestLeave';
+
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -27,9 +28,11 @@ export class RequestleaveService {
   get(id: any): Observable<Requestleave> {
     return this.http.get<Requestleave>(`${baseUrl}/${id}`);
   }
+
   getAllbyuser(id: any): Observable<Requestleave> {
     return this.http.get<Requestleave>(`${baseUrl}/${id}`);
   }
+
 
   create(data: any): Observable<any> {
     console.log("test");

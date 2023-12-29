@@ -6,6 +6,7 @@ import { RequestleavelistComponent } from './requestleavelist/requestleavelist.c
 import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestleave.component';
 
 
+
 const routes: Routes = [
   {
     path: '',
@@ -38,9 +39,7 @@ const routes: Routes = [
         data: {
           title: 'request list',
         },
-      },
-      
-      
+      },      
     ],
   },
 ];
