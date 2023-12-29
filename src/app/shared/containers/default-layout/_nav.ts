@@ -24,10 +24,6 @@ export const navItems: INavData[] = [
       {
         name: 'List',
         url: 'requestleave/requestleavelist'
-      },
-      {
-        name: 'Update',
-        url: 'requestleave/requestleaveupdate'
       }
       
     ]

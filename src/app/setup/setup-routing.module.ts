@@ -13,7 +13,7 @@ import { UpdateprofileComponent } from './updateprofile/updateprofile.component'
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
->
+
 
 const routes: Routes = [
   {

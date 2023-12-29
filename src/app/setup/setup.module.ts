@@ -98,9 +98,7 @@ import { AddConsultantComponent } from './add-consultant/add-consultant.componen
   declarations: [
     EntitymanagmentComponent,
 
-    ProfilemanagmentComponent,ProfilelistComponent,PostemanagmentComponent, DepartmentmanagmentComponent
-
-    ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
+    ProfilemanagmentComponent,ProfilelistComponent,PostemanagmentComponent, DepartmentmanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
     SettingsComponent,ResetpasswordComponent,AddConsultantComponent
 
     
