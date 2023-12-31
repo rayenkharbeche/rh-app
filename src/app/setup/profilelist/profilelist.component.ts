@@ -6,6 +6,7 @@ import { AuthService } from '../../auth/service/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Poste } from '../model/poste';
 import { Department } from '../model/department';
+import { Image } from '../../auth/model/image';
 interface IUser {
     id?: string;
     email?: string;
@@ -18,10 +19,10 @@ interface IUser {
     poste?: Poste;
     department?: Department;
     token?: string;
-    image?:String;
+    image?:Image;
     active?:boolean
     country?:string;
-    dbImage?:any
+    imagedb?:string;
 
 }
 
@@ -38,6 +39,8 @@ export class ProfilelistComponent {
   postResponse: any;
   users!: IUser[];
   defaultimg! : boolean;
+  defaultimage! : string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -65,14 +68,18 @@ export class ProfilelistComponent {
         next: (data) => {
           this.users = data;
           this.users.map(x =>  {
+          if (x.image! == null ){
+          this.defaultimg! = true;
+          x.imagedb = './assets/img/defautimage.jpg';
+
+          }else { 
             console.log(x.image);
-if (x.image == null ){
-  x.dbImage = './assets/img/defautimage.jpg';
-  
-
-}else {   console.log(x.image);
-
-            this.viewImage(x);}
+          this.defaultimg! = false;
+            /*this.viewImage(x);*/
+            /*this.getImage(x.image.id);*/
+            x.imagedb = 'data:image/jpeg;base64,' + x.image.image;
+console.log(x.imagedb);
+          }
            if ( x.active === false) {
             this.status = "info";
            } else {
@@ -82,11 +89,9 @@ if (x.image == null ){
         },
         error: (e) => console.error(e)
       });
-
     }
 
     updateConsultant( user: User){
-      console.log(user);
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/detail/'+ user.id ;
       this.router.navigateByUrl(returnUrl);   
      }
@@ -96,7 +101,6 @@ if (x.image == null ){
       this.userService.delete(user.id)
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.retrieveConsultant();
           },
           error: (e) => console.error(e)
@@ -105,14 +109,25 @@ if (x.image == null ){
     }
     viewImage(user: any) {
       if (user.image === null ) return;
-      this.httpClient.get('http://localhost:8080/get/image/info/' + user.image)
+      this.httpClient.get('http://localhost:8080/get/image/info/' + user.image.name)
         .subscribe(
           res => {
             this.postResponse = res;
             this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
-            this.users.map(x =>  { x.dbImage = this.dbImage });
+            this.users.map(x =>  { x.image!.image = this.dbImage });
           }
         );
+    }
+    getImage(id:any) {
+ 
+      this.httpClient.get('http://localhost:8080/get/' + id)
+        .subscribe(
+          res => {
+            this.postResponse = res;
+            this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+          }
+        );
+    
     }
     
   

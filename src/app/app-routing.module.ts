@@ -7,6 +7,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/_helpers';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
+import { Role } from './auth/model/role';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ const routes: Routes = [
         path: 'setup',
         loadChildren: () =>
           import('./setup/setup.module').then((m) => m.SetupModule),
-          canActivate: [AuthGuard]
+          canActivate: [AuthGuard],
+          data: { roles: ['admin'] }
 
       },
       {
@@ -63,7 +65,9 @@ const routes: Routes = [
       {
         path: 'requestleave',
         loadChildren: () =>
-          import('./requestleave/requestleave.module').then((m) => m.RequestleaveModule)
+          import('./requestleave/requestleave.module').then((m) => m.RequestleaveModule),
+          canActivate: [AuthGuard],
+          data: { roles: ['consultant'] }
 
       },
       {

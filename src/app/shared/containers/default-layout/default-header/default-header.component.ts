@@ -18,6 +18,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
    id?:String
    dbImage: any;
    postResponse: any;
+   defaultimg! : boolean;
+   defaultimage! : string;
   public newMessages = new Array(4)
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
@@ -53,8 +55,16 @@ retrieveConsultant(){
   this.accountService.getById(currentUser.id)
   .subscribe({
     next: (data) => {
-this.viewImage(data);
+      this.user = data;
+      if (this.user.image! == null ){
+        this.defaultimg! = true;
+        this.defaultimage! = './assets/img/defautimage.jpg';
+        
+                }else { 
+                  this.defaultimg! = false;
 
+    this.getImage(this.user.image.id);
+                }
       
     },
     error: (e) => console.error(e)
@@ -62,14 +72,19 @@ this.viewImage(data);
 
 }
 
-viewImage(user: any) {
-  this.httpClient.get('http://localhost:8080/get/image/info/' + user.image)
+
+getImage(id:any) {
+ 
+  console.log(id);
+  this.httpClient.get('http://localhost:8080/get/' + id)
     .subscribe(
       res => {
         this.postResponse = res;
         this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+
       }
     );
+
 }
   
 }
