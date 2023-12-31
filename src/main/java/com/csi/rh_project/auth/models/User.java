@@ -69,8 +69,12 @@ public class User implements UserDetails {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    /*@JoinColumn(name = "image_id")
+    private String image;*/
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "image_id")
-    private String image;
+    private Image image;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -84,7 +88,7 @@ public class User implements UserDetails {
         super();
         this.email=email;
     }
-    public User(String firstname,String lastname, String password,String email,Role role,String image){
+    public User(String firstname,String lastname, String password,String email,Role role,Image image){
         super();
         this.firstname=firstname;
         this.lastname=lastname;
@@ -200,6 +204,7 @@ public class User implements UserDetails {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", role=" + role +
+                ", image=" + image +
 
                 '}';
     }
@@ -255,12 +260,23 @@ public class User implements UserDetails {
         this.department = department;
     }
 
-    public String getImage() {
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    /*public void setImage(Optional<Image> byId) {
+    }*/
+
+    /*public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
+    }*/
 }
 

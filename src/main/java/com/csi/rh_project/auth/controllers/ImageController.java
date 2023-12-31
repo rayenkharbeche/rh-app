@@ -6,6 +6,7 @@ import com.csi.rh_project.auth.responses.ImageUploadResponse;
 import com.csi.rh_project.auth.util.ImageUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,17 @@ public class ImageController {
     @PostMapping("/upload/image")
     public ResponseEntity<ImageUploadResponse> uplaodImage(@RequestParam("image") MultipartFile file)
             throws IOException {
-System.out.println(file);
-        imageRepository.save(Image.builder()
-                .name(file.getOriginalFilename())
-                .type(file.getContentType())
-                .image(ImageUtility.compressImage(file.getBytes()))
-                .build());
+        Image image = new Image();
+image.setName(file.getOriginalFilename());
+
+        if(!imageRepository.exists(Example.of(image))) {
+
+            imageRepository.save(Image.builder()
+                    .name(file.getOriginalFilename())
+                    .type(file.getContentType())
+                    .image(ImageUtility.compressImage(file.getBytes()))
+                    .build());
+        }
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ImageUploadResponse("Image uploaded successfully: " +
                         file.getOriginalFilename()));
@@ -40,11 +46,13 @@ System.out.println(file);
     public Image getImageDetails(@PathVariable("name") String name) throws IOException {
 
         final Optional<Image> dbImage = imageRepository.findByName(name);
-
+        System.out.println(dbImage);
         return Image.builder()
+                .id(dbImage.get().getId())
                 .name(dbImage.get().getName())
                 .type(dbImage.get().getType())
-                .image(ImageUtility.decompressImage(dbImage.get().getImage())).build();
+                .image(ImageUtility.decompressImage(dbImage.get().getImage()))
+                .build();
     }
 
     @GetMapping(path = {"/get/image/{name}"})
@@ -58,14 +66,16 @@ System.out.println(file);
                 .body(ImageUtility.decompressImage(dbImage.get().getImage()));
     }
 
-    @GetMapping(path = {"/get/image/{id}"})
-    public Image getImageById(@PathVariable("name") Long id) throws IOException {
+    @GetMapping(path = {"/get/{id}"})
+    public Image getImageById(@PathVariable("id") Long id) throws IOException {
 
         final Optional<Image> dbImage = imageRepository.findById(id);
 
         return Image.builder()
                 .name(dbImage.get().getName())
                 .type(dbImage.get().getType())
-                .image(ImageUtility.decompressImage(dbImage.get().getImage())).build();
+                .image(ImageUtility.decompressImage(dbImage.get().getImage()))
+                .id(dbImage.get().getId())
+                .build();
     }
 }

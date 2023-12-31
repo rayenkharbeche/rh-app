@@ -37,6 +37,8 @@ public class UserService {
     }
 
     public ResponseEntity<User>  save(Integer id,User user) {
+        System.out.println(user);
+
         Optional<User> UserData = userRepository.findById(id);
 
         if (UserData.isPresent()) {
