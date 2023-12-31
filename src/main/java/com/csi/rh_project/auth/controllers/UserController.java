@@ -2,6 +2,7 @@ package com.csi.rh_project.auth.controllers;
 
 
 import com.csi.rh_project.auth.models.User;
+import com.csi.rh_project.auth.services.ImageService;
 import com.csi.rh_project.auth.services.UserService;
 import com.csi.rh_project.setup.model.Entity;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,11 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     private final UserService userService;
+    private final ImageService imageService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, ImageService imageService) {
+        this.imageService = imageService;
+
         this.userService = userService;
     }
 
@@ -39,12 +43,20 @@ public class UserController {
         return UserData.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<List<User>> allUsers() {
         List <User> users = userService.allUsers();
 
         return ResponseEntity.ok(users);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+        System.out.println(user.getImage().getId());
+        user.setImage(imageService.findById(user.getImage().getId()));
+
+        System.out.println(user);
+        return userService.save(id, user);
+
     }
 
 

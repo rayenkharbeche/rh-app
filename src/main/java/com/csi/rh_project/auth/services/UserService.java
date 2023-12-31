@@ -4,6 +4,8 @@ import com.csi.rh_project.auth.models.Role;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.repositories.RoleRepository;
 import com.csi.rh_project.auth.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +36,28 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public ResponseEntity<User>  save(Integer id,User user) {
+        System.out.println(user);
 
+        Optional<User> UserData = userRepository.findById(id);
+
+        if (UserData.isPresent()) {
+
+            User _User = UserData.get();
+            _User.setEmail(user.getEmail());
+            _User.setFirstName(user.getFirstname());
+            _User.setLastName(user.getLastName());
+            _User.setDepartment(user.getDepartment());
+            _User.setPoste(user.getPoste());
+            _User.setEntity(user.getEntity());
+            _User.setImage(user.getImage());
+            _User.setLastName(user.getLastName());
+
+            return new ResponseEntity<>(userRepository.save(_User), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }
