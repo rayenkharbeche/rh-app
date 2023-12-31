@@ -43,16 +43,16 @@
                 [class.selected]="user.id === selectedId">
                       
                    
-              <td class="text-center">
+             
+              <td  class="text-center">
                 
                 <c-avatar
-                  size="md"
-                [src]="user.dbImage"
-                  status="{{ user.active }}"
+                size="md"
+                [src]="user.imagedb"
+                status="{{ user.active }}"
                 >
-               
-            </c-avatar>
-              </td>
+                </c-avatar>
+                </td>
               <td>
                 <div>{{ user.firstname }} </div>
                 <div>{{ user.lastName }} </div>

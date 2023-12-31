@@ -5,9 +5,5 @@ export class Image {
     name!: string;
     type!: string;
     image!:string;
-    Size!:number;
-    lastModified!:number;
-
-    lastModifiedDate!: Date;
-
+    
 }

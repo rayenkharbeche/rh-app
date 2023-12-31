@@ -61,7 +61,16 @@
       cDropdownToggle
       class="py-0"
     >
-      <c-avatar
+      <c-avatar *ngIf="defaultimg"
+        cTextColor="primary"
+        shape="rounded-1"
+        size="md"
+        [src]="defaultimage"
+        status="success"
+      >
+      </c-avatar>
+
+      <c-avatar *ngIf="!defaultimg"  
         cTextColor="primary"
         shape="rounded-1"
         size="md"
