@@ -7,6 +7,9 @@ import java.util.Optional;
 import com.csi.rh_project.RequestLeave.model.RequestLeave;
 import com.csi.rh_project.RequestLeave.repository.RequestLeaveRepository;
 
+import com.csi.rh_project.auth.models.User;
+import com.csi.rh_project.auth.services.ImageService;
+import com.csi.rh_project.auth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +22,23 @@ import org.springframework.web.bind.annotation.*;
 public class RequestLeaveController {
     @Autowired
     RequestLeaveRepository requestRepository;
+    private final UserService userService;
+
+    public RequestLeaveController(UserService userService) {
+        this.userService = userService;
+
+    }
 
     @GetMapping("/RequestLeave")
-    public ResponseEntity<List<RequestLeave>> getAllRequestsByEmployeeId(@RequestParam(required = false) long employee_id) {
+    public ResponseEntity<List<RequestLeave>> getAllRequestsByEmployeeId(@RequestParam(required = false) Integer user_id) {
         try {
+            System.out.println(user_id);
+
             List<RequestLeave> requests = new ArrayList<RequestLeave>();
-            System.out.println("test");
-            requestRepository.findByByEmployeeId(employee_id).forEach(requests::add);
+            Optional<User> user = userService.findById(user_id);
+            System.out.println(user);
+
+            requestRepository.findRequestLeavesByUserId(user.get()).forEach(requests::add);
 
             if (requests.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -66,5 +79,26 @@ public class RequestLeaveController {
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @DeleteMapping("/RequestEquipement/{id}")
+    public ResponseEntity<HttpStatus> deleteEntity(@PathVariable("id") long user_id) {
+        try {
+            requestRepository.deleteById(user_id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/RequestEquipement")
+    public ResponseEntity<HttpStatus> deleteAllEntities() {
+        try {
+            requestRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }
