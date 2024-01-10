@@ -20,5 +20,7 @@ export class User {
     image?:Image;
     active?:boolean
     country?:string
+    isManager?:boolean
+    selected?: boolean;
 
 }

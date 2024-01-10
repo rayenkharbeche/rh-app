@@ -9,6 +9,7 @@ import { User } from '../model/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
     httpOptions = {
@@ -105,4 +106,40 @@ export class AuthService {
                 return x;
             }));
     }
+    getAllbyDepartmentByposte(departmentId:any, posteId:any) {
+
+        return this.http.get<User[]>(`${environment.apiUrl}/users/team?departmentId=`+ departmentId +"&posteId=" + posteId );
+    }
+    getAlluserbyDepartment(departmentId:any): Observable<User[]> {
+        return this.http.get<User[]>(`${environment.apiUrl}/users/department?departmentId=`+ departmentId);
+      }
+
+      
+      updateteamlead(id: string, params: any) {
+        console.log("params");
+        console.log(params);
+
+        return this.http.put(`${environment.apiUrl}/users/teamlead/${id}`, params)
+            .pipe(map(x => {
+                // update stored user if the logged in user updated their own record
+                if (id == this.userValue?.id) {
+                    // update local storage
+                    const user = { ...this.userValue, ...params };
+                    localStorage.setItem('user', JSON.stringify(user));
+
+                    // publish updated user to subscribers
+                    this.userSubject.next(user);
+                }
+                return x;
+            }));
+    }
+    getAllbyDepartmentByteam(departmentId:any, teamId:any) { {
+        return this.http.get<User[]>(`${environment.apiUrl}/users/team?departmentId=`+ departmentId +"&teamId=" + teamId );
+
+
+      }
+    }
+
+
+    
 }
