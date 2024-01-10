@@ -75,17 +75,14 @@ export class ProfilelistComponent {
           }else { 
             console.log(x.image);
           this.defaultimg! = false;
-            /*this.viewImage(x);*/
-            /*this.getImage(x.image.id);*/
             x.imagedb = 'data:image/jpeg;base64,' + x.image.image;
-console.log(x.imagedb);
           }
            if ( x.active === false) {
             this.status = "info";
            } else {
             this.status = "success";
            }
-           })
+           }) 
         },
         error: (e) => console.error(e)
       });

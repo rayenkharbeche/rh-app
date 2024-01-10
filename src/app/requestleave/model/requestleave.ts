@@ -2,12 +2,12 @@ import { User } from "../../auth/model/user";
 
 export class Requestleave {
   id!: number;
-  StartDate!: Date;
-  EndDate!: Date;
+  startDate!: Date;
+  endDate!: Date;
   user!: User;
-  type!: string;
+  leaveType!: string;
   status!: string;
-
+  
 
 
 }

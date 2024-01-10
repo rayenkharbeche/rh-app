@@ -6,6 +6,12 @@ import { User } from '../../auth/model/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Image } from '../../auth/model/image';
 import { firstValueFrom } from 'rxjs';
+import { DepartmentService } from '../service/department.service';
+import { PosteService } from '../service/poste.service';
+import { EntityService } from '../service/entity.service';
+import { Entity } from '../model/entity';
+import { Poste } from '../model/poste';
+import { Department } from '../model/department';
 
 @Component({
   selector: 'app-updateprofile',
@@ -28,14 +34,22 @@ export class UpdateprofileComponent {
   isUserConnected!: boolean;
   image!:Image;
   response: any;
+entities!: Entity[];
+postes!: Poste[];
+departments!: Department[];
 
 
     constructor(
         private formBuilder: FormBuilder,
         private httpClient: HttpClient,
         private router: Router,
+        private _activatedroute:ActivatedRoute,
         private accountService: AuthService,
-        private _activatedroute:ActivatedRoute
+
+        private departmentService: DepartmentService,
+        private posteService: PosteService,
+        private entityService: EntityService,
+
     ) { }
   
     ngOnInit() {
@@ -59,16 +73,26 @@ export class UpdateprofileComponent {
         poste: ['' ],
         department: [''],
         image: [''],
+        
       });
-      /* Control
-      this.accountService.getAll()
-            .subscribe({
-              next: (data) => {
-                this.users = data;
-        },
-        error: (e) => console.error(e)
+       
+      this.entityService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.entities = data;
+    }});
 
-      });*/
+        this.posteService.getAll()
+        .subscribe({
+          next: (data) => {
+            this.postes = data;
+    }});
+      this.departmentService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.departments = data;
+  }});
+ 
      
       this.accountService.getById(id!)
       .subscribe({
@@ -77,7 +101,6 @@ export class UpdateprofileComponent {
 
           if (this.user!.image !== null ){
           this.getImage(this.user!.image?.id)
-          /*this.viewImage(this.user!.image?.name );*/
           }
           this.form.reset({
             firstName: this.user.firstname,
@@ -85,7 +108,9 @@ export class UpdateprofileComponent {
             email: this.user.email,
             poste: this.user.poste?.name,
             department: this.user.department?.name,
-            
+            entity:this.user.entity?.name,
+            image:this.user.image,
+
           });
          
         },
@@ -105,20 +130,6 @@ export class UpdateprofileComponent {
 
     public onImageUpload(event:any) {
       this.uploadedImage = event.target.files[0];
-      /*this.image.name = this.uploadedImage.name;*/
-
-      
-      /*this.users.map(x =>  {
-        if ( x.image?.name ==  this.uploadedImage.name || this.uploadedImage.name == null  ){
-          this.form.value.image = this.user.image?.name;
-          return;
-  
-        }
-        
-        ;})*/
-
-     
-
       this.imageUploadAction();
     }
 
@@ -172,12 +183,6 @@ getImage(id:any) {
         this.postResponse = res;
         this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
 
-        /*this.image.id = this.postResponse.id;
-        this.image.name = this.postResponse.na;
-        this.image.type = this.postResponse.type;
-
-        this.image.image = this.postResponse.image;*/
-
       }
     );
 
@@ -193,21 +198,25 @@ getImage(id:any) {
     if (this.form.invalid) {
         return;
     }
-    //this.viewImage(this.uploadedImage.name);
-    //this.getImage(this.image.id);
-    /*this.response = "";
-    this.response = await this.imageUploadAction();*/
+    this.user.poste = new Poste();
+    this.user.poste.name = this.form.value.Poste;
+
+    this.user.department = new Department();
+    this.user.department.name = this.form.value.department;
+
+    this.user.entity = new Entity();
+    this.user.entity.name = this.form.value.entity;
     
-console.log(this.image);
+
     this.user.firstname = this.form.value.firstName;
     this.user.lastName = this.form.value.lastName;
     this.user.birthdayDate = this.form.value.birthdayDate;
     this.user.cotractStartDate = this.form.value.cotractStartDate;
-    this.user.entity = this.form.value.entity;
     this.user.poste = this.form.value.poste;
     this.user.department = this.form.value.department;
     this.user.image = this.image;
-
+console.log(this.user.department)
+console.log(this.user.poste)
 
     this.loading = true;
     this.accountService.update(id!, this.user)

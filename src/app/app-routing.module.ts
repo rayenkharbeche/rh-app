@@ -77,6 +77,14 @@ const routes: Routes = [
           title: 'Register Page'
         }
       },
+      {
+        path: 'requestAuthorization',
+        loadChildren: () =>
+          import('./requestauthorization/requestauthorization.module').then((m) => m.RequestauthorizationModule),
+          canActivate: [AuthGuard],
+          data: { roles: ['consultant'] }
+
+      },
     
 
       

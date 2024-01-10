@@ -1,19 +1,19 @@
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestleaveService } from '../service/requestleave.service';
 import { first } from 'rxjs/operators';
 import { User } from '../../auth/model/user';
 import { AuthService } from '../../auth/service/auth.service';
-import { Requestleave } from '../model/requestleave';
-import { RequestleaveType } from '../model/requestleavetype';
+import { AuthorizationService } from '../service/authorization.service';
+import { RequestAuthorization } from '../model/requestauthorization';
 
 @Component({
-  selector: 'app-add-requestleave',
-  templateUrl: './add-requestleave.component.html',
-  styleUrl: './add-requestleave.component.css'
+  selector: 'app-create-authorization',
+  templateUrl: './create-authorization.component.html',
+  styleUrl: './create-authorization.component.css'
 })
-export class AddRequestleaveComponent {
+export class CreateAuthorizationComponent {
 
   
 
@@ -21,12 +21,12 @@ export class AddRequestleaveComponent {
   loading = false;
   submitted = false;
   UserId!:User;
-  requestLeave!:Requestleave;
+  requestAuthorization!:RequestAuthorization;
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private requestleaveservice: RequestleaveService,
+      private authorizationService: AuthorizationService,
       private userService: AuthService,
 
       /*private alertService: AlertService*/
@@ -36,8 +36,7 @@ export class AddRequestleaveComponent {
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
     this.form = this.formBuilder.group({
-      StartDate: ['', Validators.required],
-      EndDate: ['', Validators.required],
+      authorisationDate: ['', Validators.required],
       type: ['', Validators.required],
       status: ['', ],
    
@@ -66,23 +65,18 @@ export class AddRequestleaveComponent {
       /*if (this.form.invalid) {
           return;
       }*/
-      this.form.value.status = RequestleaveType.OPEN;
+this.requestAuthorization = new RequestAuthorization();
+this.requestAuthorization.user = this.UserId;
+this.requestAuthorization.type = this.form.value.type;
+this.requestAuthorization.authorisationDate = this.form.value.authorisationDate;
+this.requestAuthorization.statutDemande = "OPEN";
 
-
-this.requestLeave = new Requestleave();
-this.requestLeave.startDate = this.form.value.StartDate;
-this.requestLeave.endDate = this.form.value.EndDate;
-this.requestLeave.leaveType = this.form.value.type;
-this.requestLeave.status = this.form.value.status;
-this.requestLeave.user = this.UserId;
-
-console.log(this.requestLeave.user)
+console.log(this.requestAuthorization.user)
       this.loading = true;
-      this.requestleaveservice.create(this.requestLeave)
+      this.authorizationService.create(this.requestAuthorization)
       .pipe(first())
       .subscribe({
           next: () => {
-              /*this.alertService.success('Registration successful', { keepAfterRouteChange: true });*/
               this.router.navigate(['/home/requestleave/requestleavelist'], { relativeTo: this.route });
           },
           error: error => {
@@ -93,3 +87,4 @@ console.log(this.requestLeave.user)
       
   }
 }
+

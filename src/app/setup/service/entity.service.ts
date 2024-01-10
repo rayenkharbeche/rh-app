@@ -48,6 +48,7 @@ export class EntityService {
   findByTitle(title: any): Observable<Entity[]> {
     return this.http.get<Entity[]>(`${baseUrl}?title=${title}`);
   }
+  
 
 }
 

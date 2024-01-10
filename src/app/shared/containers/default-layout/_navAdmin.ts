@@ -34,7 +34,11 @@ export const navAdminItems: INavAdminData[] = [
       {
         name: 'Department Managment',
         url: '/home/setup/departmentmanagment'
-      }
+      },
+      {
+        name: 'Team Managment',
+        url: '/home/setup/teamManagment'
+      },
     
       
     ]

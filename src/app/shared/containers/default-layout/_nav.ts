@@ -28,6 +28,19 @@ export const navItems: INavData[] = [
       
     ]
     },
+    {
+      name: 'Request Authorization',
+      url: '/home/requestAuthorization',
+      iconComponent: { name: 'cil-speedometer' },
+      children: [
+        {
+          name: 'Create',
+          url: 'requestAuthorization/addAuthorizationleave'
+        },
+        
+        
+      ]
+      },
   
  
 ];

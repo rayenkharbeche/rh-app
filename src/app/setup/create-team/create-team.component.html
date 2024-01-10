@@ -1,0 +1,47 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="12" md="12" xl="12">
+        <form cForm [formGroup]="customerForm" (ngSubmit)="onSubmit()" >
+          <h1>Team</h1>
+          <p *ngIf="choosedepartment" class="text-medium-emphasis">Choose Department</p>
+          <p *ngIf="chooseteamlead" class="text-medium-emphasis">Affect team lead to this Department </p>
+          <p *ngIf="chooseconsultant" class="text-medium-emphasis">Select Consultants for this Team</p>
+          <c-input-group class="mb-3">
+            <input [(ngModel)]="name" autoComplete="name" cFormControl placeholder="Team name" [ngModelOptions]="{standalone: true}" />
+          </c-input-group>
+          <c-input-group class="mb-3">
+
+          <mat-form-field>
+          <mat-select placeholder="Departments" [(ngModel)]="department" name="action" 
+          (selectionChange)="onChange()" [ngModelOptions]="{standalone: true}" >
+                <mat-option *ngFor="let department of departments" [value]="department">{{department.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          </c-input-group>
+          <mat-form-field>
+              <mat-select placeholder="Team Lead" [(ngModel)]="teamlead" name="action" 
+          (selectionChange)="onChangeteam()" [ngModelOptions]="{standalone: true}" >
+              <mat-option *ngFor="let user of teamleads" [value]="user">{{user.firstname}} {{user.lastName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+          <mat-select placeholder="consultant" [(ngModel)]="consultant" name="action" 
+          (selectionChange)="onChangeconsultant()" [ngModelOptions]="{standalone: true}" multiple>
+          <mat-option *ngFor="let user of users" [value]="user">{{user.firstname}} {{user.lastName}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <c-input-group class="mb-3">
+
+          <button [disabled]="loading" class="btn btn-primary">
+            
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+          Update
+          </button>
+          </c-input-group>
+        </form>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

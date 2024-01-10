@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Requestleave } from '../model/requestleave';
+import { Team } from '../model/team';
 
-const baseUrl = 'http://localhost:8080/api/RequestLeave';
-
+const baseUrl = 'http://localhost:8080/api/Teams';
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -15,26 +14,24 @@ const HTTP_OPTIONS = {
 };
 
 @Injectable()
-export class RequestleaveService {
-  requestleaveList: Requestleave[] = [];
+export class TeamService {
+ 
+  TeamsList: Team[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Requestleave[]> {
-    return this.http.get<Requestleave[]>(baseUrl);
+  getAll(): Observable<Team[]> {
+    return this.http.get<Team[]>(baseUrl);
+  }
+  getAllBydepartment(departmentid:any): Observable<Team[]> {
+    return this.http.get<Team[]>(`${baseUrl}/department/${departmentid}`);
+
   }
 
-  get(id: any): Observable<Requestleave> {
-    return this.http.get<Requestleave>(`${baseUrl}/${id}`);
+  get(id: any): Observable<Team> {
+    return this.http.get<Team>(`${baseUrl}/${id}`);
   }
-
-  getAllbyuser(id: any): Observable<Requestleave> {
-    return this.http.get<Requestleave>(`${baseUrl}/${id}`);
-  }
-
-
-
 
   create(data: any): Observable<any> {
     console.log("test");
@@ -53,11 +50,10 @@ export class RequestleaveService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Requestleave[]> {
-    return this.http.get<Requestleave[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<Team[]> {
+    return this.http.get<Team[]>(`${baseUrl}?title=${title}`);
   }
-    getAllbyUser(user_id: any): Observable<Requestleave[]> {
-      return this.http.get<Requestleave[]>(`${baseUrl}?user_id=${user_id}`);
-    }
+  
+
 }
 

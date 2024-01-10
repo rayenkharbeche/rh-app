@@ -41,7 +41,6 @@ import { SetupRoutingModule } from './setup-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { EntityService } from './service/entity.service';
-import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
 import { AuthService } from '../auth/service/auth.service';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 
@@ -53,6 +52,11 @@ import { UpdateprofileComponent } from './updateprofile/updateprofile.component'
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+import { TeamManagmentComponent } from './team-managment/team-managment.component';
+import { TeamService } from './service/team.service';
+import { CreateTeamComponent } from './create-team/create-team.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -69,7 +73,7 @@ import { AddConsultantComponent } from './add-consultant/add-consultant.componen
     ReactiveFormsModule,
     TabsModule,
     ProgressModule,
-    ReactiveFormsModule,
+    TabsModule,
     FormModule,
     ButtonGroupModule,
     AvatarModule,
@@ -92,18 +96,30 @@ import { AddConsultantComponent } from './add-consultant/add-consultant.componen
     DropdownModule,
     PaginationModule,
     PopoverModule,
-    
+    MatSelectModule
     
   ],
   declarations: [
     EntitymanagmentComponent,
-
-    ProfilemanagmentComponent,ProfilelistComponent,PostemanagmentComponent, DepartmentmanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
-    SettingsComponent,ResetpasswordComponent,AddConsultantComponent
+    TeamManagmentComponent,
+    ProfilelistComponent,
+    PostemanagmentComponent, 
+    DepartmentmanagmentComponent,
+    ProfilelistComponent,
+    UpdateprofileComponent,
+    SettingsComponent,
+    ResetpasswordComponent,
+    AddConsultantComponent,
+    CreateTeamComponent
 
     
   ],
-  providers: [EntityService,AuthService,PosteService, DepartmentService],
+  providers: [EntityService,
+              AuthService,
+              PosteService,
+              DepartmentService,
+              TeamService
+            ],
 
 
 })

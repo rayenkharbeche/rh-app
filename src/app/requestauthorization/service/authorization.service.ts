@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Requestleave } from '../model/requestleave';
+import { RequestAuthorization } from '../model/requestauthorization';
 
-const baseUrl = 'http://localhost:8080/api/RequestLeave';
-
+const baseUrl = 'http://localhost:8080/api/RequestAuthorisation';
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -15,29 +14,24 @@ const HTTP_OPTIONS = {
 };
 
 @Injectable()
-export class RequestleaveService {
-  requestleaveList: Requestleave[] = [];
+export class AuthorizationService {
+  EntityList: RequestAuthorization[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Requestleave[]> {
-    return this.http.get<Requestleave[]>(baseUrl);
+  getAll(): Observable<RequestAuthorization[]> {
+    return this.http.get<RequestAuthorization[]>(baseUrl);
   }
 
-  get(id: any): Observable<Requestleave> {
-    return this.http.get<Requestleave>(`${baseUrl}/${id}`);
+  get(id: any): Observable<RequestAuthorization> {
+    return this.http.get<RequestAuthorization>(`${baseUrl}/${id}`);
   }
-
-  getAllbyuser(id: any): Observable<Requestleave> {
-    return this.http.get<Requestleave>(`${baseUrl}/${id}`);
-  }
-
-
-
 
   create(data: any): Observable<any> {
     console.log("test");
+    console.log(data);
+
     return this.http.post(baseUrl, data, HTTP_OPTIONS);
   }
 
@@ -53,11 +47,10 @@ export class RequestleaveService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Requestleave[]> {
-    return this.http.get<Requestleave[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<RequestAuthorization[]> {
+    return this.http.get<RequestAuthorization[]>(`${baseUrl}?title=${title}`);
   }
-    getAllbyUser(user_id: any): Observable<Requestleave[]> {
-      return this.http.get<Requestleave[]>(`${baseUrl}?user_id=${user_id}`);
-    }
+  
+
 }
 

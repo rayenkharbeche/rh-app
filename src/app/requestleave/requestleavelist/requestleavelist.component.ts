@@ -40,9 +40,9 @@ export class RequestleavelistComponent {
     public requests: Requestleave[] = [
       {
         id: 2,
-        StartDate: new Date() ,
-        EndDate: new Date() ,
-        type: 'maladie',
+        startDate: new Date() ,
+        endDate: new Date() ,
+        leaveType: 'maladie',
         status : 'OPEN',
         user : {
           id: "1"
@@ -62,7 +62,7 @@ export class RequestleavelistComponent {
 
       var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
-      /*this.requestleaveservice.getAllbyuser(currentUser.id)
+      this.requestleaveservice.getAllbyUser(currentUser.id)
       .subscribe({
         next: (data) => {
           this.requests = data;
@@ -71,7 +71,6 @@ export class RequestleavelistComponent {
         },
         error: (e) => console.error(e)
       });
-*/
     }
 
 

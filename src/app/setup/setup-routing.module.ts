@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { EntitymanagmentComponent } from './entitymanagment/entitymanagment.component';
-import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
 
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 
@@ -13,6 +12,8 @@ import { UpdateprofileComponent } from './updateprofile/updateprofile.component'
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+import { TeamManagmentComponent } from './team-managment/team-managment.component';
+import { CreateTeamComponent } from './create-team/create-team.component';
 
 
 const routes: Routes = [
@@ -35,10 +36,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'profilemanagment',
-        component: ProfilemanagmentComponent,
+        path: 'teamManagment',
+        component: TeamManagmentComponent,
         data: {
-          title: 'Profile Managment',
+          title: 'Team Management ',
         },
         
       },
@@ -104,9 +105,17 @@ const routes: Routes = [
         component: ProfilelistComponent,
         data: {
           title: 'Equipment Management ',
+        },      
+      },
+      {
+        path: 'createTeam',
+        component: CreateTeamComponent,
+        data: {
+          title: 'Equipment Management ',
         },
-        
+
       }
+     
     ],
   },
 ];
