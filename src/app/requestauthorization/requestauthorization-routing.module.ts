@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateAuthorizationComponent } from './create-authorization/create-authorization.component';
+import { AuthorizationleavelistComponent } from './authorizationleavelist/authorizationleavelist.component';
 
 
 
@@ -11,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'request leave',
+      title: 'request authorization',
     },
     children: [
       {
@@ -26,6 +27,20 @@ const routes: Routes = [
           title: 'Add Authorization',
         },
       },
+      {       
+        path: 'requestAuthorizationlist',
+        component: AuthorizationleavelistComponent,
+        data: {
+          title: 'requestAuthorization list',
+        },
+      },
+      {
+        path: 'detail/:id',
+        component: CreateAuthorizationComponent,
+        data: {
+          title: 'requestAuthorization list',
+        },
+      },    
        
     ],
   },

@@ -58,7 +58,14 @@ export class CreateAuthorizationComponent {
 
 
       console.log(this.UserId) ;
+      // reset alerts on submit
+      /*this.alertService.clear();*/
 
+      // stop here if form is invalid
+      /*if (this.form.invalid) {
+          return;
+      }*/
+    
 this.requestAuthorization = new RequestAuthorization();
 this.requestAuthorization.user = this.UserId;
 this.requestAuthorization.type = this.form.value.type;
@@ -71,7 +78,7 @@ console.log(this.requestAuthorization.user)
       .pipe(first())
       .subscribe({
           next: () => {
-              this.router.navigate(['/home/requestleave/requestleavelist'], { relativeTo: this.route });
+              this.router.navigate(['/home/requestAuthorization/requestAuthorizationlist'], { relativeTo: this.route });
           },
           error: error => {
               /*this.alertService.error(error);*/
