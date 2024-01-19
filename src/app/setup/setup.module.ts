@@ -104,16 +104,11 @@ import { RoleService } from '../auth/service/role.service';
   ],
   declarations: [
     EntitymanagmentComponent,
-    ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
-    SettingsComponent,ResetpasswordComponent,AddConsultantComponent
+    ProfilelistComponent,UpdateprofileComponent,
+    SettingsComponent,ResetpasswordComponent,
     TeamManagmentComponent,
-    ProfilelistComponent,
     PostemanagmentComponent, 
     DepartmentmanagmentComponent,
-    ProfilelistComponent,
-    UpdateprofileComponent,
-    SettingsComponent,
-    ResetpasswordComponent,
     AddConsultantComponent,
     CreateTeamComponent,
     UpdateTeamComponent,

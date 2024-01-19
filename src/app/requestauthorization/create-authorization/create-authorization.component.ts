@@ -58,13 +58,7 @@ export class CreateAuthorizationComponent {
 
 
       console.log(this.UserId) ;
-      // reset alerts on submit
-      /*this.alertService.clear();*/
 
-      // stop here if form is invalid
-      /*if (this.form.invalid) {
-          return;
-      }*/
 this.requestAuthorization = new RequestAuthorization();
 this.requestAuthorization.user = this.UserId;
 this.requestAuthorization.type = this.form.value.type;
@@ -86,4 +80,5 @@ console.log(this.requestAuthorization.user)
       });
       
   }
+}
 
