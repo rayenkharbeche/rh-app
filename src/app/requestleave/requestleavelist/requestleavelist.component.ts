@@ -37,27 +37,6 @@ export class RequestleavelistComponent {
   
 
   selectedId: any ;
-
-  
-<<<<<<< Updated upstream
-    public requests: Requestleave[] = [
-      {
-        id: 2,
-        startDate: new Date() ,
-        endDate: new Date() ,
-        leaveType: 'maladie',
-        status : 'OPEN',
-        user : {
-          id: "1"
-        }
-
-      },
-     
-    ];
-=======
-    
->>>>>>> Stashed changes
-
   
     ngOnInit(): void {
    

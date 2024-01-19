@@ -101,17 +101,8 @@ this.requestLeave.interneStatus = this.form.value.internestatus;
 
 console.log(this.requestLeave.userId)
 
-      this.form.value.status = RequestleaveType.OPEN;
+this.requestLeave.userId = this.UserId;
 
-
-this.requestLeave = new Requestleave();
-this.requestLeave.startDate = this.form.value.StartDate;
-this.requestLeave.endDate = this.form.value.EndDate;
-this.requestLeave.leaveType = this.form.value.type;
-this.requestLeave.status = this.form.value.status;
-this.requestLeave.user = this.UserId;
-
-console.log(this.requestLeave.user)
       this.loading = true;
       this.requestleaveservice.create(this.requestLeave)
       .pipe(first())

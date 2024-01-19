@@ -23,7 +23,6 @@ export class User {
     isManager?:boolean
     selected?: boolean;
     manager?:boolean
-    selected?: boolean;
     teamLead?: boolean;
     leaveCredit?: number;
 }
