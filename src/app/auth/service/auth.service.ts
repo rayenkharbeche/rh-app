@@ -116,9 +116,6 @@ export class AuthService {
 
       
       updateteamlead(id: string, params: any) {
-        console.log("params");
-        console.log(params);
-
         return this.http.put(`${environment.apiUrl}/users/teamlead/${id}`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
@@ -140,6 +137,37 @@ export class AuthService {
       }
     }
 
+      
+    updateteamleadStatus(id: string, params: any) {
+       
+        return this.http.put(`${environment.apiUrl}/users/teamleadstatus/${id}`, params)
+            .pipe(map(x => {
+                // update stored user if the logged in user updated their own record
+                if (id == this.userValue?.id) {
+                    // update local storage
+                    const user = { ...this.userValue, ...params };
+                    localStorage.setItem('user', JSON.stringify(user));
 
-    
+                    // publish updated user to subscribers
+                    this.userSubject.next(user);
+                }
+                return x;
+            }));
+    }
+    updatemanagerStatus(id: string, params: any) {
+       
+        return this.http.put(`${environment.apiUrl}/users/managerstatus/${id}`, params)
+            .pipe(map(x => {
+                // update stored user if the logged in user updated their own record
+                if (id == this.userValue?.id) {
+                    // update local storage
+                    const user = { ...this.userValue, ...params };
+                    localStorage.setItem('user', JSON.stringify(user));
+
+                    // publish updated user to subscribers
+                    this.userSubject.next(user);
+                }
+                return x;
+            }));
+    }
 }

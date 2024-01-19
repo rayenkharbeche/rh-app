@@ -10,7 +10,7 @@ export interface INavData {
   variant?: string;
 
 }
-export const navItems: INavData[] = [
+export const navItemsTeamLead: INavData[] = [
   
   {
     name: 'Request Leave',
@@ -30,8 +30,6 @@ export const navItems: INavData[] = [
         url: 'requestleave/validatedSickLeave'
       }
       
-      
-      
     ]
     },
     {
@@ -47,6 +45,19 @@ export const navItems: INavData[] = [
         
       ]
       },
+      {
+        name: 'Request Validations',
+        url: '/home/requestvalidations',
+        iconComponent: { name: 'cil-speedometer' },
+        children: [
+          {
+            name: 'Request Leave Validation',
+            url: 'requestvalidations/requestLeavevalidations'
+          },
+          
+          
+        ]
+      },  
   
  
 ];

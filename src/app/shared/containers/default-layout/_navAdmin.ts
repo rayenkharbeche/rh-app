@@ -38,8 +38,12 @@ export const navAdminItems: INavAdminData[] = [
       {
         name: 'Team Managment',
         url: '/home/setup/teamManagment'
+      }, 
+       {
+        name: 'Role Managment',
+        url: '/home/setup/roleManagment'
       },
-    
+   
       
     ]
   }

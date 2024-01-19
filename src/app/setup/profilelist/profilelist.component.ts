@@ -7,6 +7,9 @@ import { HttpClient } from '@angular/common/http';
 import { Poste } from '../model/poste';
 import { Department } from '../model/department';
 import { Image } from '../../auth/model/image';
+import { IconSetService } from '@coreui/icons-angular';
+import { brandSet, flagSet, freeSet } from '@coreui/icons';
+
 interface IUser {
     id?: string;
     email?: string;
@@ -15,7 +18,7 @@ interface IUser {
     lastName?: string;
     birthdayDate?: string;
     entity?: Entity;
-    cotractStartDate?: string;
+    contractStartDate?: string;
     poste?: Poste;
     department?: Department;
     token?: string;
@@ -40,15 +43,20 @@ export class ProfilelistComponent {
   users!: IUser[];
   defaultimg! : boolean;
   defaultimage! : string;
+  public icons!: [string, string[]][];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: AuthService,
     private httpClient: HttpClient,
+    public iconSet: IconSetService
+
+  ) { 
+    iconSet.icons = { ...freeSet, ...brandSet, ...flagSet };
 
 
-  ) { }
+  }
  
   
 
@@ -58,9 +66,15 @@ export class ProfilelistComponent {
 
   
     ngOnInit(): void {
-   
+      this.icons = this.getIconsView('cif');
+
       this.retrieveConsultant();
 
+    }
+    getIconsView(prefix: string) {
+      return Object.entries(this.iconSet.icons).filter((icon) => {
+        return icon[0].startsWith(prefix);
+      });
     }
     retrieveConsultant(){
       this.userService.getAll()

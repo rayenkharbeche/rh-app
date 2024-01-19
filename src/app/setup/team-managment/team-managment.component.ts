@@ -8,6 +8,8 @@ import { User } from '../../auth/model/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Team } from '../model/team';
 import { TeamService } from '../service/team.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-team-managment',
@@ -16,7 +18,6 @@ import { TeamService } from '../service/team.service';
   styleUrl: './team-managment.component.css'
 })
 export class TeamManagmentComponent {
-
 
   departments?: Department[];
   postes?: Poste[];
@@ -31,6 +32,10 @@ export class TeamManagmentComponent {
   managers!:User[];
 
   constructor(private DepartmentService: DepartmentService,
+
+    private _activatedroute:ActivatedRoute,
+    private router: Router,
+
     private Teamervice: TeamService,
     private formBuilder: FormBuilder,
     private userService: AuthService  ) { }
@@ -124,6 +129,26 @@ export class TeamManagmentComponent {
                 next: (res) => {
                 }})
               }
+
+              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
+              this.router.navigateByUrl(returnUrl);   
+
+        }
+        deleteTeam(team: Team) {
+          this.Teamervice.delete(team.id)
+          .subscribe({
+            next: (res) => {
+              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
+              this.router.navigateByUrl(returnUrl);   
+                        },
+            error: (e) => console.error(e)
+          });
+        }
+        updateTeam(team: Team) {
+    
+        const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/updateteam/'+ team.id ;
+        this.router.navigateByUrl(returnUrl);   
+
         }
 
 

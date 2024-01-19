@@ -58,6 +58,9 @@ import { CreateTeamComponent } from './create-team/create-team.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 
+import { UpdateTeamComponent } from './update-team/update-team.component';
+import { RolemanagmentComponent } from './rolemanagment/rolemanagment.component';
+import { RoleService } from '../auth/service/role.service';
 
 @NgModule({
   imports: [
@@ -101,6 +104,8 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
   ],
   declarations: [
     EntitymanagmentComponent,
+    ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
+    SettingsComponent,ResetpasswordComponent,AddConsultantComponent
     TeamManagmentComponent,
     ProfilelistComponent,
     PostemanagmentComponent, 
@@ -110,16 +115,19 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
     SettingsComponent,
     ResetpasswordComponent,
     AddConsultantComponent,
-    CreateTeamComponent
-
+    CreateTeamComponent,
+    UpdateTeamComponent,
+    RolemanagmentComponent
     
   ],
   providers: [EntityService,
               AuthService,
               PosteService,
               DepartmentService,
-              TeamService
+              TeamService,
+              RoleService
             ],
+
 
 
 })

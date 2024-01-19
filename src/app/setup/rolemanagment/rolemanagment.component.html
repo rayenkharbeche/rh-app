@@ -1,0 +1,50 @@
+     
+<div>
+    <div class="submit-form">
+      <div>
+        <div class="form-group">
+          <label for="title">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            required
+            [(ngModel)]="role.role"
+            name="title"
+          />
+        </div>
+  
+        <button (click)="saveRole()" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+    <div class="col-md-12">
+
+    <h4>Roles List</h4>
+
+    <table class="table">
+      <thead>
+          <tr>
+            
+              <th>name</th>
+              <th >Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr class="click" *ngFor="let role of roles">
+            <td>{{ role.role }}</td>
+
+            <td>
+                <button class="btn btn-danger" (click)="removeRole(role.id)" ><span  
+                        class="glyphicon glyphicon-trash"></span>&nbsp; Remove</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllRole()">
+      Remove All
+    </button>
+</div>
+
+
+
+      

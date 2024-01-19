@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestleaveService } from '../service/requestleave.service';
 import { Requestleave } from '../model/requestleave';
+import { RequestleaveStatus } from '../model/requestleaveStatus';
 
 @Component({
   selector: 'app-requestleavelist',
@@ -10,6 +11,7 @@ import { Requestleave } from '../model/requestleave';
 })
 export class RequestleavelistComponent {
   status!: string;
+  requests!: Requestleave[];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +39,7 @@ export class RequestleavelistComponent {
   selectedId: any ;
 
   
+<<<<<<< Updated upstream
     public requests: Requestleave[] = [
       {
         id: 2,
@@ -51,6 +54,9 @@ export class RequestleavelistComponent {
       },
      
     ];
+=======
+    
+>>>>>>> Stashed changes
 
   
     ngOnInit(): void {
@@ -81,16 +87,27 @@ export class RequestleavelistComponent {
      }
   
     deleteRequest(rqleave: Requestleave){
+      rqleave.status = RequestleaveStatus.Inactive;
+      rqleave.interneStatus = RequestleaveStatus.Inactive;
 
+      this.requestleaveservice.update(rqleave.id!, rqleave)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.retrievRequest();
+
+                  },
+        error: (e) => console.error(e)
+      });
       console.log("test");
-      this.requestleaveservice.delete(rqleave.id)
+      /*this.requestleaveservice.delete(rqleave.id)
         .subscribe({
           next: (res) => {
             console.log(res);
             this.retrievRequest();
           },
           error: (e) => console.error(e)
-        });
+        });*/
 
     }
     

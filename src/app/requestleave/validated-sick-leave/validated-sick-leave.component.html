@@ -4,15 +4,12 @@
        
         <c-card class="mb-4">
         
-          <c-card-header>My Requests </c-card-header>
+          <c-card-header>Team Requests </c-card-header>
 
           <div  class="divider d-flex justify-content-center">
              <c-col xl="11" md="6" sm="6">
         </c-col>
-        <c-col xl="3" md="6" sm="6">
-            <button routerLink="/home/requestleave/addrequestleave" color="light">Create Request
-            </button>
-        </c-col>
+
 
           </div>
           <c-card-body>
@@ -27,9 +24,8 @@
             
               <thead cTableColor="light">
                 <tr>
-                  <th>StartDate</th>
-                  <th>EndDate</th>
-                  <th >Type</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
                   <th >status</th> 
                   <th >Action</th>          
          
@@ -39,8 +35,9 @@
                 <tr  *ngFor="let request of requests; index as i"
                     [class.selected]="request.id === selectedId">
                           
-                       
+                    
                   <td>
+
                     <div class="d-flex justify-content-between">
 
                     <div>{{ request.startDate | date: 'dd/MM/yyyy'}}</div>
@@ -55,13 +52,7 @@
                     </div>
 
                     </td>     
-                  <td>
-                    <div class="d-flex justify-content-between">
-                      <div class="float-start">
-                        <strong>{{ request.leaveType }}</strong>
-                      </div>
-                    </div>           
-                  </td>
+                 
                   <td>
     
                   <div  class="d-flex justify-content-between">
@@ -72,12 +63,16 @@
                   </div>
                   </td>
                   <td>
-                    <button [disabled]="request.status == 'Validated' || request.status == 'Rejected' " cButton shape="sm"  size="sm" (click)="updateRequest(request)" color="primary">Update
-                    </button>              
-                    <button [disabled]="request.status == 'Validated' || request.status == 'Rejected' "  cButton shape="sm" size="sm" (click)="deleteRequest(request)" color="info">Delete
+                    <form *ngIf="request.fileDB == null" cForm [formGroup]="myForm" (ngSubmit)="onSubmit()" >
 
-                    </button>  
-                
+                    <input 
+                    formControlName="file"
+                    id="file" 
+                    type="file" 
+                    class="form-control"
+                    (change)="onFileChange($event,request)">
+                    </form>
+                    <span *ngIf="request.fileDB != null"> Certificate downloaded</span>
                 </td>
                 </tr>
               </tbody>

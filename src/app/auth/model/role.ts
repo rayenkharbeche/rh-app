@@ -5,7 +5,7 @@
     Director = 'director'
 }*/
 export class Role {
-    id?: string;
+    id?: number;
     role?: string;
 
 }

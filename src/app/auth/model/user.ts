@@ -13,7 +13,7 @@ export class User {
     lastName?: string;
     birthdayDate?: string;
     entity?: Entity;
-    cotractStartDate?: string;
+    contractStartDate?: string;
     poste?: Poste;
     department?: Department;
     token?: string;
@@ -22,5 +22,8 @@ export class User {
     country?:string
     isManager?:boolean
     selected?: boolean;
-
+    manager?:boolean
+    selected?: boolean;
+    teamLead?: boolean;
+    leaveCredit?: number;
 }

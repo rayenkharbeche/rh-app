@@ -7,7 +7,8 @@
       <c-card-body>
         <c-nav variant="tabs">
           <c-nav-item *ngFor="let department of departments; index as i; first as isFirst; last as isLast">
-            <a [cTabContent]="tabContent2"  (click)="onNavClick(department.id)"  [disabled]="isLast" [routerLink] [tabPaneIdx]="i"
+            <a [cTabContent]="tabContent2"  (click)="onNavClick(department.id)"   [routerLink] [tabPaneIdx]="i"
+
                cNavLink>
               <svg cIcon class="me-2" name="cilHome"></svg>
               {{department.name}}
@@ -40,11 +41,33 @@
                           <button cCol="" class="btn btn-primary" (click)="onBtnClicked()" color="light"> delete consultant
                             <svg cIcon name="cilPeople"></svg>
                           </button>
+                          <button cCol="" class="btn btn-primary" (click)="updateTeam(team)" color="light"> update team
+                            <svg cIcon name="cilPeople"></svg>
+                          </button>
+                          <button cCol="" class="btn btn-primary" (click)="deleteTeam(team)" color="light"> delete team
+                            <svg cIcon name="cilPeople"></svg>
+                          </button>
                         <div *ngFor="let user of users" class="accordion-body">
+                          <table>
+                            <tr>
+                              <td>
 
-                          <input [(ngModel)]="user.selected"  type="checkbox" />
-                          <strong>{{user.email}}
-                          </strong>
+                              <input  [(ngModel)]="user.selected"  type="checkbox" />
+
+                              <strong>{{user.firstname}} {{user.lastName}} 
+                              </strong>
+                            </td>
+                        
+                            <tr>
+                              <td>
+
+                              {{user.role?.role}}
+                            </td>
+
+                            </tr>
+
+                          </table>
+                          
                        
                         </div>
 

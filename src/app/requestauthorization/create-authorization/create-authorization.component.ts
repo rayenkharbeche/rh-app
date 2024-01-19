@@ -86,5 +86,4 @@ console.log(this.requestAuthorization.user)
       });
       
   }
-}
 

@@ -25,7 +25,7 @@
 
   <ng-scrollbar pointerEventsMethod="scrollbar">
     <c-sidebar-nav 
-      [navItems]="navItems" *ngIf="!isAdmin"
+      [navItems]="navItems" *ngIf="isConsultant"
       dropdownMode="close"
     />
     <c-sidebar-nav 
@@ -33,6 +33,16 @@
 
     dropdownMode="close"
   />
+  <c-sidebar-nav 
+    [navItems]="navItemsTeamLead"     *ngIf="isTeamLead"
+
+    dropdownMode="close"
+  />
+  <c-sidebar-nav 
+  [navItems]="navItemsManager"     *ngIf="isManager"
+
+  dropdownMode="close"
+/>
   </ng-scrollbar>
   <c-sidebar-toggler
     *ngIf="!sidebar.narrow"

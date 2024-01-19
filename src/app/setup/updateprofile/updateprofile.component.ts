@@ -32,12 +32,24 @@ export class UpdateprofileComponent {
   i!: number;
   users!: User[];
   isUserConnected!: boolean;
-  image!:Image;
+  image!:any;
   response: any;
-entities!: Entity[];
-postes!: Poste[];
-departments!: Department[];
 
+  entities!: Entity[];
+  postes!: Poste[];
+  departments!: Department[];
+
+
+email: any;
+lastName: any;
+firstName: any;
+entity: any;
+poste: any;
+Department: any;
+department: any;
+birthdayDate: any;
+contractStartDate: any;
+leaveCredit:any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -73,7 +85,9 @@ departments!: Department[];
         poste: ['' ],
         department: [''],
         image: [''],
-        
+
+        leaveCredit: [''],
+
       });
        
       this.entityService.getAll()
@@ -113,6 +127,18 @@ departments!: Department[];
 
           });
          
+
+          this.firstName = this.user.firstname;
+          this.lastName =  this.user.lastName;
+          this.email =  this.user.email;
+          this.poste =  this.user.poste;
+          this.department =  this.user.department;
+          this.entity = this.user.entity;
+          this.image = this.user.image;
+          this.birthdayDate = this.user.birthdayDate;
+          this.contractStartDate = this.user.contractStartDate;
+          this.leaveCredit = this.user.leaveCredit;
+
         },
         error: (e) => console.error(e)
 
@@ -189,7 +215,6 @@ getImage(id:any) {
 }
  onSubmit() {
   const id = this._activatedroute.snapshot.paramMap.get("id");
-  console.log(this.form.value); 
     this.submitted = true;
     // reset alerts on submit
     /*this.alertService.clear();*/
@@ -198,26 +223,21 @@ getImage(id:any) {
     if (this.form.invalid) {
         return;
     }
-    this.user.poste = new Poste();
-    this.user.poste.name = this.form.value.Poste;
+   
 
-    this.user.department = new Department();
-    this.user.department.name = this.form.value.department;
+    this.user.poste = this.poste;
+    this.user.department = this.department;
 
-    this.user.entity = new Entity();
-    this.user.entity.name = this.form.value.entity;
-    
-
-    this.user.firstname = this.form.value.firstName;
-    this.user.lastName = this.form.value.lastName;
-    this.user.birthdayDate = this.form.value.birthdayDate;
-    this.user.cotractStartDate = this.form.value.cotractStartDate;
-    this.user.poste = this.form.value.poste;
-    this.user.department = this.form.value.department;
+    this.user.entity = this.entity;
+    this.user.firstname = this.firstName;
+    this.user.lastName = this.lastName;
+    this.user.birthdayDate = this.birthdayDate;
+    this.user.contractStartDate = this.contractStartDate;
     this.user.image = this.image;
-console.log(this.user.department)
-console.log(this.user.poste)
+    this.user.leaveCredit = this.leaveCredit;
 
+
+console.log(this.user)
     this.loading = true;
     this.accountService.update(id!, this.user)
     .subscribe({
