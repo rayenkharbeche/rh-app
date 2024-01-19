@@ -67,7 +67,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestleave/requestleave.module').then((m) => m.RequestleaveModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager'] }
 
       },
       {
@@ -77,6 +77,25 @@ const routes: Routes = [
           title: 'Register Page'
         }
       },
+<<<<<<< Updated upstream
+=======
+      {
+        path: 'requestAuthorization',
+        loadChildren: () =>
+          import('./requestauthorization/requestauthorization.module').then((m) => m.RequestauthorizationModule),
+          canActivate: [AuthGuard],
+          data: { roles: ['consultant' , 'teamLead', 'manager'] }
+
+      },
+      {
+        path: 'requestvalidations',
+        loadChildren: () =>
+          import('./requestvalidations/requestvalidations.module').then((m) => m.RequestvalidationsModule),
+          canActivate: [AuthGuard],
+          data: { roles: ['consultant' , 'teamLead', 'manager'] }
+
+      },
+>>>>>>> Stashed changes
     
 
       

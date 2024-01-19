@@ -26,9 +26,25 @@ export class UpdateprofileComponent {
   i!: number;
   users!: User[];
   isUserConnected!: boolean;
-  image!:Image;
+  image!:any;
   response: any;
+<<<<<<< Updated upstream
+=======
+  entities!: Entity[];
+  postes!: Poste[];
+  departments!: Department[];
+>>>>>>> Stashed changes
 
+email: any;
+lastName: any;
+firstName: any;
+entity: any;
+poste: any;
+Department: any;
+department: any;
+birthdayDate: any;
+contractStartDate: any;
+leaveCredit:any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -59,6 +75,11 @@ export class UpdateprofileComponent {
         poste: ['' ],
         department: [''],
         image: [''],
+<<<<<<< Updated upstream
+=======
+        leaveCredit: [''],
+
+>>>>>>> Stashed changes
       });
       /* Control
       this.accountService.getAll()
@@ -79,6 +100,7 @@ export class UpdateprofileComponent {
           this.getImage(this.user!.image?.id)
           /*this.viewImage(this.user!.image?.name );*/
           }
+<<<<<<< Updated upstream
           this.form.reset({
             firstName: this.user.firstname,
             lastName: this.user.lastName,
@@ -88,6 +110,19 @@ export class UpdateprofileComponent {
             
           });
          
+=======
+          this.firstName = this.user.firstname;
+          this.lastName =  this.user.lastName;
+          this.email =  this.user.email;
+          this.poste =  this.user.poste;
+          this.department =  this.user.department;
+          this.entity = this.user.entity;
+          this.image = this.user.image;
+          this.birthdayDate = this.user.birthdayDate;
+          this.contractStartDate = this.user.contractStartDate;
+          this.leaveCredit = this.user.leaveCredit;
+
+>>>>>>> Stashed changes
         },
         error: (e) => console.error(e)
 
@@ -184,12 +219,12 @@ getImage(id:any) {
 }
  onSubmit() {
   const id = this._activatedroute.snapshot.paramMap.get("id");
-  console.log(this.form.value); 
     this.submitted = true;
     // reset alerts on submit
     /*this.alertService.clear();*/
 
     // stop here if form is invalid
+<<<<<<< Updated upstream
     if (this.form.invalid) {
         return;
     }
@@ -208,7 +243,26 @@ console.log(this.image);
     this.user.department = this.form.value.department;
     this.user.image = this.image;
 
+=======
+  
+    /*this.user.poste = this.form.value.Poste;
+    this.user.department = this.form.value.department;
+    this.user.entity = this.form.value.entity;*/
+>>>>>>> Stashed changes
 
+
+    this.user.poste = this.poste;
+    this.user.department = this.department;
+
+    this.user.entity = this.entity;
+    this.user.firstname = this.firstName;
+    this.user.lastName = this.lastName;
+    this.user.birthdayDate = this.birthdayDate;
+    this.user.contractStartDate = this.contractStartDate;
+    this.user.image = this.image;
+    this.user.leaveCredit = this.leaveCredit;
+
+console.log(this.user)
     this.loading = true;
     this.accountService.update(id!, this.user)
     .subscribe({

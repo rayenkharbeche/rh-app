@@ -13,12 +13,19 @@ export class User {
     lastName?: string;
     birthdayDate?: string;
     entity?: Entity;
-    cotractStartDate?: string;
+    contractStartDate?: string;
     poste?: Poste;
     department?: Department;
     token?: string;
     image?:Image;
     active?:boolean
     country?:string
+<<<<<<< Updated upstream
 
+=======
+    manager?:boolean
+    selected?: boolean;
+    teamLead?: boolean;
+    leaveCredit?: number;
+>>>>>>> Stashed changes
 }

@@ -11,6 +11,7 @@ import { RequestleaveService } from './service/requestleave.service';
 import { RequestleavelistComponent } from './requestleavelist/requestleavelist.component';
 
 import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestleave.component';
+import { ValidatedSickLeaveComponent } from './validated-sick-leave/validated-sick-leave.component';
 
 
 
@@ -19,7 +20,8 @@ import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestl
   declarations: [
     AddRequestleaveComponent,
     RequestleavelistComponent,
-    UpdaterequestleaveComponent
+    UpdaterequestleaveComponent,
+    ValidatedSickLeaveComponent
   ],
   imports: [
     CommonModule,

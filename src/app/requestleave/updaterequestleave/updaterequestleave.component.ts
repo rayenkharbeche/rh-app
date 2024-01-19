@@ -5,6 +5,7 @@ import { User } from '../../auth/model/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { RequestleaveService } from '../service/requestleave.service';
 import { Requestleave } from '../model/requestleave';
+import { RequestleaveType } from '../model/requestleavetype';
 
 @Component({
   selector: 'app-updaterequestleave',
@@ -23,7 +24,12 @@ export class UpdaterequestleaveComponent {
   successResponse!: string;
   image: any;
   i!: number;
+<<<<<<< Updated upstream
   request!: Requestleave;
+=======
+  requestLeave!: Requestleave;
+  RequestleaveTypes: any;
+>>>>>>> Stashed changes
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,6 +43,7 @@ export class UpdaterequestleaveComponent {
       const id = this._activatedroute.snapshot.paramMap.get("id");
       var currentUser  = JSON.parse(localStorage.getItem('user')!);
       
+      this.RequestleaveTypes = RequestleaveType;
 
       this.form = this.formBuilder.group({
         StartDate: ['', Validators.required],
@@ -47,7 +54,7 @@ export class UpdaterequestleaveComponent {
      
       });
 
-this.requestleaveService.get(id!)
+        this.requestleaveService.get(id!)
       .subscribe({
         next: (data) => {
           this.request = data;
@@ -68,7 +75,8 @@ this.requestleaveService.get(id!)
      
 
     }
-  
+    getKeys(obj: any) { return Object.keys(obj); }
+
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
   
@@ -84,9 +92,20 @@ this.requestleaveService.get(id!)
         if (this.form.invalid) {
             return;
         }
+<<<<<<< Updated upstream
   
         this.loading = true;
         this.requestleaveService.update(id!, this.form.value)
+=======
+        console.log(this.requestLeave.userId) ;
+
+                this.requestLeave.startDate = this.form.value.StartDate;
+        this.requestLeave.endDate = this.form.value.EndDate;
+        this.requestLeave.leaveType = this.form.value.type;
+        this.requestLeave.status = this.form.value.status;
+                this.loading = true;
+                this.requestleaveService.update(id!, this.requestLeave)
+>>>>>>> Stashed changes
         .subscribe({
           next: (res) => {
             console.log(res);

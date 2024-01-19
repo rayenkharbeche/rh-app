@@ -31,10 +31,10 @@
                 <svg cIcon name="cilPeople"></svg>
               </th>
               <th>Employe</th>
-              <th class="text-center">Birthday Info</th>
-              <th>Entity</th>
-              <th class="text-center">Email</th>
-              <th class="text-center">cotractStartDate</th>          
+              <th>Birthday Info</th>
+              <th class="text-center">Entity</th>
+              <th >Email</th>
+              <th >Contract StartDate</th>          
               <th>Activity</th>
             </tr>
           </thead>
@@ -62,20 +62,21 @@
 
               <div class="small text-medium-emphasis text-nowrap">
                 <span>
-                 {{user.country}} | Registered: {{ user.birthdayDate }}
+                  {{ user.birthdayDate | date: 'dd/MM/yyyy'}}  
+
                 </span>
               </div> 
             </td>
               <td class="text-center">
                 <svg
-                  cIcon
-                  id="{{ user.entity?.countryCode  + user.firstname! }}"
-                  name="cif{{ user.entity?.countryCode }}"
-                  size="xl"
-                  title="{{ user.entity?.countryCode }}"
-                >
-                    {{ user.entity?.name }} 
-            </svg>
+                cIcon
+                id="{{ user.entity?.countryCode + user.firstname! }}"
+                name="cif{{ user.entity?.countryCode }}"
+                size="xl"
+                title="{{ user.entity?.countryCode }}"
+              ></svg>
+            {{ user.entity?.name }} 
+
               </td>
               <td>
                 <div class="d-flex justify-content-between">
@@ -88,7 +89,7 @@
 
               <div class="float-end ms-1 text-nowrap">
                 <small class="text-medium-emphasis">
-                  {{ user.cotractStartDate }}
+                  {{ user.contractStartDate | date: 'dd/MM/yyyy'}}  
                 </small>
               </div>
               </td>

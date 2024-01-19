@@ -4,7 +4,7 @@
         <c-col lg="7" md="9" xl="6">
           <c-card class="mx-4">
             <c-card-body class="p-4">
-              <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
+              <form cForm (ngSubmit)="onSubmit()" >
                 <h1>Profile</h1>
                 <p class="text-medium-emphasis">Edit Profile</p>
                 <c-input-group  *ngIf="isUserConnected" class="mb-3">
@@ -12,26 +12,34 @@
                     <div *ngIf=dbImage>
                       <img [src]="dbImage" width="300" height="400">
                   </div>
-                    <input  type="file" (change)="onImageUpload($event)" formControlName="image" value="Upload Image" class="btn1">        
+                    <input  [(ngModel)]="image" name="image" type="file" (change)="onImageUpload($event)"  value="Upload Image" [ngModelOptions]="{standalone: true}"class="btn1">        
                   </div>         
                    </c-input-group>
                 <c-input-group class="mb-3">
-                  <input formControlName="firstName" autoComplete="name" cFormControl placeholder="firstName" />
+                  <input [(ngModel)]="firstName" name="firstName" autoComplete="firstName" cFormControl placeholder="firstName" [ngModelOptions]="{standalone: true}" />
                 </c-input-group>
                 <c-input-group class="mb-3">
-                  <input formControlName="lastName" autoComplete="lastName" cFormControl placeholder="lastName" />
+                  <input [(ngModel)]="lastName" name="lastName" autoComplete="lastName" cFormControl placeholder="lastName" [ngModelOptions]="{standalone: true}" />
+
                 </c-input-group>
                 <c-input-group class="mb-3">
-                  <input formControlName="email" autoComplete="email" cFormControl placeholder="Email" />
+                  <input [(ngModel)]="email" name="email" autoComplete="email" cFormControl placeholder="email" [ngModelOptions]="{standalone: true}" />
+
                 </c-input-group>
                 <c-input-group class="mb-3">
                 <input aria-label="Disabled input example"
                 cFormControl
-                formControlName="birthdayDate"
+                [(ngModel)]="birthdayDate" 
+                name="birthdayDate" 
+
                 placeholder="Birthday Date"
-                type="date">
+                type="date"
+                [ngModelOptions]="{standalone: true}"
+
+                >
                 </c-input-group>
              
+<<<<<<< Updated upstream
                 <c-input-group class="mb-3">
                     <select aria-label="Disabled select example" cSelect  formControlName="entity">
                         <option>Entity</option>
@@ -39,16 +47,32 @@
                         <option  value="2">Selected: Two</option>
                         <option value="3">Three</option>
                     </select>
+=======
+                <c-input-group class="mb-12">
+                   
+                    <mat-form-field>
+                      <mat-select aria-label="Default select example" placeholder="entities" [(ngModel)]="entity" 
+                      [ngModelOptions]="{standalone: true}"  name = "entity">
+                            <mat-option *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+>>>>>>> Stashed changes
                 </c-input-group>
+              
                 <c-input-group class="mb-3">
                     <input aria-label="Disabled input example"
                     cFormControl
-                    formControlName="cotractStartDate"
+                    [(ngModel)]="contractStartDate" 
+                    name="cotractStartDate" 
+
                     placeholder="Birthday Date"
-                    type="date">
+                    type="date"
+                    [ngModelOptions]="{standalone: true}"
+                    >
                     </c-input-group>
 
                 <c-input-group class="mb-3">
+<<<<<<< Updated upstream
                     <select aria-label="Disabled select example" cSelect  formControlName="poste">
                         <option>Poste</option>
                         <option value="1">One</option>
@@ -64,11 +88,34 @@
                         <option  value="2">Selected: Two</option>
                         <option value="3">Three</option>
                     </select>
+=======
+                   
+                    <mat-form-field>
+                      <mat-select placeholder="postes" [(ngModel)]="poste" name="poste" 
+                      [ngModelOptions]="{standalone: true}" >
+                            <mat-option *ngFor="let poste of postes" [value]="poste">{{poste.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
                 </c-input-group>
 
+                <c-input-group class="mb-3">
+                  <mat-form-field>
+                    <mat-select placeholder="Departments" [(ngModel)]="department" name="department" 
+                    [ngModelOptions]="{standalone: true}" >
+                          <mat-option *ngFor="let department of departments" [value]="department">{{department.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                
+>>>>>>> Stashed changes
+                </c-input-group>
+                <c-input-group class="mb-3">
+                  <input [(ngModel)]="leaveCredit" name="leaveCredit" autoComplete="lastName" cFormControl placeholder="leaveCredit" [ngModelOptions]="{standalone: true}" />
+
+                </c-input-group>
                
                 <div class="d-grid">
-                  <button [disabled]="loading" class="btn btn-primary">
+                  <button [disabled]="loading" type="submit" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
                     Update
                 </button>

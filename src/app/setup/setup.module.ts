@@ -48,6 +48,18 @@ import { UpdateprofileComponent } from './updateprofile/updateprofile.component'
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+<<<<<<< Updated upstream
+=======
+import { TeamManagmentComponent } from './team-managment/team-managment.component';
+import { TeamService } from './service/team.service';
+import { CreateTeamComponent } from './create-team/create-team.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { UpdateTeamComponent } from './update-team/update-team.component';
+import { RolemanagmentComponent } from './rolemanagment/rolemanagment.component';
+import { RoleService } from '../auth/service/role.service';
+
+>>>>>>> Stashed changes
 
 @NgModule({
   imports: [
@@ -91,11 +103,35 @@ import { AddConsultantComponent } from './add-consultant/add-consultant.componen
   ],
   declarations: [
     EntitymanagmentComponent,
+<<<<<<< Updated upstream
     ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
     SettingsComponent,ResetpasswordComponent,AddConsultantComponent
     
   ],
   providers: [EntityService,AuthService],
+=======
+    TeamManagmentComponent,
+    ProfilelistComponent,
+    PostemanagmentComponent, 
+    DepartmentmanagmentComponent,
+    ProfilelistComponent,
+    UpdateprofileComponent,
+    SettingsComponent,
+    ResetpasswordComponent,
+    AddConsultantComponent,
+    CreateTeamComponent,
+    UpdateTeamComponent,
+    RolemanagmentComponent
+    
+  ],
+  providers: [EntityService,
+              AuthService,
+              PosteService,
+              DepartmentService,
+              TeamService,
+              RoleService
+            ],
+>>>>>>> Stashed changes
 
 
 })

@@ -26,6 +26,22 @@ export const navAdminItems: INavAdminData[] = [
         name: 'Profile Managment',
         url: '/home/setup/profileList'
       }
+<<<<<<< Updated upstream
+=======
+      ,
+      {
+        name: 'Department Managment',
+        url: '/home/setup/departmentmanagment'
+      },
+      {
+        name: 'Team Managment',
+        url: '/home/setup/teamManagment'
+      }, 
+       {
+        name: 'Role Managment',
+        url: '/home/setup/roleManagment'
+      },
+>>>>>>> Stashed changes
     
       
     ]

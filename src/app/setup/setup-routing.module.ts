@@ -8,6 +8,14 @@ import { UpdateprofileComponent } from './updateprofile/updateprofile.component'
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+<<<<<<< Updated upstream
+=======
+import { TeamManagmentComponent } from './team-managment/team-managment.component';
+import { CreateTeamComponent } from './create-team/create-team.component';
+import { UpdateTeamComponent } from './update-team/update-team.component';
+import { RolemanagmentComponent } from './rolemanagment/rolemanagment.component';
+
+>>>>>>> Stashed changes
 
 const routes: Routes = [
   {
@@ -77,6 +85,40 @@ const routes: Routes = [
         },
         
       },
+<<<<<<< Updated upstream
+=======
+      {
+        path: 'equipmentmanagement',
+        component: ProfilelistComponent,
+        data: {
+          title: 'Equipment Management ',
+        },      
+      },
+      {
+        path: 'createTeam',
+        component: CreateTeamComponent,
+        data: {
+          title: 'Team Management ',
+        },
+
+      },
+      {
+        path: 'updateteam/:id',
+        component: UpdateTeamComponent,
+        data: {
+          title: 'Team Management ',
+        },
+
+      },
+      {
+        path: 'roleManagment',
+        component: RolemanagmentComponent,
+        data: {
+          title: 'Role Management ',
+        },      
+      },
+     
+>>>>>>> Stashed changes
     ],
   },
 ];

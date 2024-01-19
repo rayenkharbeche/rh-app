@@ -29,11 +29,7 @@ export class AddConsultantComponent {
     
       ngOnInit() {
         const id = this._activatedroute.snapshot.paramMap.get("id");
-  /*this.accountService.getById(id!).subscribe(v => {
   
-    this.user = v;
-  });
-  */
   this.form = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -43,6 +39,8 @@ export class AddConsultantComponent {
     cotractStartDate: ['', Validators.required],
     poste: ['', Validators.required],
     department: ['', Validators.required],
+    leaveCredit: ['', Validators.required],
+
   });
   
        

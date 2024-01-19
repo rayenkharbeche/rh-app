@@ -24,8 +24,14 @@ export const navItems: INavData[] = [
       {
         name: 'request leave List',
         url: 'requestleave/requestleavelist'
+      },
+      {
+        name: 'Sick Leave List',
+        url: 'requestleave/validatedSickLeave'
       }
     
+      
+      
       
     ]
     },
