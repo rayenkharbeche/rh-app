@@ -8,6 +8,7 @@
           <p *ngIf="choosemanager" class="text-medium-emphasis">Affect manager to this Team</p>
 
           <p *ngIf="chooseteamlead" class="text-medium-emphasis">Affect team lead to this team </p>
+
           <p *ngIf="chooseconsultant" class="text-medium-emphasis">Select Consultants for this Team</p>
           <c-input-group class="mb-3">
             <input [(ngModel)]="name" autoComplete="name" cFormControl placeholder="Team name" [ngModelOptions]="{standalone: true}" />
@@ -30,6 +31,7 @@
           <mat-form-field>
               <mat-select placeholder="Team Lead" [(ngModel)]="teamlead" name="action" 
           (selectionChange)="onChangeteamLead()" [ngModelOptions]="{standalone: true}" >
+
               <mat-option *ngFor="let user of teamleads" [value]="user">{{user.firstname}} {{user.lastName}}</mat-option>
             </mat-select>
           </mat-form-field>

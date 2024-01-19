@@ -8,6 +8,7 @@
         <c-nav variant="tabs">
           <c-nav-item *ngFor="let department of departments; index as i; first as isFirst; last as isLast">
             <a [cTabContent]="tabContent2"  (click)="onNavClick(department.id)"   [routerLink] [tabPaneIdx]="i"
+
                cNavLink>
               <svg cIcon class="me-2" name="cilHome"></svg>
               {{department.name}}

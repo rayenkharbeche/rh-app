@@ -1,9 +1,9 @@
-import { Entity } from '../model/entity';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Team } from '../model/team';
 
-const baseUrl = 'http://localhost:8080/api/Entities';
+const baseUrl = 'http://localhost:8080/api/Teams';
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -14,18 +14,23 @@ const HTTP_OPTIONS = {
 };
 
 @Injectable()
-export class EntityService {
-  EntityList: Entity[] = [];
+export class TeamService {
+ 
+  TeamsList: Team[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Entity[]> {
-    return this.http.get<Entity[]>(baseUrl);
+  getAll(): Observable<Team[]> {
+    return this.http.get<Team[]>(baseUrl);
+  }
+  getAllBydepartment(departmentid:any): Observable<Team[]> {
+    return this.http.get<Team[]>(`${baseUrl}/department/${departmentid}`);
+
   }
 
-  get(id: any): Observable<Entity> {
-    return this.http.get<Entity>(`${baseUrl}/${id}`);
+  get(id: any): Observable<Team> {
+    return this.http.get<Team>(`${baseUrl}/${id}`);
   }
 
   create(data: any): Observable<any> {
@@ -45,8 +50,8 @@ export class EntityService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Entity[]> {
-    return this.http.get<Entity[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<Team[]> {
+    return this.http.get<Team[]>(`${baseUrl}?title=${title}`);
   }
   
 

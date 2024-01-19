@@ -3,9 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestleaveService } from '../service/requestleave.service';
 import { first } from 'rxjs/operators';
-<<<<<<< Updated upstream
 
-=======
 import { User } from '../../auth/model/user';
 import { AuthService } from '../../auth/service/auth.service';
 import { Requestleave } from '../model/requestleave';
@@ -18,7 +16,6 @@ export class EnumToArrayPipe implements PipeTransform {
     return Object.keys(value).filter(e => !isNaN(+e)).map(o => { return {index: +o, name: value[o]}});
   }
 }
->>>>>>> Stashed changes
 @Component({
   selector: 'app-add-requestleave',
   templateUrl: './add-requestleave.component.html',
@@ -32,17 +29,17 @@ export class AddRequestleaveComponent {
   form!: FormGroup;
   loading = false;
   submitted = false;
-<<<<<<< Updated upstream
-=======
+
   UserId!:User;
   requestLeave!:Requestleave;
   RequestleaveTypes: any;
->>>>>>> Stashed changes
+
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
       private requestleaveservice: RequestleaveService,
+      private userService: AuthService,
 
       /*private alertService: AlertService*/
   ) { 
@@ -50,36 +47,25 @@ export class AddRequestleaveComponent {
   }
 
   ngOnInit() {
-<<<<<<< Updated upstream
-
-=======
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
     this.RequestleaveTypes = RequestleaveType;
     
->>>>>>> Stashed changes
     this.form = this.formBuilder.group({
       StartDate: ['', Validators.required],
       EndDate: ['', Validators.required],
-      user: ['', Validators.required],
       type: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['', ],
    
     });
-<<<<<<< Updated upstream
+
     
-  }
-=======
     this.userService.getById(currentUser.id).subscribe({
       next: (data) => {
         this.UserId = data;
         console.log(this.RequestleaveTypes)
 
         if(this.UserId.entity?.countryCode != "Fr"){
-          //this.RequestleaveTypes= this.RequestleaveTypes.splice(this.RequestleaveTypes.indexOf(RequestleaveType.rttLeave));
-            /*if (requestleaveType === RequestleaveType.rttLeave) {
-                this.RequestleaveTypes.splice(this.RequestleaveTypes.indexOf(requestleaveType), 1);
-                break;
-            }*/
+   
             delete this.RequestleaveTypes.rttLeave
 
       }
@@ -89,30 +75,17 @@ export class AddRequestleaveComponent {
 
 }
   getKeys(obj: any) { return Object.keys(obj); }
->>>>>>> Stashed changes
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
   onSubmit() {
-    var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
       this.submitted = true;
-      this.form.value.user = currentUser.id ;
-      this.form.value.status = "open";
 
-      console.log(this.form.value) ;
-      // reset alerts on submit
-      /*this.alertService.clear();*/
 
-      // stop here if form is invalid
-      if (this.form.invalid) {
-          return;
-<<<<<<< Updated upstream
-      }
+      console.log(this.UserId) ;
 
-=======
-      }*/
       this.form.value.status = RequestleaveStatus.OPEN;
       this.form.value.internestatus = RequestleaveInterneStatus.OPEN;
 
@@ -127,14 +100,25 @@ this.requestLeave.status = this.form.value.status;
 this.requestLeave.interneStatus = this.form.value.internestatus;
 
 console.log(this.requestLeave.userId)
->>>>>>> Stashed changes
+
+      this.form.value.status = RequestleaveType.OPEN;
+
+
+this.requestLeave = new Requestleave();
+this.requestLeave.startDate = this.form.value.StartDate;
+this.requestLeave.endDate = this.form.value.EndDate;
+this.requestLeave.leaveType = this.form.value.type;
+this.requestLeave.status = this.form.value.status;
+this.requestLeave.user = this.UserId;
+
+console.log(this.requestLeave.user)
       this.loading = true;
-      this.requestleaveservice.create(this.form.value)
+      this.requestleaveservice.create(this.requestLeave)
       .pipe(first())
       .subscribe({
           next: () => {
               /*this.alertService.success('Registration successful', { keepAfterRouteChange: true });*/
-              this.router.navigate(['/login'], { relativeTo: this.route });
+              this.router.navigate(['/home/requestleave/requestleavelist'], { relativeTo: this.route });
           },
           error: error => {
               /*this.alertService.error(error);*/

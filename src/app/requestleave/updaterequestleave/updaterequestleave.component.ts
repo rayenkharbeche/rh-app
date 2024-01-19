@@ -24,12 +24,9 @@ export class UpdaterequestleaveComponent {
   successResponse!: string;
   image: any;
   i!: number;
-<<<<<<< Updated upstream
-  request!: Requestleave;
-=======
+
   requestLeave!: Requestleave;
   RequestleaveTypes: any;
->>>>>>> Stashed changes
 
     constructor(
         private formBuilder: FormBuilder,
@@ -48,22 +45,21 @@ export class UpdaterequestleaveComponent {
       this.form = this.formBuilder.group({
         StartDate: ['', Validators.required],
         EndDate: ['', Validators.required],
-        user: ['', Validators.required],
-        type: ['', Validators.required],
-        status: ['', Validators.required],
+        type: ['', ],
+        status: ['', ],
      
       });
+ 
 
         this.requestleaveService.get(id!)
       .subscribe({
         next: (data) => {
-          this.request = data;
+          this.requestLeave = data;
           this.form.reset({
-            StartDate: this.request.StartDate,
-            EndDate: this.request.EndDate,
-            user: this.request.user.email,
-            type: this.request.type,
-            status: this.request.status,
+            StartDate: this.requestLeave.startDate,
+            EndDate: this.requestLeave.endDate,
+            type: this.requestLeave.leaveType,
+            status: this.requestLeave.status,
 
           
           });
@@ -84,7 +80,7 @@ export class UpdaterequestleaveComponent {
       const id = this._activatedroute.snapshot.paramMap.get("id");
 
         this.submitted = true;
-        console.log(this.form) ;
+        console.log(this.requestLeave) ;
         // reset alerts on submit
         /*this.alertService.clear();*/
   
@@ -92,12 +88,10 @@ export class UpdaterequestleaveComponent {
         if (this.form.invalid) {
             return;
         }
-<<<<<<< Updated upstream
   
         this.loading = true;
         this.requestleaveService.update(id!, this.form.value)
-=======
-        console.log(this.requestLeave.userId) ;
+
 
                 this.requestLeave.startDate = this.form.value.StartDate;
         this.requestLeave.endDate = this.form.value.EndDate;
@@ -105,11 +99,10 @@ export class UpdaterequestleaveComponent {
         this.requestLeave.status = this.form.value.status;
                 this.loading = true;
                 this.requestleaveService.update(id!, this.requestLeave)
->>>>>>> Stashed changes
         .subscribe({
           next: (res) => {
             console.log(res);
-            const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/requestleaveList' ;
+            const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/requestleave/requestleavelist' ;
             this.router.navigateByUrl(returnUrl);   
                     },
           error: (e) => console.error(e)

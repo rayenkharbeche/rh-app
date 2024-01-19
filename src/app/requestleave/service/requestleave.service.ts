@@ -35,6 +35,8 @@ export class RequestleaveService {
   }
 
 
+
+
   create(data: any): Observable<any> {
     console.log("test");
     console.log(data);
@@ -58,8 +60,7 @@ export class RequestleaveService {
   findByTitle(title: any): Observable<Requestleave[]> {
     return this.http.get<Requestleave[]>(`${baseUrl}?title=${title}`);
   }
-<<<<<<< Updated upstream
-=======
+
     getAllbyUser(user_id: any): Observable<Requestleave[]> {
       return this.http.get<Requestleave[]>(`${baseUrl}?user_id=${user_id}`);
     }
@@ -87,7 +88,6 @@ export class RequestleaveService {
     getFileDB(id: any): Observable<FileDB> {
       return this.http.get<FileDB>(`${baseUrl}/files/${id}`);
     }
->>>>>>> Stashed changes
 
 }
 

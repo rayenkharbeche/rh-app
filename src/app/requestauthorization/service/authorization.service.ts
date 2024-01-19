@@ -1,9 +1,9 @@
-import { Entity } from '../model/entity';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { RequestAuthorization } from '../model/requestauthorization';
 
-const baseUrl = 'http://localhost:8080/api/Entities';
+const baseUrl = 'http://localhost:8080/api/RequestAuthorisation';
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -14,22 +14,24 @@ const HTTP_OPTIONS = {
 };
 
 @Injectable()
-export class EntityService {
-  EntityList: Entity[] = [];
+export class AuthorizationService {
+  EntityList: RequestAuthorization[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Entity[]> {
-    return this.http.get<Entity[]>(baseUrl);
+  getAll(): Observable<RequestAuthorization[]> {
+    return this.http.get<RequestAuthorization[]>(baseUrl);
   }
 
-  get(id: any): Observable<Entity> {
-    return this.http.get<Entity>(`${baseUrl}/${id}`);
+  get(id: any): Observable<RequestAuthorization> {
+    return this.http.get<RequestAuthorization>(`${baseUrl}/${id}`);
   }
 
   create(data: any): Observable<any> {
     console.log("test");
+    console.log(data);
+
     return this.http.post(baseUrl, data, HTTP_OPTIONS);
   }
 
@@ -45,8 +47,8 @@ export class EntityService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Entity[]> {
-    return this.http.get<Entity[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<RequestAuthorization[]> {
+    return this.http.get<RequestAuthorization[]>(`${baseUrl}?title=${title}`);
   }
   
 

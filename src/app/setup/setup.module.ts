@@ -41,25 +41,26 @@ import { SetupRoutingModule } from './setup-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { EntityService } from './service/entity.service';
-import { ProfilemanagmentComponent } from './profilemanagment/profilemanagment.component';
 import { AuthService } from '../auth/service/auth.service';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+
+import { PostemanagmentComponent } from './postemanagment/postemanagment.component';
+import { PosteService } from './service/poste.service';
+import { DepartmentService } from './service/department.service';
+import { DepartmentmanagmentComponent } from './departmentmangment/departmentmanagment.component';
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
-<<<<<<< Updated upstream
-=======
 import { TeamManagmentComponent } from './team-managment/team-managment.component';
 import { TeamService } from './service/team.service';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
+
 import { UpdateTeamComponent } from './update-team/update-team.component';
 import { RolemanagmentComponent } from './rolemanagment/rolemanagment.component';
 import { RoleService } from '../auth/service/role.service';
-
->>>>>>> Stashed changes
 
 @NgModule({
   imports: [
@@ -75,7 +76,7 @@ import { RoleService } from '../auth/service/role.service';
     ReactiveFormsModule,
     TabsModule,
     ProgressModule,
-    ReactiveFormsModule,
+    TabsModule,
     FormModule,
     ButtonGroupModule,
     AvatarModule,
@@ -98,18 +99,13 @@ import { RoleService } from '../auth/service/role.service';
     DropdownModule,
     PaginationModule,
     PopoverModule,
-    
+    MatSelectModule
     
   ],
   declarations: [
     EntitymanagmentComponent,
-<<<<<<< Updated upstream
     ProfilemanagmentComponent,ProfilelistComponent,UpdateprofileComponent,
     SettingsComponent,ResetpasswordComponent,AddConsultantComponent
-    
-  ],
-  providers: [EntityService,AuthService],
-=======
     TeamManagmentComponent,
     ProfilelistComponent,
     PostemanagmentComponent, 
@@ -131,7 +127,7 @@ import { RoleService } from '../auth/service/role.service';
               TeamService,
               RoleService
             ],
->>>>>>> Stashed changes
+
 
 
 })

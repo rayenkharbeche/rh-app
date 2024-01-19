@@ -20,12 +20,10 @@ export class User {
     image?:Image;
     active?:boolean
     country?:string
-<<<<<<< Updated upstream
-
-=======
+    isManager?:boolean
+    selected?: boolean;
     manager?:boolean
     selected?: boolean;
     teamLead?: boolean;
     leaveCredit?: number;
->>>>>>> Stashed changes
 }

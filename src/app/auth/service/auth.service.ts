@@ -9,6 +9,7 @@ import { User } from '../model/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
     httpOptions = {
@@ -105,8 +106,6 @@ export class AuthService {
                 return x;
             }));
     }
-<<<<<<< Updated upstream
-=======
     getAllbyDepartmentByposte(departmentId:any, posteId:any) {
 
         return this.http.get<User[]>(`${environment.apiUrl}/users/team?departmentId=`+ departmentId +"&posteId=" + posteId );
@@ -117,7 +116,6 @@ export class AuthService {
 
       
       updateteamlead(id: string, params: any) {
-       
         return this.http.put(`${environment.apiUrl}/users/teamlead/${id}`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
@@ -138,6 +136,7 @@ export class AuthService {
 
       }
     }
+
       
     updateteamleadStatus(id: string, params: any) {
        
@@ -171,8 +170,4 @@ export class AuthService {
                 return x;
             }));
     }
-
-
-    
->>>>>>> Stashed changes
 }

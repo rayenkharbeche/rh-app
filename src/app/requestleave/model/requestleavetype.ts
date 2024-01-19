@@ -5,4 +5,5 @@ export enum RequestleaveType {
   unpaidLeave = 'Unpaid Leave',
   rttLeave = 'Rtt Leave',
   specialLeave = 'Special Leave',
+
 }

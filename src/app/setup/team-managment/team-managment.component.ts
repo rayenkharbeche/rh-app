@@ -10,6 +10,7 @@ import { Team } from '../model/team';
 import { TeamService } from '../service/team.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-team-managment',
 
@@ -17,8 +18,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './team-managment.component.css'
 })
 export class TeamManagmentComponent {
-
-
 
   departments?: Department[];
   postes?: Poste[];
@@ -33,6 +32,7 @@ export class TeamManagmentComponent {
   managers!:User[];
 
   constructor(private DepartmentService: DepartmentService,
+
     private _activatedroute:ActivatedRoute,
     private router: Router,
 
@@ -129,6 +129,7 @@ export class TeamManagmentComponent {
                 next: (res) => {
                 }})
               }
+
               const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
               this.router.navigateByUrl(returnUrl);   
 
@@ -147,6 +148,7 @@ export class TeamManagmentComponent {
     
         const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/updateteam/'+ team.id ;
         this.router.navigateByUrl(returnUrl);   
+
         }
 
 

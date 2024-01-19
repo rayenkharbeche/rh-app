@@ -77,8 +77,6 @@ const routes: Routes = [
           title: 'Register Page'
         }
       },
-<<<<<<< Updated upstream
-=======
       {
         path: 'requestAuthorization',
         loadChildren: () =>
@@ -95,9 +93,6 @@ const routes: Routes = [
           data: { roles: ['consultant' , 'teamLead', 'manager'] }
 
       },
->>>>>>> Stashed changes
-    
-
       
     ]
   },

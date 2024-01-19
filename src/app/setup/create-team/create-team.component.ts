@@ -8,6 +8,7 @@ import { Poste } from '../model/poste';
 import { User } from '../../auth/model/user';
 import { Team } from '../model/team';
 import { ActivatedRoute, Router } from '@angular/router';
+
 class Customer {
   public id!: number;
   public name!: string;
@@ -41,6 +42,7 @@ choosemanager!: boolean;
 name: any;
 manager: any;
 
+
   constructor(private DepartmentService: DepartmentService,
     private Teamservice: TeamService,
     private formBuilder: FormBuilder,
@@ -66,6 +68,8 @@ manager: any;
 ngOnInit() {
   this.retrieveDepartments();
   
+
+
   this.customerForm = this.formBuilder.group({
     customers: null,
     orders: null,
@@ -121,6 +125,7 @@ console.log(this.teamleads)
   console.log(this.users)
   
     }
+
   onChangeconsultant() {
     console.log(this.consultant)
     
@@ -142,6 +147,7 @@ console.log(this.teamleads)
         next: (data) => {
           this.managers = data;
 
+
           this.teamleads = data;
           this.users = data;
 
@@ -162,6 +168,7 @@ console.log(this.manager)
 this.team = new Team();
 this.team.department = this.department;
 /*this.team.teamlead = this.teamlead;*/
+
 this.team.name = this.name;
 
 this.Teamservice.create(this.team)
@@ -177,6 +184,7 @@ this.Teamservice.create(this.team)
 
     this.consultant.push(this.teamlead);
 console.log(this.consultant)
+
     for (let user of this.consultant) {     
     this.userService.updateteamlead(user.id!, res)
     .subscribe({
@@ -216,6 +224,7 @@ updateTeamleadStatus(id:any,data:any){
         });
       
         }
+
 
       
 }

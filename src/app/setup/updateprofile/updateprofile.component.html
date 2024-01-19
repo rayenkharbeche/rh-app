@@ -39,15 +39,6 @@
                 >
                 </c-input-group>
              
-<<<<<<< Updated upstream
-                <c-input-group class="mb-3">
-                    <select aria-label="Disabled select example" cSelect  formControlName="entity">
-                        <option>Entity</option>
-                        <option value="1">One</option>
-                        <option  value="2">Selected: Two</option>
-                        <option value="3">Three</option>
-                    </select>
-=======
                 <c-input-group class="mb-12">
                    
                     <mat-form-field>
@@ -56,7 +47,6 @@
                             <mat-option *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
->>>>>>> Stashed changes
                 </c-input-group>
               
                 <c-input-group class="mb-3">
@@ -71,25 +61,10 @@
                     >
                     </c-input-group>
 
-                <c-input-group class="mb-3">
-<<<<<<< Updated upstream
-                    <select aria-label="Disabled select example" cSelect  formControlName="poste">
-                        <option>Poste</option>
-                        <option value="1">One</option>
-                        <option  value="2">Selected: Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </c-input-group>
+         
 
                 <c-input-group class="mb-3">
-                    <select aria-label="Disabled select example" cSelect formControlName="department" >
-                        <option>Department</option>
-                        <option value="1">One</option>
-                        <option  value="2">Selected: Two</option>
-                        <option value="3">Three</option>
-                    </select>
-=======
-                   
+                  
                     <mat-form-field>
                       <mat-select placeholder="postes" [(ngModel)]="poste" name="poste" 
                       [ngModelOptions]="{standalone: true}" >
@@ -107,7 +82,6 @@
                       </mat-select>
                     </mat-form-field>
                 
->>>>>>> Stashed changes
                 </c-input-group>
                 <c-input-group class="mb-3">
                   <input [(ngModel)]="leaveCredit" name="leaveCredit" autoComplete="lastName" cFormControl placeholder="leaveCredit" [ngModelOptions]="{standalone: true}" />
