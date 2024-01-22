@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class DepartmentController {
+
 	@Autowired
 	DepartmentRepository departmentRepository;
 
@@ -42,6 +43,8 @@ public class DepartmentController {
 	@GetMapping("/Departments/{id}")
 	public ResponseEntity<Department> getDepartmentById(@PathVariable("id") long id) {
 		Optional<Department> DepartmentData = departmentRepository.findById(id);
+
+
 		if (DepartmentData.isPresent()) {
 			return new ResponseEntity<>(DepartmentData.get(), HttpStatus.OK);
 		} else {

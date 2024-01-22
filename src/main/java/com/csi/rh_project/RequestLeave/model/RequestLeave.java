@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.csi.rh_project.auth.models.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 @jakarta.persistence.Entity
 @Table(name = "requestLeave")
@@ -75,14 +77,10 @@ public class RequestLeave {
         this.startDate = startDate;
         this.endDate = endDate;
 
-
-
     }
     public RequestLeave() {
         super();
     }
-
-
 
     public long getId() {
         return id;
@@ -167,5 +165,6 @@ public class RequestLeave {
 
     public void setFileDB(FileDB fileDB) {
         this.fileDB = fileDB;
+
     }
 }
