@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RequestauthorizationRoutingModule } from './requestauthorization-routing.module';
-import { CreateAuthorizationComponent } from './create-authorization/create-authorization.component';
+import { CreateRequestAdministrativeComponent } from './create-request-administrative/create-request-administrative.component';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccordionModule, AvatarModule, BadgeModule, BreadcrumbModule, ButtonGroupModule, ButtonModule, CardModule, CollapseModule, FormModule, GridModule, ListGroupModule, ProgressModule, SharedModule, TableModule, TabsModule, UtilitiesModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
-import { AuthorizationService } from './service/authorization.service';
-import {  AuthorizationleavelistComponent } from './authorizationleavelist/authorizationleavelist.component';
-
+import { RequestadministrativeRoutingModule } from '../requestadministrative/requestadministrative-routing.module';
 
 @NgModule({
-  declarations: [CreateAuthorizationComponent,
-    AuthorizationleavelistComponent
-  ],
+  declarations: [CreateRequestAdministrativeComponent],
+
   imports: [
     CommonModule,
-    RequestauthorizationRoutingModule,
+    RequestadministrativeRoutingModule,
+    CommonModule,
     MatButtonModule,
     MatTableModule,
     FormsModule,
@@ -32,7 +30,6 @@ import {  AuthorizationleavelistComponent } from './authorizationleavelist/autho
     ButtonGroupModule,
     AvatarModule,
     TableModule,
-  
     AccordionModule,
     BadgeModule,
     BreadcrumbModule,
@@ -41,9 +38,8 @@ import {  AuthorizationleavelistComponent } from './authorizationleavelist/autho
     SharedModule,
     ListGroupModule,
     IconModule,
-  ],
-  providers: [AuthorizationService
     
   ],
+
 })
-export class RequestauthorizationModule { }
+export class RequestadministrativeModule { }

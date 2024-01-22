@@ -6,5 +6,6 @@ export class RequestAuthorization{
   user!: User;
   type!: string;
   statutDemande!: string;
+ 
 
 }

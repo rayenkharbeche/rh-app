@@ -27,6 +27,9 @@ export class AuthorizationService {
   get(id: any): Observable<RequestAuthorization> {
     return this.http.get<RequestAuthorization>(`${baseUrl}/${id}`);
   }
+  getAllbyuser(id: any): Observable<RequestAuthorization> {
+    return this.http.get<RequestAuthorization>(`${baseUrl}/${id}`);
+  }
 
   create(data: any): Observable<any> {
     console.log("test");
@@ -50,7 +53,9 @@ export class AuthorizationService {
   findByTitle(title: any): Observable<RequestAuthorization[]> {
     return this.http.get<RequestAuthorization[]>(`${baseUrl}?title=${title}`);
   }
-  
+  getAllbyUser(user_id: any): Observable<RequestAuthorization[]> {
+    return this.http.get<RequestAuthorization[]>(`${baseUrl}?user_id=${user_id}`);
+  }
 
 }
 
