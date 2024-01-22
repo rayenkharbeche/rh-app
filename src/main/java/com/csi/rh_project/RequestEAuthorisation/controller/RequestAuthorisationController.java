@@ -1,44 +1,42 @@
-package com.csi.rh_project.RequestLeave.controller;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+package com.csi.rh_project.RequestEAuthorisation.controller;
 
-import com.csi.rh_project.RequestLeave.model.RequestLeave;
-import com.csi.rh_project.RequestLeave.repository.RequestLeaveRepository;
-
+import com.csi.rh_project.RequestEAuthorisation.model.RequestAuthorisation;
+import com.csi.rh_project.RequestEAuthorisation.repository.RequestAuthorisationRepository;
 import com.csi.rh_project.auth.models.User;
-import com.csi.rh_project.auth.services.ImageService;
 import com.csi.rh_project.auth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class RequestLeaveController {
+public class RequestAuthorisationController {
     @Autowired
-    RequestLeaveRepository requestRepository;
+    RequestAuthorisationRepository requestAuthorisationRepository;
     private final UserService userService;
 
-    public RequestLeaveController(UserService userService) {
+    public RequestAuthorisationController(UserService userService) {
         this.userService = userService;
 
     }
 
-    @GetMapping("/RequestLeave")
-    public ResponseEntity<List<RequestLeave>> getAllRequestsByEmployeeId(@RequestParam(required = false) Integer user_id) {
+    @GetMapping("/RequestAuthorisation")
+    public ResponseEntity<List<RequestAuthorisation>> getAllRequestsByEmployeeId(@RequestParam(required = false) Integer user_id) {
         try {
             System.out.println(user_id);
 
-            List<RequestLeave> requests = new ArrayList<RequestLeave>();
+            List<RequestAuthorisation> requests = new ArrayList<RequestAuthorisation>();
             Optional<User> user = userService.findById(user_id);
             System.out.println(user);
 
-            requestRepository.findRequestLeavesByUserId(user.get()).forEach(requests::add);
+            requestAuthorisationRepository.findRequestAuthorisationByUserId(user.get()).forEach(requests::add);
 
             if (requests.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -51,9 +49,9 @@ public class RequestLeaveController {
         }
     }
 
-    @GetMapping("/RequestLeave/{id}")
-    public ResponseEntity<RequestLeave> getEntityById(@PathVariable("id") long user_id) {
-        Optional<RequestLeave> EntityData = requestRepository.findById(user_id);
+    @GetMapping("/RequestAuthorisation/{id}")
+    public ResponseEntity<RequestAuthorisation> getEntityById(@PathVariable("id") long user_id) {
+        Optional<RequestAuthorisation> EntityData = requestAuthorisationRepository.findById(user_id);
         System.out.println("test");
         if (EntityData.isPresent()) {
             System.out.println(EntityData+"another test         **********************************************");
@@ -64,15 +62,15 @@ public class RequestLeaveController {
         }
     }
 
-    @PostMapping("/RequestLeave")
-    public ResponseEntity<RequestLeave> createEntity(@RequestBody RequestLeave request) {
+    @PostMapping("/RequestAuthorisation")
+    public ResponseEntity<RequestAuthorisation> createEntity(@RequestBody RequestAuthorisation request) {
         try {
             System.out.println(request.getUserId());
-            RequestLeave _Request = requestRepository
+            RequestAuthorisation _Request = requestAuthorisationRepository
 
-                    .save(new RequestLeave(request.getUserId(), request.getLeaveType(), request.getUpdateDate(),
-                            request.getLeaveBalance(), request.getStatutDemande()));
-            System.out.println(_Request);
+                    .save(new RequestAuthorisation(request.getUserId(), request.getType(), request.getAuthorisationDate(),request.getStatutDemande()));
+           // System.out.println(_Request);
+            System.out.println(request.getType());
             return new ResponseEntity<>(_Request, HttpStatus.CREATED);
 
         } catch (Exception e) {
@@ -81,20 +79,20 @@ public class RequestLeaveController {
         }
     }
 
-    @DeleteMapping("/RequestLeave/{id}")
+    @DeleteMapping("/RequestAuthorisation/{id}")
     public ResponseEntity<HttpStatus> deleteEntity(@PathVariable("id") long user_id) {
         try {
-            requestRepository.deleteById(user_id);
+        	requestAuthorisationRepository.deleteById(user_id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/RequestLeave")
+    @DeleteMapping("/RequestAuthorisation")
     public ResponseEntity<HttpStatus> deleteAllEntities() {
         try {
-            requestRepository.deleteAll();
+        	requestAuthorisationRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

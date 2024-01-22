@@ -1,6 +1,5 @@
 package com.csi.rh_project.RequestLeave.repository;
 
-import com.csi.rh_project.RequestAuthorization.model.RequestAuthorization;
 import com.csi.rh_project.RequestLeave.model.RequestLeave;
 import com.csi.rh_project.auth.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
