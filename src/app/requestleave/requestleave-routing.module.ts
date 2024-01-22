@@ -4,7 +4,6 @@ import { AddRequestleaveComponent } from './add-requestleave/add-requestleave.co
 import { RouterModule, Routes } from '@angular/router';
 import { RequestleavelistComponent } from './requestleavelist/requestleavelist.component';
 import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestleave.component';
-import { ValidatedSickLeaveComponent } from './validated-sick-leave/validated-sick-leave.component';
 
 
 
@@ -41,15 +40,7 @@ const routes: Routes = [
         data: {
           title: 'request list',
         },
-      },     
-      {
-        path: 'validatedSickLeave',
-        component: ValidatedSickLeaveComponent,
-        data: {
-          title: 'Sick Leave list',
-        },
-      },     
-           
+      },      
     ],
   },
 ];

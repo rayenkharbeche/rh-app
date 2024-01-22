@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Requestleave } from '../model/requestleave';
+import { Requestadministrative } from '../model/requestadministrative';
 
-const baseUrl = 'http://localhost:8080/api/RequestLeave';
+const baseUrl = 'http://localhost:8080/api/RequestAdministrative';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -15,22 +15,22 @@ const HTTP_OPTIONS = {
 };
 
 @Injectable()
-export class RequestleaveService {
-  requestleaveList: Requestleave[] = [];
+export class RequestadministrativeService {
+  requestadministrativeList: Requestadministrative[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Requestleave[]> {
-    return this.http.get<Requestleave[]>(baseUrl);
+  getAll(): Observable<Requestadministrative[]> {
+    return this.http.get<Requestadministrative[]>(baseUrl);
   }
 
-  get(id: any): Observable<Requestleave> {
-    return this.http.get<Requestleave>(`${baseUrl}/${id}`);
+  get(id: any): Observable<Requestadministrative> {
+    return this.http.get<Requestadministrative>(`${baseUrl}/${id}`);
   }
 
-  getAllbyuser(id: any): Observable<Requestleave> {
-    return this.http.get<Requestleave>(`${baseUrl}/${id}`);
+  getAllbyuser(id: any): Observable<Requestadministrative> {
+    return this.http.get<Requestadministrative>(`${baseUrl}/${id}`);
   }
 
 
@@ -53,11 +53,11 @@ export class RequestleaveService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Requestleave[]> {
-    return this.http.get<Requestleave[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<Requestadministrative[]> {
+    return this.http.get<Requestadministrative[]>(`${baseUrl}?title=${title}`);
   }
-    getAllbyUser(user_id: any): Observable<Requestleave[]> {
-      return this.http.get<Requestleave[]>(`${baseUrl}?user_id=${user_id}`);
+    getAllbyUser(user_id: any): Observable<Requestadministrative[]> {
+      return this.http.get<Requestadministrative[]>(`${baseUrl}?user_id=${user_id}`);
     }
 }
 

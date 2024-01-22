@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
+import { RequestAuthorization } from '../model/requestauthorization';
+import { AuthorizationService } from '../service/authorization.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestleaveService } from '../service/requestleave.service';
-import { Requestleave } from '../model/requestleave';
 
 @Component({
-  selector: 'app-requestleavelist',
-  templateUrl: './requestleavelist.component.html',
-  styleUrl: './requestleavelist.component.css'
+  selector: 'app-authorizationleavelist',
+  
+  templateUrl: './authorizationleavelist.component.html',
+  styleUrl: './authorizationleavelist.component.css'
 })
-export class RequestleavelistComponent {
+export class AuthorizationleavelistComponent {
   status!: string;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private requestleaveservice: RequestleaveService,
+    private requestauthorizationservice: AuthorizationService,
+
 
 
   ) { }
@@ -37,13 +39,12 @@ export class RequestleavelistComponent {
   selectedId: any ;
 
   
-    public requests: Requestleave[] = [
+    public requests: RequestAuthorization[] = [
       {
         id: 2,
-        startDate: new Date() ,
-        endDate: new Date() ,
-        leaveType: 'maladie',
-        status : 'OPEN',
+        type: 'maladie',
+        authorisationDate: new Date() ,
+        statutDemande : 'OPEN',
         user : {
           id: "1"
         }
@@ -62,7 +63,7 @@ export class RequestleavelistComponent {
 
       var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
-      this.requestleaveservice.getAllbyUser(currentUser.id)
+      this.requestauthorizationservice.getAllbyUser(currentUser.id)
       .subscribe({
         next: (data) => {
           this.requests = data;
@@ -74,16 +75,16 @@ export class RequestleavelistComponent {
     }
 
 
-    updateRequest( rqleave: Requestleave){
+    updateRequest( rqleave: RequestAuthorization){
       console.log(rqleave);
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/requestleave/detail/'+ rqleave.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/requestauthorization/detail/'+ rqleave.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   
-    deleteRequest(rqleave: Requestleave){
+    deleteRequest(rqleave: RequestAuthorization){
 
       console.log("test");
-      this.requestleaveservice.delete(rqleave.id)
+      this.requestauthorizationservice.delete(rqleave.id)
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -94,9 +95,5 @@ export class RequestleavelistComponent {
 
     }
     
-  
-  
-  
-    
-  }
-  
+
+}

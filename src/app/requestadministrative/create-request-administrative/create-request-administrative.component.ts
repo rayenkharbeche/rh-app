@@ -1,32 +1,32 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RequestleaveService } from '../service/requestleave.service';
-import { first } from 'rxjs/operators';
 import { User } from '../../auth/model/user';
+import { Requestadministrative } from '../model/requestadministrative';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
-import { Requestleave } from '../model/requestleave';
-import { RequestleaveType } from '../model/requestleavetype';
+import { RequestadministrativeType } from '../model/requestadministrativetype';
+import { RequestadministrativeService } from '../service/requestadministrative.service';
+import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-add-requestleave',
-  templateUrl: './add-requestleave.component.html',
-  styleUrl: './add-requestleave.component.css'
+  selector: 'app-create-request-administrative',
+  templateUrl: './create-request-administrative.component.html',
+  styleUrl: './create-request-administrative.component.css'
 })
-export class AddRequestleaveComponent {
-
+export class CreateRequestAdministrativeComponent {
   
-
   form!: FormGroup;
   loading = false;
   submitted = false;
   UserId!:User;
-  requestLeave!:Requestleave;
+  
+  requestAdministrative!:Requestadministrative;
+  
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private requestleaveservice: RequestleaveService,
+      private requestadministrativeservice: RequestadministrativeService,
       private userService: AuthService,
 
       /*private alertService: AlertService*/
@@ -36,10 +36,9 @@ export class AddRequestleaveComponent {
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
     this.form = this.formBuilder.group({
-      StartDate: ['', Validators.required],
-      EndDate: ['', Validators.required],
+     
       type: ['', Validators.required],
-      status: ['', ],
+  
    
     });
     this.userService.getById(currentUser.id).subscribe({
@@ -66,25 +65,21 @@ export class AddRequestleaveComponent {
       /*if (this.form.invalid) {
           return;
       }*/
-      this.form.value.status = RequestleaveType.OPEN;
+      this.form.value.status = RequestadministrativeType.OPEN;
 
 
-this.requestLeave = new Requestleave();
-this.requestLeave.startDate = this.form.value.StartDate;
-this.requestLeave.endDate = this.form.value.EndDate;
-this.requestLeave.leaveType = this.form.value.type;
-this.requestLeave.status = this.form.value.status;
-this.requestLeave.interneStatus = this.form.value.internestatus;
+this.requestAdministrative = new Requestadministrative();
+this.requestAdministrative.Type = this.form.value.type;
+this.requestAdministrative.user = this.UserId;
 
-console.log(this.requestLeave.userId)
-
+console.log(this.requestAdministrative.user)
       this.loading = true;
-      this.requestleaveservice.create(this.requestLeave)
+      this. requestadministrativeservice.create(this.requestAdministrative)
       .pipe(first())
       .subscribe({
           next: () => {
               /*this.alertService.success('Registration successful', { keepAfterRouteChange: true });*/
-              this.router.navigate(['/home/requestleave/requestleavelist'], { relativeTo: this.route });
+             this.router.navigate(['/home/requestadministrative/requestadministrativelist'], { relativeTo: this.route });
           },
           error: error => {
               /*this.alertService.error(error);*/
@@ -93,4 +88,7 @@ console.log(this.requestLeave.userId)
       });
       
   }
+
+  
+
 }
