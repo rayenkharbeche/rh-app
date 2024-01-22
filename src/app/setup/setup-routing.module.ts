@@ -87,14 +87,14 @@ const routes: Routes = [
         },
         
       },
-      {
+      /*{
         path: 'reset/:id',
         component: ResetpasswordComponent,
         data: {
           title: 'Reset List',
         },
         
-      },
+      },*/
       {
         path: 'addConsulant',
         component: AddConsultantComponent,
