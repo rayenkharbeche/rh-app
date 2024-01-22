@@ -1,10 +1,14 @@
 package com.csi.rh_project.auth.controllers;
 
 
+import com.csi.rh_project.auth.dtos.UpdateUserDto;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.services.ImageService;
 import com.csi.rh_project.auth.services.UserService;
-import com.csi.rh_project.setup.model.Entity;
+
+import com.csi.rh_project.setup.model.Team;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -12,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequestMapping("/users")
@@ -20,6 +25,7 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
     private final ImageService imageService;
+
 
     public UserController(UserService userService, ImageService imageService) {
         this.imageService = imageService;
@@ -50,14 +56,72 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-        System.out.println(user.getImage().getId());
-        user.setImage(imageService.findById(user.getImage().getId()));
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody UpdateUserDto user) {
 
-        System.out.println(user);
-        return userService.save(id, user);
+        if (user.getImage() != null) {
+            user.setImage(imageService.findById(user.getImage().getId()));
+        }
+
+
+        return userService.updateUser(id, user);
 
     }
+    @GetMapping("/team")
+    public ResponseEntity<List<User>> allUsersbydepartmentteam(@RequestParam Long departmentId,@RequestParam Long teamId) {
+        System.out.println(departmentId);
+        System.out.println(teamId);
+
+        List <User> users = userService.allUsersbydepartmentteam(departmentId, teamId);
+
+        return ResponseEntity.ok(users);
+    }
+
+    @PutMapping("/teamlead/{id}")
+    public  ResponseEntity<Team>  updateUserTeam(@PathVariable("id") Integer id, @RequestBody Team team) {
+        System.out.println(team);
+        if (team.getId() == 0){
+        userService.desafectTeam(id);
+        }
+        else {
+            userService.updateTeamlead(id,team);
+
+        }
+
+        return new ResponseEntity<>(team, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/department")
+    public ResponseEntity<List<User>> allUsersbydepartment(@RequestParam Long departmentId) {
+        System.out.println(departmentId);
+        List <User> users = userService.allUsersbydepartment(departmentId);
+
+        return ResponseEntity.ok(users);
+    }
+    @PutMapping("/teamleadstatus/{id}")
+    public  ResponseEntity<Team>  updateteamleadStatus(@PathVariable("id") Integer id, @RequestBody Team team) {
+        System.out.println(team);
+        if (team.getId() != 0){
+            userService.updateTeamleadStatus(id,team);
+
+        }
+
+        return new ResponseEntity<>(team, HttpStatus.OK);
+
+    }
+    @PutMapping("/managerstatus/{id}")
+    public  ResponseEntity<Team>  updatemanagerStatus(@PathVariable("id") Integer id, @RequestBody Team team) {
+        System.out.println(team);
+        if (team.getId() != 0){
+            userService.updateManagerStatus(id,team);
+
+        }
+
+        return new ResponseEntity<>(team, HttpStatus.OK);
+
+    }
+
+
 
 
 

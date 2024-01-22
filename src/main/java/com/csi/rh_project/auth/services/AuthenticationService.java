@@ -2,12 +2,12 @@ package com.csi.rh_project.auth.services;
 
 import com.csi.rh_project.auth.dtos.LoginUserDto;
 import com.csi.rh_project.auth.dtos.RegisterUserDto;
+import com.csi.rh_project.auth.models.Mail;
 import com.csi.rh_project.auth.models.Role;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.repositories.RoleRepository;
 import com.csi.rh_project.auth.repositories.UserRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +26,7 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
     private final EmailService emailService;
 
     public AuthenticationService(
@@ -117,44 +118,43 @@ public class AuthenticationService {
     }
 
     public String forgotPassword(String email) {
-        System.out.println(userRepository.findByEmail(email));
-        HttpServletRequest request = null;
-        /*Optional<User> userOptional = Optional
-                .ofNullable(userRepository.findUserByEmail(email));*/
+
         Optional<User> userOptional = userRepository.findByEmail(email);
-        System.out.println(userOptional.get());
+
         if (!userOptional.isPresent()) {
             return "Invalid email id.";
         }
 
         User user = userOptional.get();
 
-
-        user.setToken(generateToken());
+        String token = generateToken();
+        user.setToken(token);
         user.setTokenCreationDate(LocalDateTime.now());
-
+        if (user == null){
+            return "forgot-password";
+        }
         user = userRepository.save(user);
+        if (user != null) {
 
-        /*Mail mail = new Mail();
-        mail.setFrom("no-reply@mohyehia.com");
-        mail.setTo(user.getEmail());
-        mail.setSubject("Password reset request");
+            Mail mail = new Mail();
+            mail.setFrom("csi.international2010@gmail.com");
+            mail.setTo(user.getEmail());
+            mail.setSubject("Password reset request");
 
-        Map<String, Object> mailModel = new HashMap<>();
-        mailModel.put("token", generateToken());
-        mailModel.put("user", user);
-        mailModel.put("signature", "http://mohyehia.com");
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        mailModel.put("resetUrl", url + "/reset-password?token=" + user.getToken());
-        mail.setModel(mailModel);*/
-        /* send email using emailService
-        if email sent successfully redirect with flash attributes
-         */
+            Map<String, Object> model = new HashMap<>();
+            model.put("token", token);
+            model.put("user", user);
+            System.out.println(user);
 
-        /*emailService.sendEmail( "benharizines95@gmail.com",  "subject",  "body");*/
-        /*emailService.send(mail);*/
-        /*attributes.addFlashAttribute("success", messageSource.getMessage("PASSWORD_RESET_TOKEN_SENT", new Object[]{}, Locale.ENGLISH));
-*/
+            model.put("signature", "https://csi_internationale.com");
+            String url = "http://localhost:4200/#/reset/" + token;
+            model.put("resetUrl", url);
+            mail.setModel(model);
+
+            emailService.sendEmail(mail);
+        }
+
+
         return user.getToken();
     }
 
@@ -165,9 +165,14 @@ public class AuthenticationService {
         Optional<User> userOptional = Optional
                 .ofNullable(userRepository.findByToken(token));
 
+
         if (!userOptional.isPresent()) {
+
             return "Invalid token.";
+
         }
+
+
 
         LocalDateTime tokenCreationDate = userOptional.get().getTokenCreationDate();
 

@@ -27,7 +27,7 @@ public class ImageController {
     public ResponseEntity<ImageUploadResponse> uplaodImage(@RequestParam("image") MultipartFile file)
             throws IOException {
         Image image = new Image();
-image.setName(file.getOriginalFilename());
+        image.setName(file.getOriginalFilename());
 
         if(!imageRepository.exists(Example.of(image))) {
 
