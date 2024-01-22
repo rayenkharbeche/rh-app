@@ -61,7 +61,7 @@ export class AuthService {
     }
     forgotpassword(user: User) {
         console.log(user);
-        return this.http.post(`${environment.apiUrl}/auth/signup`, user);
+        return this.http.post(`${environment.apiUrl}/auth/forgot-password`, user);
     }
 
     getAll() {
@@ -72,8 +72,8 @@ export class AuthService {
     getById(id: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
-    resetpassword(user: User){
-        return this.http.put(`${environment.apiUrl}/auth/reset-password`, user)
+    resetpassword(data: any){
+        return this.http.put(`${environment.apiUrl}/auth/reset-password`, data)
 
 
     }

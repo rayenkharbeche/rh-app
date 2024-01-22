@@ -41,8 +41,9 @@ user!: User;
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
     console.log(this.form.invalid);
-    const id = this.route.snapshot.paramMap.get("id");
-
+    //const id = this.route.snapshot.paramMap.get("id");
+    const token = this.route.snapshot.paramMap.get("token")
+    console.log(token)
       this.submitted = true;
       // reset alerts on submit
       /*this.alertService.clear();*/
@@ -51,7 +52,18 @@ user!: User;
       if (this.form.invalid) {
           return;
       }
-      this.accountService.getById(id!)
+      const data = {
+        token: token,
+        password: this.form.value.password
+      };
+      this.accountService.resetpassword(data).subscribe({
+        next: (res) => {
+          console.log(res);
+
+        },
+        error: (e) => console.error(e)
+      });
+      /*this.accountService.getById(id!)
       .subscribe({
         next: (data) => {
           console.log(data);
@@ -72,7 +84,9 @@ user!: User;
         },
         error: (e) => console.error(e)
 
-      });
+      });*/
+     
+      
      
   }
 }

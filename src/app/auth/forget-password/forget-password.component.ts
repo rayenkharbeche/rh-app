@@ -25,7 +25,6 @@ export class ForgetPasswordComponent {
   ngOnInit() {
       this.form = this.formBuilder.group({
           email: ['', Validators.required],
-          password: ['', Validators.required]
       });
   }
 
@@ -37,14 +36,17 @@ export class ForgetPasswordComponent {
 
       // reset alerts on submit
       /*this.alertService.clear();*/
-
+      console.log(this.form.invalid)
+      const data = {
+        email:this.form.value.email,
+      };
       // stop here if form is invalid
       if (this.form.invalid) {
           return;
       }
-
+console.log(this.form)
       this.loading = true;
-      this.accountService.forgotpassword(this.form.value.email)
+      this.accountService.forgotpassword(data)
           .pipe(first())
           .subscribe({
               next: () => {

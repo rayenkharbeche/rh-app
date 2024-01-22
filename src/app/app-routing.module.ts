@@ -8,6 +8,8 @@ import { AuthGuard } from './auth/_helpers';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { Role } from './auth/model/role';
+import { SettingsComponent } from './setup/settings/settings.component';
+import { ResetpasswordComponent } from './setup/resetpassword/resetpassword.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,15 @@ const routes: Routes = [
     data: {
       title: 'Register Page'
     }
+  },
+  
+  {
+    path: 'reset/:token',
+    component: ResetpasswordComponent,
+    data: {
+      title: 'Reset List',
+    },
+    
   },
 
   {

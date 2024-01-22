@@ -74,9 +74,10 @@ this.requestLeave.startDate = this.form.value.StartDate;
 this.requestLeave.endDate = this.form.value.EndDate;
 this.requestLeave.leaveType = this.form.value.type;
 this.requestLeave.status = this.form.value.status;
-this.requestLeave.user = this.UserId;
+this.requestLeave.interneStatus = this.form.value.internestatus;
 
-console.log(this.requestLeave.user)
+console.log(this.requestLeave.userId)
+
       this.loading = true;
       this.requestleaveservice.create(this.requestLeave)
       .pipe(first())
