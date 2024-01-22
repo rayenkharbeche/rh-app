@@ -101,8 +101,6 @@ this.requestLeave.interneStatus = this.form.value.internestatus;
 
 console.log(this.requestLeave.userId)
 
-this.requestLeave.userId = this.UserId;
-
       this.loading = true;
       this.requestleaveservice.create(this.requestLeave)
       .pipe(first())
