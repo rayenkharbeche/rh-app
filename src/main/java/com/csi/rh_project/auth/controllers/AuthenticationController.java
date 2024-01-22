@@ -1,25 +1,20 @@
 package com.csi.rh_project.auth.controllers;
 
 import com.csi.rh_project.auth.dtos.LoginUserDto;
+import com.csi.rh_project.auth.dtos.PasswordForgotDto;
 import com.csi.rh_project.auth.dtos.RegisterUserDto;
 import com.csi.rh_project.auth.dtos.TokenUserDto;
-import com.csi.rh_project.auth.models.Mail;
-import com.csi.rh_project.auth.models.Role;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.responses.LoginResponse;
 import com.csi.rh_project.auth.services.AuthenticationService;
+import com.csi.rh_project.auth.services.EmailService;
 import com.csi.rh_project.auth.services.JwtService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/auth")
 @RestController
@@ -28,9 +23,11 @@ public class AuthenticationController {
     private final JwtService jwtService;
     private final AuthenticationService authenticationService;
 
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
+
+    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService,EmailService emailService ) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
+
     }
 
     @PostMapping("/signup")
@@ -44,9 +41,13 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+        System.out.println("test");
+
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
+        System.out.println(jwtToken);
+
         User user = authenticationService.findByEmail(loginUserDto.getEmail());
         System.out.println(user);
         System.out.println(user.getRole().getRole());
@@ -59,16 +60,18 @@ public class AuthenticationController {
         return ResponseEntity.ok(loginResponse);
     }
 
+
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestBody LoginUserDto loginUserDto) {
-System.out.println(loginUserDto);
+    public String processForgotPasswordForm(@RequestBody PasswordForgotDto form,
+                                            BindingResult result,
+                                            HttpServletRequest request) {
 
-        String response = authenticationService.forgotPassword(loginUserDto.getEmail());
-
-        if (!response.startsWith("Invalid")) {
-            response = "http://localhost:8080/reset-password?token=" + response;
+        if (result.hasErrors()){
+            return "forgot-password";
         }
-        return response;
+        System.out.println(result);
+        authenticationService.forgotPassword(form.getEmail());
+        return "redirect:/forgot-password?success";
     }
 
     @PutMapping("/reset-password")

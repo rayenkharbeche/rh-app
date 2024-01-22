@@ -2,12 +2,13 @@
 package com.csi.rh_project.auth.models;
 
 import com.csi.rh_project.setup.model.Department;
-import com.csi.rh_project.setup.model.Position;
+
+import com.csi.rh_project.setup.model.Team;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.csi.rh_project.setup.model.Entity;
 
@@ -43,37 +44,62 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @Column(name = "birth_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date birthdayDate;
+    @Column(name = "contract_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date contractStartDate;
+
+
+
+    @Column(name = "leave_credit")
+    private double leaveCredit;
+
+    public double getLeaveCredit() {
+        return leaveCredit;
+    }
+
+    public void setLeaveCredit(double leaveCredit) {
+        this.leaveCredit = leaveCredit;
+    }
+
+    public Date getBirthdayDate() {
+        return birthdayDate;
+    }
+
+    public void setBirthdayDate(Date birthdayDate) {
+        this.birthdayDate = birthdayDate;
+    }
+
+
+
     @Column(name = "token")
     private String token;
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime tokenCreationDate;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id")
     private Role role;
 
-    /*birthdayDate?: string;
-    entity?: Entity;
-    cotractStartDate?: string;
-    poste?: string;
-    department?: string;*/
+
+
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "entity_id")
     private Entity entity;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "poste_id")
-    private Position poste;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    /*@JoinColumn(name = "image_id")
-    private String image;*/
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "image_id")
     private Image image;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
 
     @Override
@@ -88,7 +114,7 @@ public class User implements UserDetails {
         super();
         this.email=email;
     }
-    public User(String firstname,String lastname, String password,String email,Role role,Image image){
+    public User(String firstname,String lastname, String password,String email,Role role,Image image,Date birthdayDate, Date contractStartDate){
         super();
         this.firstname=firstname;
         this.lastname=lastname;
@@ -96,6 +122,8 @@ public class User implements UserDetails {
         this.email=email;
         this.role=role;
         this.image=image;
+        this.birthdayDate=birthdayDate;
+        this.contractStartDate=contractStartDate;
 
     }
     public User(String token,LocalDateTime tokenCreationDate){
@@ -244,13 +272,6 @@ public class User implements UserDetails {
         this.entity = entity;
     }
 
-    public Position getPoste() {
-        return poste;
-    }
-
-    public void setPoste(Position poste) {
-        this.poste = poste;
-    }
 
     public Department getDepartment() {
         return department;
@@ -268,15 +289,24 @@ public class User implements UserDetails {
         this.image = image;
     }
 
-    /*public void setImage(Optional<Image> byId) {
-    }*/
 
-    /*public String getImage() {
-        return image;
+
+
+    public Team getTeam() {
+        return team;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }*/
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+
+    public Date getContractStartDate() {
+        return contractStartDate;
+    }
+
+    public void setContractStartDate(Date contractStartDate) {
+        this.contractStartDate = contractStartDate;
+    }
 }
 

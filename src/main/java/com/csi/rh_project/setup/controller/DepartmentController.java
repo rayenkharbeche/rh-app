@@ -1,10 +1,8 @@
 package com.csi.rh_project.setup.controller;
 
-
 import com.csi.rh_project.setup.model.Department;
-import com.csi.rh_project.setup.model.Entity;
 import com.csi.rh_project.setup.repository.DepartmentRepository;
-import com.csi.rh_project.setup.repository.EntityRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +43,7 @@ public class DepartmentController {
 	@GetMapping("/Departments/{id}")
 	public ResponseEntity<Department> getDepartmentById(@PathVariable("id") long id) {
 		Optional<Department> DepartmentData = departmentRepository.findById(id);
+
 
 		if (DepartmentData.isPresent()) {
 			return new ResponseEntity<>(DepartmentData.get(), HttpStatus.OK);
