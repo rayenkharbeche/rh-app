@@ -2,6 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Entity } from '../model/entity';
 import { EntityService } from '../service/entity.service';
+import {MatDialog} from '@angular/material/dialog';
+import { CreateentityComponent } from '../createentity/createentity.component';
+import { IconSetService } from '@coreui/icons-angular';
+import { brandSet, flagSet, freeSet } from '@coreui/icons';
 
 @Component({
   selector: 'app-entitymanagment',
@@ -17,13 +21,27 @@ export class EntitymanagmentComponent implements OnInit {
   };
   submitted = false;
   entities?: Entity[];
-  constructor(private entityService: EntityService) { }
+  public icons!: [string, string[]][];
+
+  constructor(private entityService: EntityService,
+    public iconSet: IconSetService,
+
+    public dialog: MatDialog) { 
+      iconSet.icons = { ...freeSet, ...brandSet, ...flagSet };
+
+    }
 
   
   ngOnInit(): void {
-    this.retrieveEntities();
-  }
+    this.icons = this.getIconsView('cif');
 
+    this.retrieveEntities(); 
+  }
+  getIconsView(prefix: string) {
+    return Object.entries(this.iconSet.icons).filter((icon) => {
+      return icon[0].startsWith(prefix);
+    });
+  }
   retrieveEntities(): void {
     this.entityService.getAll()
       .subscribe({
@@ -85,7 +103,17 @@ export class EntitymanagmentComponent implements OnInit {
       });
   }
 
+  openDialog(): void {
+    let dialogRef = this.dialog.open(CreateentityComponent, {
+      width: '600px',
+      data: 'Add Post'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.retrieveEntities();
 
+
+    });
+  }
 
 
 }

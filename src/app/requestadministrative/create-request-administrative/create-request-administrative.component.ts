@@ -4,9 +4,10 @@ import { User } from '../../auth/model/user';
 import { Requestadministrative } from '../model/requestadministrative';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
-import { RequestadministrativeType } from '../model/requestadministrativetype';
+import { RequestadministrativeStatut } from '../model/requestadministrativestatut';
 import { RequestadministrativeService } from '../service/requestadministrative.service';
 import { first } from 'rxjs/operators';
+import { RequestAdministrativeType } from '../model/requestadministrativetype';
 
 @Component({
   selector: 'app-create-request-administrative',
@@ -19,7 +20,8 @@ export class CreateRequestAdministrativeComponent {
   loading = false;
   submitted = false;
   UserId!:User;
-  
+  requestAdministrativeType: any;
+
   requestAdministrative!:Requestadministrative;
   
   constructor(
@@ -34,6 +36,7 @@ export class CreateRequestAdministrativeComponent {
 
   ngOnInit() {
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
+    this.requestAdministrativeType = RequestAdministrativeType;
 
     this.form = this.formBuilder.group({
      
@@ -43,7 +46,6 @@ export class CreateRequestAdministrativeComponent {
     });
     this.userService.getById(currentUser.id).subscribe({
       next: (data) => {
-        this.UserId = new User();
         this.UserId = data;
       }
   });
@@ -51,7 +53,8 @@ export class CreateRequestAdministrativeComponent {
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
-
+  getKeys(obj: any) { return Object.keys(obj); }
+  
   onSubmit() {
 
       this.submitted = true;
@@ -65,14 +68,15 @@ export class CreateRequestAdministrativeComponent {
       /*if (this.form.invalid) {
           return;
       }*/
-      this.form.value.status = RequestadministrativeType.OPEN;
-
+      this.form.value.status = RequestadministrativeStatut.OPEN;
+      
 
 this.requestAdministrative = new Requestadministrative();
-this.requestAdministrative.Type = this.form.value.type;
-this.requestAdministrative.user = this.UserId;
+this.requestAdministrative.type = this.form.value.type;
+this.requestAdministrative.userId = this.UserId;
+this.requestAdministrative.status = this.form.value.status;
 
-console.log(this.requestAdministrative.user)
+console.log(this.requestAdministrative.userId)
       this.loading = true;
       this. requestadministrativeservice.create(this.requestAdministrative)
       .pipe(first())

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthorizationleavelistComponent } from './authorizationleavelist.component';
+import { AuthorizationleavelistComponent } from './authorizationrequestlist.component';
 
 describe('AuthorizationleavelistComponent', () => {
   let component: AuthorizationleavelistComponent;

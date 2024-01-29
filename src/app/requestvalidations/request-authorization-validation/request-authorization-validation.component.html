@@ -1,1 +1,98 @@
 <p>request-authorization-validation works!</p>
+<c-row>
+    
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>Team Requests </c-card-header>
+
+          <div  class="divider d-flex justify-content-center">
+             <c-col xl="11" md="6" sm="6">
+        </c-col>
+
+
+          </div>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                <th>Consultants</th>
+
+                  <th>Authorisation Date</th>
+                  <th >Type</th>
+                  <th >status</th> 
+                  <th >Action</th>          
+         
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let request of requests; index as i"
+                    [class.selected]="request.id === selectedId">
+                          
+                    <td>
+                    
+                        <div class="d-flex justify-content-between">
+    
+                        <div>{{ request.userId.firstname}} {{ request.userId.lastName}}</div>
+    
+                        </div>
+    
+                      </td>      
+                  
+                   <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.authorisationDate | date: 'dd/MM/yyyy'}} </div>
+                    </div>
+
+                    </td>     
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      <div class="float-start">
+                        <strong>{{ request.type }}</strong>
+                      </div>
+                    </div>           
+                  </td>
+                  <td>
+    
+                  <div  class="d-flex justify-content-between">
+
+                    <small class="text-medium-emphasis">
+                      {{ request.status }}
+                    </small>
+                  </div>
+                  </td>
+                  <td *ngIf="currentUser.role == 'teamLead'">
+                    <button  [disabled]="request.interneStatus != 'ongoing'"
+                      cButton shape="sm"  size="sm" (click)="validateRequest(request)" color="primary">Validate
+                    </button>              
+                    <button [disabled]="request.interneStatus != 'ongoing'" cButton shape="sm" size="sm" (click)="rejectRequest(request)" color="info">Reject
+
+                    </button>  
+                
+                </td>
+                <td *ngIf="currentUser.role == 'manager'">
+                  <button  [disabled]="request.interneStatus != 'tl_validated'"
+                    cButton shape="sm"  size="sm" (click)="validateRequest(request)" color="primary">Validate
+                  </button>              
+                  <button [disabled]="request.interneStatus != 'tl_validated'" cButton shape="sm" size="sm" (click)="rejectRequest(request)" color="info">Reject
+
+                  </button>  
+              
+              </td>
+                </tr>
+              </tbody>
+            </table>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>

@@ -3,9 +3,10 @@ import { User } from "../../auth/model/user";
 export class RequestAuthorization{
   id!: number;
   authorisationDate!: Date;
-  user!: User;
+  userId!: User;
   type!: string;
-  statutDemande!: string;
- 
+  status!: string;
+
+  interneStatus!: string;
 
 }

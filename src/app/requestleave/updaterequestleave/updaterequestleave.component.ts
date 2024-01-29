@@ -5,6 +5,7 @@ import { User } from '../../auth/model/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { RequestleaveService } from '../service/requestleave.service';
 import { Requestleave } from '../model/requestleave';
+import { RequestleaveType } from '../model/requestleavetype';
 
 @Component({
   selector: 'app-updaterequestleave',
@@ -24,6 +25,8 @@ export class UpdaterequestleaveComponent {
   image: any;
   i!: number;
   requestLeave!: Requestleave;
+  RequestleaveTypes: any;
+
     constructor(
         private formBuilder: FormBuilder,
         private httpClient: HttpClient,
@@ -35,7 +38,8 @@ export class UpdaterequestleaveComponent {
     ngOnInit() {
       const id = this._activatedroute.snapshot.paramMap.get("id");
       var currentUser  = JSON.parse(localStorage.getItem('user')!);
-      
+      this.RequestleaveTypes = RequestleaveType;
+
 
       this.form = this.formBuilder.group({
         StartDate: ['', Validators.required],
@@ -69,7 +73,8 @@ this.requestleaveService.get(id!)
   
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
-  
+    getKeys(obj: any) { return Object.keys(obj); }
+
     onSubmit() {
       const id = this._activatedroute.snapshot.paramMap.get("id");
 
@@ -82,7 +87,10 @@ this.requestleaveService.get(id!)
         if (this.form.invalid) {
             return;
         }
-        console.log(this.requestLeave.user) ;
+        this.loading = true;
+        this.requestleaveService.update(id!, this.form.value)
+
+        console.log(this.requestLeave.userId) ;
 
                 this.requestLeave.startDate = this.form.value.StartDate;
         this.requestLeave.endDate = this.form.value.EndDate;

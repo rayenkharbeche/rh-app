@@ -29,9 +29,7 @@ export class RequestadministrativeService {
     return this.http.get<Requestadministrative>(`${baseUrl}/${id}`);
   }
 
-  getAllbyuser(id: any): Observable<Requestadministrative> {
-    return this.http.get<Requestadministrative>(`${baseUrl}/${id}`);
-  }
+ 
 
 
 
@@ -59,5 +57,9 @@ export class RequestadministrativeService {
     getAllbyUser(user_id: any): Observable<Requestadministrative[]> {
       return this.http.get<Requestadministrative[]>(`${baseUrl}?user_id=${user_id}`);
     }
+    getAllbyUserValidation(user_id: any): Observable<Requestadministrative[]> {
+      return this.http.get<Requestadministrative[]>(`${baseUrl}/validation?user_id=${user_id}`);
+    }
+    
 }
 

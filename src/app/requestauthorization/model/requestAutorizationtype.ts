@@ -1,7 +1,6 @@
 
-export enum RequestleaveType {
-    OPEN = 'open',
-    InProgress = 'inprogress',
-    Treated = 'treated',
+export enum RequestAuthorizationType {
+    ExitPermit = 'exitpermit',
+    HomeOffice = 'homeoffice',
     
   }

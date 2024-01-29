@@ -9,29 +9,34 @@
                 <p class="text-medium-emphasis">Create Request</p>
                 
              
-                <c-input-group class="mb-3">
-                    <input aria-label="Disabled input example"
-                    cFormControl
-                    formControlName="StartDate"
-                    placeholder="Birthday Date"
-                    type="date">
-                    </c-input-group>
+              
 
-                    
-                <c-input-group class="mb-3">
-                    <input aria-label="Disabled input example"
-                    cFormControl
-                    formControlName="EndDate"
-                    placeholder="End Date"
-                    type="date">
-                    </c-input-group>
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter"
+                      formControlName="StartDate"
+ 
+                     placeholder="Choose start date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker ></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker1" 
+
+                      [matDatepickerFilter]="myFilter"
+                      formControlName="EndDate"
+ 
+                     placeholder="Choose end date">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1 ></mat-datepicker>
+                    </mat-form-field>
+
+            
 
                 <c-input-group class="mb-3">
-                    <select aria-label="Disabled select example" cSelect  formControlName="type">
-                        <option>type</option>
-                        <option value="1">One</option>
-                        <option  value="2">Selected: Two</option>
-                        <option value="3">Three</option>
+                  <select  aria-label="Disabled select example" cSelect  formControlName="type" >
+                    <option >Choose Leave Type</option>
+                    <option [value]="key" *ngFor="let key of getKeys(RequestleaveTypes)">{{ RequestleaveTypes[key] }}</option>
                     </select>
                 </c-input-group>
 

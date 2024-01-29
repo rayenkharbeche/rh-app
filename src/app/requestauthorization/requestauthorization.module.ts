@@ -8,12 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccordionModule, AvatarModule, BadgeModule, BreadcrumbModule, ButtonGroupModule, ButtonModule, CardModule, CollapseModule, FormModule, GridModule, ListGroupModule, ProgressModule, SharedModule, TableModule, TabsModule, UtilitiesModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { AuthorizationService } from './service/authorization.service';
-import {  AuthorizationleavelistComponent } from './authorizationleavelist/authorizationleavelist.component';
+import { AuthorizationRequestlistComponent } from './authorizationrequestlist/authorizationrequestlist.component';
 
 
 @NgModule({
   declarations: [CreateAuthorizationComponent,
-    AuthorizationleavelistComponent
+    AuthorizationRequestlistComponent
   ],
   imports: [
     CommonModule,

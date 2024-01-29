@@ -45,6 +45,7 @@ const routes: Routes = [
     
   },
 
+
   {
     path: 'dashboard',
     redirectTo: 'dashboard',
@@ -89,6 +90,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'settings',
+        component: SettingsComponent,
+        data: {
+          title: 'Login Page'
+        }
+      },
+      {
         path: 'requestAuthorization',
         loadChildren: () =>
           import('./requestauthorization/requestauthorization.module').then((m) => m.RequestauthorizationModule),
@@ -101,7 +109,23 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestvalidations/requestvalidations.module').then((m) => m.RequestvalidationsModule),
           canActivate: [AuthGuard],
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra'] }
+
+      },
+      {
+        path: 'requestadministrative',
+        loadChildren: () =>
+          import('./requestadministrative/requestadministrative.module').then((m) => m.RequestadministrativeModule),
+          canActivate: [AuthGuard],
           data: { roles: ['consultant' , 'teamLead', 'manager'] }
+
+      },
+      {
+        path: 'requestequipment',
+        loadChildren: () =>
+          import('./requestequipment/requestequipment.module').then((m) => m.RequestequipmentModule),
+          canActivate: [AuthGuard],
+          data: { roles: ['consultant' , 'teamLead', 'manager','Rh'] }
 
       },
       

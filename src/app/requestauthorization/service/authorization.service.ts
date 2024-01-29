@@ -27,7 +27,8 @@ export class AuthorizationService {
   get(id: any): Observable<RequestAuthorization> {
     return this.http.get<RequestAuthorization>(`${baseUrl}/${id}`);
   }
-  getAllbyuser(id: any): Observable<RequestAuthorization> {
+  getbyuser(id: any): Observable<RequestAuthorization> {
+    console.log(id);
     return this.http.get<RequestAuthorization>(`${baseUrl}/${id}`);
   }
 
@@ -54,8 +55,19 @@ export class AuthorizationService {
     return this.http.get<RequestAuthorization[]>(`${baseUrl}?title=${title}`);
   }
   getAllbyUser(user_id: any): Observable<RequestAuthorization[]> {
+    console.log(user_id);
+
     return this.http.get<RequestAuthorization[]>(`${baseUrl}?user_id=${user_id}`);
   }
+  getAllbyTeam(user_id: any): Observable<RequestAuthorization[]> {
+    return this.http.get<RequestAuthorization[]>(`${baseUrl}/RequestAuthorizationbyteam?user_id=${user_id}`);
+
+  }
+  updateStatus(id: any, data: any): Observable<any> {
+    console.log(data)
+    return this.http.put(`${baseUrl}/updateStatus/${id}`, data);
+  }
+
 
 }
 

@@ -59,6 +59,10 @@ export class AuthService {
         console.log(user);
         return this.http.post(`${environment.apiUrl}/auth/signup`, user);
     }
+    addUser(user: User) {
+        console.log(user);
+        return this.http.post(`${environment.apiUrl}/users/addUser`, user);
+    }
     forgotpassword(user: User) {
         console.log(user);
         return this.http.post(`${environment.apiUrl}/auth/forgot-password`, user);

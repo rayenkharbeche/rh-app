@@ -1,3 +1,4 @@
+<p>requestequipmentlist works!</p>
 <c-row>
     
     <c-col xs>
@@ -28,10 +29,10 @@
               <thead cTableColor="light">
                 <tr>
            
-                  <th >type</th>
-                  <th >authorisationDate</th> 
-                  <th >statutDemande</th>          
-         
+                  <th >Type</th>
+                  <th >Status</th>          
+                  <th >Action</th>          
+
                 </tr>
               </thead>
               <tbody>
@@ -45,14 +46,7 @@
                         </div>
                       </div>           
                     </td>   
-                  <td>
-                    <div class="d-flex justify-content-between">
-
-                    <div>{{ request.authorisationDate | date: 'dd/MM/yyyy'}}</div>
-
-                    </div>
-
-                  </td>
+                
                      
                   
                   <td>
@@ -60,7 +54,7 @@
                   <div  class="d-flex justify-content-between">
 
                     <small class="text-medium-emphasis">
-                      {{ request.statutDemande }}
+                      {{ request.status }}
                     </small>
                   </div>
                   </td>

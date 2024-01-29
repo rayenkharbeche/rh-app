@@ -8,9 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccordionModule, AvatarModule, BadgeModule, BreadcrumbModule, ButtonGroupModule, ButtonModule, CardModule, CollapseModule, FormModule, GridModule, ListGroupModule, ProgressModule, SharedModule, TableModule, TabsModule, UtilitiesModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { RequestadministrativeRoutingModule } from '../requestadministrative/requestadministrative-routing.module';
+import { RequestadministrativeService } from './service/requestadministrative.service';
+import { AdministrativeListComponent } from './administrative-list/administrative-list.component';
 
 @NgModule({
-  declarations: [CreateRequestAdministrativeComponent],
+  declarations: [CreateRequestAdministrativeComponent,AdministrativeListComponent],
 
   imports: [
     CommonModule,
@@ -40,6 +42,8 @@ import { RequestadministrativeRoutingModule } from '../requestadministrative/req
     IconModule,
     
   ],
+  providers: [RequestadministrativeService],
+
 
 })
 export class RequestadministrativeModule { }
