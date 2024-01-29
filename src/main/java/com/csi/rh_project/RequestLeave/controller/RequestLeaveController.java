@@ -82,13 +82,13 @@ public class RequestLeaveController {
             if (Objects.equals(request.getUserId().getRole().getRole(), "teamLead")) {
                 User user = userService.getmanager(request.getUserId().getTeam().getId());
 
-                emailService.sendEmailFromTemplate(user, "email-template.txt" , subject);
+                emailService.sendEmailFromTemplate(user, "email-template.txt" , subject,"Leave Request");
 
             } else  if (Objects.equals(request.getUserId().getRole().getRole(), "consultant"))  {
                 _users = userService.getteamLeadandManager(request.getUserId().getTeam().getId());
                 if (!_users.isEmpty()) {
                     for (User _user : _users) {
-                        emailService.sendEmailFromTemplate(_user, "email-template.txt" , subject);
+                        emailService.sendEmailFromTemplate(_user, "email-template.txt" , subject,"Leave Request");
 
                     }
                 }
@@ -193,12 +193,12 @@ public class RequestLeaveController {
 
             if (Objects.equals(requestLeave.getStatus(), "validated")){
                 String subject = "Request Leave validated";
-                emailService.sendEmailFromTemplate(requestLeave.getUserId(), "email-template_1.txt" , subject);
+                emailService.sendEmailFromTemplate(requestLeave.getUserId(), "email-template_1.txt" , subject,"Leave Request");
             }
             if (Objects.equals(requestLeave.getInterneStatus(), "tl_validated")){
                 String subject = "Request Leave validated by Team Lead ";
                 User manager = userService.getmanager(requestLeave.getUserId().getTeam().getId());
-                emailService.sendEmailFromTemplate(manager, "email-template_2.txt" , subject);
+                emailService.sendEmailFromTemplate(manager, "email-template_2.txt" , subject,"Leave Request");
             }
 
 
@@ -227,6 +227,26 @@ public class RequestLeaveController {
             List<RequestLeave> requests = new ArrayList<RequestLeave>();
 
             requests = requestRepository.findSickLeavesById(user_id);
+
+            if (requests.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(requests, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/RequestLeave/requestValidated")
+    public ResponseEntity<List<RequestLeave>> getRequestById() {
+        try {
+            System.out.println("requests");
+
+            List<RequestLeave> requests = new ArrayList<RequestLeave>();
+
+            requests = requestRepository.findrequestLeavesValidated();
+            System.out.println(requests);
 
             if (requests.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -2,7 +2,7 @@ package com.csi.rh_project.AdministrativeRequest.Controller;
 
 import com.csi.rh_project.AdministrativeRequest.model.RequestAdministrative;
 import com.csi.rh_project.AdministrativeRequest.repository.RequestAdministrativeRepository;
-import com.csi.rh_project.RequestEAuthorisation.model.RequestAuthorisation;
+import com.csi.rh_project.RequestLeave.model.RequestLeave;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -31,13 +32,62 @@ public class RequestAdministrativeController {
     @GetMapping("/RequestAdministrative")
     public ResponseEntity<List<RequestAdministrative>> getAllRequestsByEmployeeId(@RequestParam(required = false) Integer user_id) {
         try {
-            System.out.println(user_id);
 
             List<RequestAdministrative> requests = new ArrayList<RequestAdministrative>();
+            /*if (user_id != null){
             Optional<User> user = userService.findById(user_id);
-            System.out.println(user);
+                requestAdministrativeRepository.findRequestAdministrativeByUserId(user.get()).forEach(requests::add);
 
-            requestAdministrativeRepository.findRequestAdministrativeByUserId(user.get()).forEach(requests::add);
+            }*/
+            if (user_id != null){
+                Optional<User> user = userService.findById(user_id);
+                User _User = user.get();
+                requestAdministrativeRepository.findRequestAdministrativeByUserId(user.get()).forEach(requests::add);
+
+            }
+             else {
+
+                requestAdministrativeRepository.findAll().forEach(requests::add);
+
+            }
+
+            System.out.println(requests);
+
+            if (requests.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(requests, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/RequestAdministrative/validation")
+    public ResponseEntity<List<RequestAdministrative>> getAllRequestvalidation(@RequestParam(required = false) Integer user_id) {
+        try {
+
+            List<RequestAdministrative> requests = new ArrayList<RequestAdministrative>();
+
+            if (user_id != null){
+                Optional<User> user = userService.findById(user_id);
+                User _User = user.get();
+                if (Objects.equals(_User.getRole().getRole(), "Infra")) {
+                    requestAdministrativeRepository.findRequestAdministrativestypeITsupport().forEach(requests::add);
+
+                } else  if (Objects.equals(_User.getRole().getRole(), "Rh")) {
+                    requestAdministrativeRepository.findRequestAdministrativestypeITsupport().forEach(requests::add);
+                }
+            }
+            else {
+                System.out.println("test2");
+
+                requestAdministrativeRepository.findAll().forEach(requests::add);
+
+            }
+
+            System.out.println(requests);
 
             if (requests.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -69,7 +119,7 @@ public class RequestAdministrativeController {
             System.out.println(request.getUserId());
             RequestAdministrative _Request = requestAdministrativeRepository
 
-                    .save(new RequestAdministrative(request.getUserId(), request.getType()));
+                    .save(new RequestAdministrative(request.getUserId(), request.getType(), request.getStatus(), request.getInterneStatus()));
            // System.out.println(_Request);
             System.out.println(request.getType());
             return new ResponseEntity<>(_Request, HttpStatus.CREATED);
@@ -79,7 +129,22 @@ public class RequestAdministrativeController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PutMapping("/RequestAdministrative/{id}")
+    public ResponseEntity<RequestAdministrative> updateEntity(@PathVariable("id") long id, @RequestBody RequestAdministrative requestAdministrative) {
+        Optional<RequestAdministrative> EntityData = requestAdministrativeRepository.findById(id);
 
+        if (EntityData.isPresent()) {
+            RequestAdministrative _RequestAdministrative = EntityData.get();
+            _RequestAdministrative.setType(requestAdministrative.getType());
+            _RequestAdministrative.setInterneStatus(requestAdministrative.getInterneStatus());
+            _RequestAdministrative.setStatus(requestAdministrative.getStatus());
+
+
+            return new ResponseEntity<>(requestAdministrativeRepository.save(_RequestAdministrative), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping("/RequestAdministrative/{id}")
     public ResponseEntity<HttpStatus> deleteEntity(@PathVariable("id") long user_id) {
         try {

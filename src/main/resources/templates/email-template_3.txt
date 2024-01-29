@@ -1,1 +1,1 @@
-<html><head></head><body><p>Hello ${firstName} ${lastName},</p><p>Request Leave validated by Team Lead </p><p>Thanks</p></body></html>
+<html><head></head><body><p>Hello ${firstName} ${lastName},</p><p> ${request} validated by Team Lead </p><p>Thanks</p></body></html>

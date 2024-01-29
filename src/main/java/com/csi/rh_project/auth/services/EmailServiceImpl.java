@@ -52,7 +52,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmailFromTemplate(User user, String mailTemplate , String Subject) {
+    public void sendEmailFromTemplate(User user, String mailTemplate , String Subject,String Request ) {
 
         MimeMessage message = emailSender.createMimeMessage();
 
@@ -73,6 +73,8 @@ public class EmailServiceImpl implements EmailService {
 
             data = data.replace("${firstName}", user.getFirstname());
             data = data.replace("${lastName}", user.getLastName());
+            data = data.replace("${request}", Request);
+
             System.out.println(data);
 
             message.setContent(data, "text/html; charset=utf-8");

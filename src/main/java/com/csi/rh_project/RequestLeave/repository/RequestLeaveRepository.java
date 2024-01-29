@@ -1,6 +1,5 @@
 package com.csi.rh_project.RequestLeave.repository;
 
-import com.csi.rh_project.RequestAuthorization.model.RequestAuthorization;
 
 import com.csi.rh_project.RequestLeave.model.RequestLeave;
 import com.csi.rh_project.auth.models.User;
@@ -25,5 +24,6 @@ public interface RequestLeaveRepository extends JpaRepository<RequestLeave, Long
 
 	@Query(value = "SELECT u from RequestLeave u WHERE u.userId.id = :userId and u.leaveType = 'sickLeave' and u.status = 'Validated' ")
 	List<RequestLeave> findSickLeavesById(@Param("userId") long userId);
-
+	@Query(value = "SELECT u from RequestLeave u WHERE  u.status = 'Validated' order by u.userId.id")
+	List<RequestLeave> findrequestLeavesValidated();
 }

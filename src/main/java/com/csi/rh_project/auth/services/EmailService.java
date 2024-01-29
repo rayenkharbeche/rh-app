@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface EmailService {
      void sendEmail(String to, String subject, String body);
-    void sendEmailFromTemplate(User user, String mailTemplate , String Subject);
+    void sendEmailFromTemplate(User user, String mailTemplate , String Subject,String request);
     void sendEmail(Mail mail);
 
     }

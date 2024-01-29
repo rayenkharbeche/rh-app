@@ -64,7 +64,7 @@ public class ScheduledTasks {
                     requestLeave.setLeaveType("annualLeave");
                     requestLeaveService.updateRequest(requestLeave.getId(),requestLeave);
                     String subject = "Request Leave Status ";
-                    emailService.sendEmailFromTemplate(requestLeave.getUserId(), "email-template_3.txt" , subject);
+                    emailService.sendEmailFromTemplate(requestLeave.getUserId(), "email-template_2.txt" , subject,"Leave Request");
 
                 }
             }

@@ -1,4 +1,4 @@
-package com.csi.rh_project.RequestEAuthorisation.model;
+package com.csi.rh_project.RequestAuthorisation.model;
 
 import java.util.Date;
 
@@ -22,6 +22,14 @@ public class RequestAuthorisation {
     @JoinColumn(name = "user_id")
     private User userId;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Column(name = "type")
     private String type;
 
@@ -34,16 +42,6 @@ public class RequestAuthorisation {
         this.userId = userId;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        type = type;
-    }
-
-
-
 
     public Date getAuthorisationDate() {
 		return authorisationDate;
@@ -53,13 +51,6 @@ public class RequestAuthorisation {
 		this.authorisationDate = authorisationDate;
 	}
 
-	public String getStatutDemande() {
-		return statutDemande;
-	}
-
-	public void setStatutDemande(String statutDemande) {
-		this.statutDemande = statutDemande;
-	}
 
 
 
@@ -68,18 +59,39 @@ public class RequestAuthorisation {
     private Date authorisationDate;
 
 
-    @Column(name = "statut_demande")
-    private String statutDemande;
-    public RequestAuthorisation(User user_id, String Type, Date AuthorisationDate, String statutDemande) {
+    @Column(name = "status")
+    private String status;
+    @Column(name = "interne_status")
+    private String interneStatus;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInterneStatus() {
+        return interneStatus;
+    }
+
+    public void setInterneStatus(String interneStatus) {
+        this.interneStatus = interneStatus;
+    }
+
+
+    public RequestAuthorisation(User user_id, String type, Date AuthorisationDate, String status,String interneStatus) {
         super();
         this.userId = user_id;
-        this.type = Type;
+        this.type = type;
         this.authorisationDate = AuthorisationDate;
-        this.statutDemande = statutDemande;
+        this.status = status;
+        this.interneStatus = interneStatus;
+
 
     }
     public RequestAuthorisation() {
-        super();
     }
 
     public long getId() {
@@ -94,7 +106,12 @@ public class RequestAuthorisation {
 
     @Override
     public String toString() {
-        return "Tutorial [id=" + id + ", name=" +"]";
+        return "authorisation " +
+                "[id=" + id + "," +
+                "type" + type + "," +
+                "status" + status + "," +
+                "interne_status" + interneStatus +
+                "]";
 
 
     }

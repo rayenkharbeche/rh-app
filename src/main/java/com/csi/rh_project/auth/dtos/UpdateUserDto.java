@@ -26,6 +26,26 @@ public class UpdateUserDto {
 
     private double leaveCredit;
 
+    private double rttCredit;
+
+    public double getRttCredit() {
+        return rttCredit;
+    }
+
+    public void setRttCredit(double rttCredit) {
+        this.rttCredit = rttCredit;
+    }
+
+    private boolean actif;
+
+    public boolean isActif() {
+        return actif;
+    }
+
+    public void setActif(boolean actif) {
+        actif = actif;
+    }
+
     public double getLeaveCredit() {
         return leaveCredit;
     }

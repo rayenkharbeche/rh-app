@@ -3,6 +3,7 @@ package com.csi.rh_project.auth.models;
 
 import com.csi.rh_project.setup.model.Department;
 
+import com.csi.rh_project.setup.model.Poste;
 import com.csi.rh_project.setup.model.Team;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -36,6 +37,19 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+
+    @Column(name = "is_actif")
+    private Boolean actif;
+
+
+    public Boolean getActif() {
+        return actif;
+    }
+
+    public void setActif(Boolean actif) {
+        this.actif = actif;
+    }
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
@@ -55,6 +69,18 @@ public class User implements UserDetails {
 
     @Column(name = "leave_credit")
     private double leaveCredit;
+
+
+    @Column(name = "rtt_credit")
+    private double rttCredit;
+
+    public double getRttCredit() {
+        return rttCredit;
+    }
+
+    public void setRttCredit(double rttCredit) {
+        this.rttCredit = rttCredit;
+    }
 
     public double getLeaveCredit() {
         return leaveCredit;
@@ -94,6 +120,18 @@ public class User implements UserDetails {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    public Poste getPoste() {
+        return poste;
+    }
+
+    public void setPoste(Poste poste) {
+        this.poste = poste;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "poste_id")
+    private Poste poste;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "image_id")
     private Image image;
@@ -114,7 +152,7 @@ public class User implements UserDetails {
         super();
         this.email=email;
     }
-    public User(String firstname,String lastname, String password,String email,Role role,Image image,Date birthdayDate, Date contractStartDate){
+    public User(String firstname,String lastname, String password,String email,Role role,Image image,Date birthdayDate, Date contractStartDate,Boolean actif){
         super();
         this.firstname=firstname;
         this.lastname=lastname;
@@ -124,6 +162,7 @@ public class User implements UserDetails {
         this.image=image;
         this.birthdayDate=birthdayDate;
         this.contractStartDate=contractStartDate;
+        this.actif=actif;
 
     }
     public User(String token,LocalDateTime tokenCreationDate){
@@ -233,6 +272,7 @@ public class User implements UserDetails {
                 ", updatedAt=" + updatedAt +
                 ", role=" + role +
                 ", image=" + image +
+                ", actif=" + actif +
 
                 '}';
     }

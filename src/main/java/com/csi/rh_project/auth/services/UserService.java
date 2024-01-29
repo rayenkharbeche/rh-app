@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,16 +21,16 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final TeamRepository teamRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
                        RoleRepository roleRepository,
-                       TeamRepository teamRepository
+        PasswordEncoder passwordEncoder
 
     ) {
         this.userRepository = userRepository;
-        this.teamRepository = teamRepository;
+        this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
 
     }
@@ -52,26 +53,63 @@ public class UserService {
         Optional<User> UserData = userRepository.findById(id);
 
         if (UserData.isPresent()) {
-            System.out.println(user.getDepartment());
 
 
             User _User = UserData.get();
 
-            _User.setEmail(user.getEmail());
-            _User.setFirstName(user.getFirstname());
-            _User.setLastName(user.getLastname());
-            _User.setDepartment(user.getDepartment());
-            _User.setEntity(user.getEntity());
-            _User.setImage(user.getImage());
-            _User.setBirthdayDate(user.getBirthdayDate());
-            _User.setContractStartDate(user.getContractStartDate());
-            _User.setLeaveCredit(user.getLeaveCredit());
+            if (!user.isActif()){
+                System.out.println("est");
 
+                _User.setActif(false);
+
+            } else {
+
+                _User.setEmail(user.getEmail());
+                _User.setFirstName(user.getFirstname());
+                _User.setLastName(user.getLastname());
+                _User.setDepartment(user.getDepartment());
+                _User.setEntity(user.getEntity());
+                _User.setImage(user.getImage());
+                _User.setBirthdayDate(user.getBirthdayDate());
+                _User.setContractStartDate(user.getContractStartDate());
+                _User.setLeaveCredit(user.getLeaveCredit());
+                _User.setRttCredit(user.getRttCredit());
+
+            }
+            System.out.println(_User);
 
             return new ResponseEntity<>(userRepository.save(_User), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    public User addUser(User user) {
+
+
+        var _User = new User();
+
+
+        _User.setEmail(user.getEmail());
+        _User.setFirstName(user.getFirstname());
+        _User.setLastName(user.getLastName());
+        _User.setDepartment(user.getDepartment());
+        _User.setPoste(user.getPoste());
+
+        _User.setEntity(user.getEntity());
+        _User.setImage(user.getImage());
+        _User.setBirthdayDate(user.getBirthdayDate());
+        _User.setContractStartDate(user.getContractStartDate());
+        _User.setLeaveCredit(user.getLeaveCredit());
+        _User.setRttCredit(user.getRttCredit());
+
+        _User.setRole(user.getRole());
+        _User.setPassword(passwordEncoder.encode(user.getPassword()));
+        _User.setActif(true);
+
+
+
+        return userRepository.save(_User);
+
     }
 
     public List<User> allUsersbydepartmentteam(Long departmentId, Long teamId) {

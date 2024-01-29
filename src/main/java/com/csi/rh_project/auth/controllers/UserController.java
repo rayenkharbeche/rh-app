@@ -1,6 +1,7 @@
 package com.csi.rh_project.auth.controllers;
 
 
+import com.csi.rh_project.auth.dtos.RegisterUserDto;
 import com.csi.rh_project.auth.dtos.UpdateUserDto;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.services.ImageService;
@@ -65,6 +66,14 @@ public class UserController {
 
         return userService.updateUser(id, user);
 
+    }
+    @PostMapping("/addUser")
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+
+
+        User registeredUser = userService.addUser(user);
+
+        return ResponseEntity.ok(registeredUser);
     }
     @GetMapping("/team")
     public ResponseEntity<List<User>> allUsersbydepartmentteam(@RequestParam Long departmentId,@RequestParam Long teamId) {
