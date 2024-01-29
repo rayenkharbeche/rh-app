@@ -1,7 +1,9 @@
 
 export enum RequestleaveType {
-  OPEN = 'open',
-  InProgress = 'inprogress',
-  Treated = 'treated',
+  sickLeave = 'Sick Leave',
+  annualLeave = 'Annual Leave',
+  unpaidLeave = 'Unpaid Leave',
+  rttLeave = 'Rtt Leave',
+  specialLeave = 'Special Leave',
   
 }

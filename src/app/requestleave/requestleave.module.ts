@@ -11,6 +11,16 @@ import { RequestleaveService } from './service/requestleave.service';
 import { RequestleavelistComponent } from './requestleavelist/requestleavelist.component';
 
 import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestleave.component';
+import { ValidatedSickLeaveComponent } from './validated-sick-leave/validated-sick-leave.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+import {  MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
+
+import { MatRippleModule } from '@angular/material/core';
 
 
 
@@ -19,7 +29,8 @@ import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestl
   declarations: [
     AddRequestleaveComponent,
     RequestleavelistComponent,
-    UpdaterequestleaveComponent
+    UpdaterequestleaveComponent,
+    ValidatedSickLeaveComponent
   ],
   imports: [
     CommonModule,
@@ -48,8 +59,15 @@ import { UpdaterequestleaveComponent } from './updaterequestleave/updaterequestl
     SharedModule,
     ListGroupModule,
     IconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatDatepickerModule,     
+    MatNativeDateModule 
+     
     
   ],
-  providers: [RequestleaveService]
+  providers: [RequestleaveService,MatDatepickerModule]
 })
 export class RequestleaveModule { }

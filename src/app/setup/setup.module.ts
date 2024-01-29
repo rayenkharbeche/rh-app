@@ -39,7 +39,6 @@ import { IconModule } from '@coreui/icons-angular';
 import { EntitymanagmentComponent } from './entitymanagment/entitymanagment.component';
 import { SetupRoutingModule } from './setup-routing.module';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
 import { EntityService } from './service/entity.service';
 import { AuthService } from '../auth/service/auth.service';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
@@ -56,18 +55,19 @@ import { TeamManagmentComponent } from './team-managment/team-managment.componen
 import { TeamService } from './service/team.service';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 import { UpdateTeamComponent } from './update-team/update-team.component';
 import { RolemanagmentComponent } from './rolemanagment/rolemanagment.component';
 import { RoleService } from '../auth/service/role.service';
+import { CreateentityComponent } from './createentity/createentity.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   imports: [
     CommonModule,
     SetupRoutingModule,
-    MatButtonModule,
-    MatTableModule,
     FormsModule,
     CardModule,
     ButtonModule,
@@ -99,8 +99,10 @@ import { RoleService } from '../auth/service/role.service';
     DropdownModule,
     PaginationModule,
     PopoverModule,
-    MatSelectModule
-    
+    MatSelectModule,
+  MatDialogModule,
+  MatFormFieldModule,
+
   ],
   declarations: [
     EntitymanagmentComponent,
@@ -112,9 +114,11 @@ import { RoleService } from '../auth/service/role.service';
     AddConsultantComponent,
     CreateTeamComponent,
     UpdateTeamComponent,
-    RolemanagmentComponent
+    RolemanagmentComponent,
+    CreateentityComponent
     
   ],
+
   providers: [EntityService,
               AuthService,
               PosteService,

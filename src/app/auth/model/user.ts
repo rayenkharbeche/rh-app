@@ -18,11 +18,13 @@ export class User {
     department?: Department;
     token?: string;
     image?:Image;
-    active?:boolean
+    actif?:boolean
     country?:string
     isManager?:boolean
     selected?: boolean;
     manager?:boolean
     teamLead?: boolean;
     leaveCredit?: number;
+    rttCredit?: number;
+
 }

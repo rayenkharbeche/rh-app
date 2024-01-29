@@ -41,10 +41,53 @@ export const navItemsManager: INavData[] = [
           name: 'Create',
           url: 'requestAuthorization/addAuthorizationleave'
         },
+        {
+          name: 'List',
+          url: 'requestAuthorization/requestAuthorizationlist'
+        }
         
         
       ]
       },
+      {
+        name: 'Request administrative',
+        url: '/home/requestadministrative',
+        iconComponent: { name: 'cil-speedometer' },
+        children: [
+          {
+            name: 'Create',
+            url: 'requestadministrative/addrequestadministrative'
+          },
+          {
+            name: 'List',
+            url: 'requestadministrative/requestadministrativelist'
+          },
+         
+          
+          
+          
+        ]
+        },
+        {
+          name: 'Request equipment',
+          url: '/home/requestequipment',
+          iconComponent: { name: 'cil-speedometer' },
+          children: [
+            {
+              name: 'Create',
+              url: 'requestequipment/addrequestEquipment'
+            },
+            {
+              name: 'List',
+              url: 'requestequipment/requestEquipmentlist'
+            },
+           
+            
+            
+            
+          ]
+          },
+  
       {
         name: 'Request Validations',
         url: '/home/requestvalidations',
@@ -54,7 +97,10 @@ export const navItemsManager: INavData[] = [
             name: 'Request Leave Validation',
             url: 'requestvalidations/requestLeavevalidations'
           },
-          
+          {
+            name: 'Request Authorization Validation',
+            url: 'requestvalidations/requestAuthorizationvalidations'
+          },
           
         ]
       },  

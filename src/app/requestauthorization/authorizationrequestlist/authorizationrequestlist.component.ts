@@ -6,11 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-authorizationleavelist',
   
-  templateUrl: './authorizationleavelist.component.html',
-  styleUrl: './authorizationleavelist.component.css'
+  templateUrl: './authorizationrequestlist.component.html',
+  styleUrl: './authorizationrequestlist.component.css'
 })
-export class AuthorizationleavelistComponent {
+export class AuthorizationRequestlistComponent {
   status!: string;
+  requests!: RequestAuthorization[] 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -39,19 +41,6 @@ export class AuthorizationleavelistComponent {
   selectedId: any ;
 
   
-    public requests: RequestAuthorization[] = [
-      {
-        id: 2,
-        type: 'maladie',
-        authorisationDate: new Date() ,
-        statutDemande : 'OPEN',
-        user : {
-          id: "1"
-        }
-
-      },
-     
-    ];
 
   
     ngOnInit(): void {

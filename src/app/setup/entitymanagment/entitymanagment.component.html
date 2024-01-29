@@ -1,57 +1,68 @@
      
 <div>
-    <div class="submit-form">
-      <div>
-        <div class="form-group">
-          <label for="title">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            required
-            [(ngModel)]="entity.name"
-            name="title"
-          />
-        </div>
-  
-        <div class="form-group">
-          <label for="description">Country Code</label>
-          <input
-            class="form-control"
-            id="description"
-            required
-            [(ngModel)]="entity.countryCode"
-            name="description"
-          />
-        </div>
-        <button (click)="saveEntity()" class="btn btn-success">Submit</button>
-      </div>
-    </div>
-    <div class="col-md-12">
+   
+    <h4>Entities List</h4>
 
-    <h4>entities List</h4>
-
-    <table class="table">
-      <thead>
-          <tr>
-            
-              <th>name</th>
-              <th>countryCode</th>
-              <th >Action</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr class="click" *ngFor="let entity of entities">
-            <td>{{ entity.name }}</td>
-            <td> {{ entity.countryCode }}</td>
-
-            <td>
-                <button class="btn btn-danger" (click)="removeEntities(entity.id)" ><span  
-                        class="glyphicon glyphicon-trash"></span>&nbsp; Remove</button>
-            </td>
-        </tr>
-      </tbody>
-    </table>
+    <c-row>
+    
+      <c-col xs>
+         
+          <c-card class="mb-4">
+          
+            <c-card-header>Users</c-card-header>
+            <div  class="divider d-flex justify-content-center">       
+              <c-col xl="11" md="6" sm="6">
+              </c-col>
+              <c-col xl="3" md="6" sm="6">
+              <button cCol=""  (click)="openDialog()" color="light">Add Consultant
+                  <svg cIcon name="cilPeople"></svg>
+              </button>
+            </c-col>
+      
+            </div>
+            <c-card-body>
+              <table
+                [hover]="true"
+                [responsive]="true"
+                [striped]="true"
+                align="middle"
+                cTable
+                class="mb-0 border"
+              >
+              
+                <thead cTableColor="light">
+                  <tr>
+                     <th>Entity Name</th>
+              <th>Country Code</th>
+                    <th >Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let entity of entities" >
+                  <td>{{ entity.name }}</td>
+                      
+          
+                    <td >
+                      <svg
+                      cIcon
+                      id="{{ entity.countryCode + entity.name! }}"
+                      name="cif{{ entity?.countryCode }}"
+                      size="xl"
+                      title="{{ entity?.countryCode }}"
+                    ></svg>
+                    
+                    <td>
+                            
+                      <button cButton shape="sm" (click)="removeEntities(entity.id)" size="sm" color="info">Delete
+                      </button>              
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
     <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEntities()">
       Remove All
     </button>

@@ -23,9 +23,11 @@ interface IUser {
     department?: Department;
     token?: string;
     image?:Image;
-    active?:boolean
+    actif?:boolean
     country?:string;
     imagedb?:string;
+    status?:string;
+
 
 }
 
@@ -80,6 +82,8 @@ export class ProfilelistComponent {
       this.userService.getAll()
       .subscribe({
         next: (data) => {
+          console.log(data)
+
           this.users = data;
           this.users.map(x =>  {
           if (x.image! == null ){
@@ -87,14 +91,18 @@ export class ProfilelistComponent {
           x.imagedb = './assets/img/defautimage.jpg';
 
           }else { 
-            console.log(x.image);
           this.defaultimg! = false;
             x.imagedb = 'data:image/jpeg;base64,' + x.image.image;
           }
-           if ( x.active === false) {
-            this.status = "info";
+           if ( x.actif == false) {
+            console.log(x.actif);
+
+            x.status = "info";
            } else {
-            this.status = "success";
+            console.log(x.actif);
+            console.log("success");
+
+            x.status = "success";
            }
            }) 
         },
@@ -109,7 +117,8 @@ export class ProfilelistComponent {
   
     deleteConsultant (user: User){
       console.log("test");
-      this.userService.delete(user.id)
+      user.actif = false;
+      this.userService.update(user.id!,user)
         .subscribe({
           next: (res) => {
             this.retrieveConsultant();

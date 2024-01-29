@@ -43,6 +43,16 @@
 
   dropdownMode="close"
 />
+<c-sidebar-nav 
+[navItems]="navItemsRh"     *ngIf="isRh"
+
+dropdownMode="close"
+/>
+<c-sidebar-nav 
+[navItems]="navItemsInfra"     *ngIf="isInfra"
+
+dropdownMode="close"
+/>
   </ng-scrollbar>
   <c-sidebar-toggler
     *ngIf="!sidebar.narrow"

@@ -50,6 +50,8 @@ department: any;
 birthdayDate: any;
 contractStartDate: any;
 leaveCredit:any;
+rttCredit: any;
+rtt: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -138,7 +140,9 @@ leaveCredit:any;
           this.birthdayDate = this.user.birthdayDate;
           this.contractStartDate = this.user.contractStartDate;
           this.leaveCredit = this.user.leaveCredit;
-
+          this.rttCredit = this.user.rttCredit;
+          if (this.entity.countryCode = "Fr") {
+          this.rtt = true;}
         },
         error: (e) => console.error(e)
 
@@ -149,7 +153,13 @@ leaveCredit:any;
   
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
-  
+    onChange() { 
+      this.rtt = false;
+      console.log(this.entity.countryCode);
+      if (this.entity.countryCode == "Fr" ) {
+        this.rtt = true;        
+      }
+    }
    
 
 
@@ -216,28 +226,22 @@ getImage(id:any) {
  onSubmit() {
   const id = this._activatedroute.snapshot.paramMap.get("id");
     this.submitted = true;
-    // reset alerts on submit
-    /*this.alertService.clear();*/
 
     // stop here if form is invalid
     if (this.form.invalid) {
         return;
     }
    
-
-    this.user.poste = this.poste;
-    this.user.department = this.department;
-
-    this.user.entity = this.entity;
-    this.user.firstname = this.firstName;
-    this.user.lastName = this.lastName;
-    this.user.birthdayDate = this.birthdayDate;
+    this.user.poste             = this.poste;
+    this.user.department        = this.department;
+    this.user.entity            = this.entity;
+    this.user.firstname         = this.firstName;
+    this.user.lastName          = this.lastName;
+    this.user.birthdayDate      = this.birthdayDate;
     this.user.contractStartDate = this.contractStartDate;
-    this.user.image = this.image;
-    this.user.leaveCredit = this.leaveCredit;
+    this.user.image             = this.image;
+    this.user.leaveCredit       = this.leaveCredit;
 
-
-console.log(this.user)
     this.loading = true;
     this.accountService.update(id!, this.user)
     .subscribe({
@@ -250,8 +254,8 @@ console.log(this.user)
         const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/profileList' ;
         this.router.navigateByUrl(returnUrl);   
   
-      }
-                },
+        }
+      },
       error: (e) => console.error(e)
     });
 }

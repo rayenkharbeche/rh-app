@@ -72,10 +72,9 @@
                   </div>
                   </td>
                   <td>
-                    <button cButton shape="sm"  size="sm" (click)="updateRequest(request)" color="primary">Update
+                    <button [disabled]="request.status == 'Validated' || request.status == 'Rejected' " cButton shape="sm"  size="sm" (click)="updateRequest(request)" color="primary">Update                    
                     </button>              
-                    <button cButton shape="sm" size="sm" (click)="deleteRequest(request)" color="info">Delete
-
+                    <button [disabled]="request.status == 'Validated' || request.status == 'Rejected' "  cButton shape="sm" size="sm" (click)="deleteRequest(request)" color="info">Delete
                     </button>  
                 
                 </td>

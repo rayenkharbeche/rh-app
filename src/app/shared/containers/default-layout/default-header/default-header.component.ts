@@ -46,7 +46,7 @@ this.retrieveConsultant();
 
 settings(){
 
-  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/settings' ;
+  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/settings' ;
   this.router.navigateByUrl(returnUrl);  
 }
 retrieveConsultant(){

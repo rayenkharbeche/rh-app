@@ -9,12 +9,22 @@ import { AccordionModule, AvatarModule, BadgeModule, BreadcrumbModule, ButtonGro
 import { IconModule } from '@coreui/icons-angular';
 import { RequestLeavevalidationsComponent } from './request-leavevalidations/request-leavevalidations.component';
 import { RequestleaveService } from '../requestleave/service/requestleave.service';
+import { RequestAuthorizationValidationComponent } from './request-authorization-validation/request-authorization-validation.component';
+import { AuthorizationService } from '../requestauthorization/service/authorization.service';
+import { RequestAdministrativeValidationComponent } from './request-administrative-validation/request-administrative-validation.component';
+import { RequestadministrativeService } from '../requestadministrative/service/requestadministrative.service';
+import { RequestequipmentValidationComponent } from './requestequipment-validation/requestequipment-validation.component';
+import { RequestequipmentService } from '../requestequipment/service/requestequipment.service';
 
 
 
 
 @NgModule({
-  declarations: [RequestLeavevalidationsComponent],
+  declarations: [RequestLeavevalidationsComponent,
+                RequestAuthorizationValidationComponent,
+                RequestAdministrativeValidationComponent,
+                RequestequipmentValidationComponent
+              ],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -43,6 +53,9 @@ import { RequestleaveService } from '../requestleave/service/requestleave.servic
     CommonModule,
     RequestvalidationsRoutingModule
   ],
-  providers: [RequestleaveService]
+  providers: [RequestleaveService,
+    AuthorizationService,
+    RequestadministrativeService,
+  RequestequipmentService]
 })
 export class RequestvalidationsModule { }

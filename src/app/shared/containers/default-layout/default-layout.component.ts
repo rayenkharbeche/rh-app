@@ -4,6 +4,8 @@ import { navItems } from './_nav';
 import { navAdminItems } from './_navAdmin';
 import { navItemsTeamLead } from './_navTeamLead';
 import { navItemsManager } from './_navManager';
+import {navItemsRh } from './_nav_Rh';
+import { navItemsInfra } from './_navInfra';
 
 
 @Component({
@@ -16,11 +18,15 @@ export class DefaultLayoutComponent implements OnInit {
   public navAdminItems = navAdminItems;
   public navItemsTeamLead = navItemsTeamLead;
   public navItemsManager = navItemsManager;
+  public navItemsRh= navItemsRh;
+  public navItemsInfra= navItemsInfra;
 
   isAdmin!: boolean;
   isConsultant!: boolean;
   isTeamLead!: boolean;
 isManager: any;
+isRh:any;
+isInfra:any;
 
   constructor() {}
    ngOnInit() : void {
@@ -35,9 +41,12 @@ isManager: any;
   } else  if (currentUser.role === "manager")  {
     this.isManager = true;
 
-  } 
+  } else  if (currentUser.role === "Rh")  {
+    this.isRh = true;
      
-   }
+   } else  if (currentUser.role === "Infra")  {
+    this.isInfra = true;
 
- 
+  }
+}
 }

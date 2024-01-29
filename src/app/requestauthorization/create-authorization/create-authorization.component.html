@@ -15,12 +15,14 @@
                     cFormControl
                     formControlName="authorisationDate"
                     placeholder="authorisation Date "
-                    type="date">
+                    type="datetime-local">
                     </c-input-group>
+                
                     <c-input-group class="mb-3">
-                      <input formControlName="type" autoComplete="name" cFormControl placeholder="type" />
+                      <select  aria-label="Disabled select example" placeholder="type" cSelect  formControlName="type" >
+                        <option [value]="key" *ngFor="let key of getKeys(RequestauthorisationTypes)">{{ RequestauthorisationTypes[key] }}</option>
+                        </select>
                     </c-input-group>
-
                 <div class="d-grid">
                   <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Requestleave } from '../model/requestleave';
+import { FileDB } from '../model/filedb';
 
 const baseUrl = 'http://localhost:8080/api/RequestLeave';
 
@@ -59,5 +60,31 @@ export class RequestleaveService {
     getAllbyUser(user_id: any): Observable<Requestleave[]> {
       return this.http.get<Requestleave[]>(`${baseUrl}?user_id=${user_id}`);
     }
+    getAllbyTeam(user_id: any): Observable<Requestleave[]> {
+      return this.http.get<Requestleave[]>(`${baseUrl}/RequestLeavebyteam?user_id=${user_id}`);
+
+    }
+    updateStatus(id: any, data: any): Observable<any> {
+      console.log(data)
+      return this.http.put(`${baseUrl}/updateStatus/${id}`, data);
+    }
+
+    
+    updateCredit( data: any): Observable<any> {
+      console.log("test")
+      return this.http.put(`${baseUrl}/updateleaveCredit`, data);
+    }
+    getAllSickLeavebyuser(id: any):  Observable<Requestleave[]> {
+      return this.http.get<Requestleave[]>(`${baseUrl}/SickLeave/${id}`);
+    }
+    
+    getFileDB(id: any): Observable<FileDB> {
+      return this.http.get<FileDB>(`${baseUrl}/files/${id}`);
+    }
+    
+    getAllvalidated(): Observable<Requestleave[]> {
+      return this.http.get<Requestleave[]>(`${baseUrl}/requestValidated`);
+    }
+
 }
 

@@ -35,6 +35,27 @@ export const navItems: INavData[] = [
     ]
     },
     {
+      name: 'Request administrative',
+      url: '/home/requestadministrative',
+      iconComponent: { name: 'cil-speedometer' },
+      children: [
+        {
+          name: 'Create',
+          url: 'requestadministrative/addrequestadministrative'
+        }, 
+        {
+          name: 'List',
+          url: 'requestadministrative/requestadministrativelist'
+        },
+       
+        
+        
+        
+      ]
+      },
+
+  
+    {
       name: 'Request Authorization',
       url: '/home/requestAuthorization',
       iconComponent: { name: 'cil-speedometer' },
@@ -43,10 +64,33 @@ export const navItems: INavData[] = [
           name: 'Create',
           url: 'requestAuthorization/addAuthorizationleave'
         },
+        {
+          name: 'List',
+          url: 'requestAuthorization/requestAuthorizationlist'
+        }
         
         
       ]
       },
+      {
+        name: 'Request equipment',
+        url: '/home/requestequipment',
+        iconComponent: { name: 'cil-speedometer' },
+        children: [
+          {
+            name: 'Create',
+            url: 'requestequipment/addrequestEquipment'
+          },
+          {
+            name: 'List',
+            url: 'requestequipment/requestEquipmentlist'
+          },
+         
+          
+          
+          
+        ]
+        },
   
  
 ];

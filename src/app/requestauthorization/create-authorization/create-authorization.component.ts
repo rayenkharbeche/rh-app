@@ -7,6 +7,9 @@ import { User } from '../../auth/model/user';
 import { AuthService } from '../../auth/service/auth.service';
 import { AuthorizationService } from '../service/authorization.service';
 import { RequestAuthorization } from '../model/requestauthorization';
+import { RequestleaveInterneStatus } from '../../requestleave/model/requestleaveInterneStatus';
+import { RequestleaveStatus } from '../../requestleave/model/requestleaveStatus';
+import { RequestAuthorizationType } from '../model/requestAutorizationtype';
 
 @Component({
   selector: 'app-create-authorization',
@@ -22,6 +25,8 @@ export class CreateAuthorizationComponent {
   submitted = false;
   UserId!:User;
   requestAuthorization!:RequestAuthorization;
+  RequestauthorisationTypes: any;
+
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -34,6 +39,7 @@ export class CreateAuthorizationComponent {
 
   ngOnInit() {
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
+    this.RequestauthorisationTypes = RequestAuthorizationType;
 
     this.form = this.formBuilder.group({
       authorisationDate: ['', Validators.required],
@@ -43,7 +49,6 @@ export class CreateAuthorizationComponent {
     });
     this.userService.getById(currentUser.id).subscribe({
       next: (data) => {
-        this.UserId = new User();
         this.UserId = data;
       }
   });
@@ -51,6 +56,7 @@ export class CreateAuthorizationComponent {
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
+  getKeys(obj: any) { return Object.keys(obj); }
 
   onSubmit() {
 
@@ -67,12 +73,13 @@ export class CreateAuthorizationComponent {
       }*/
     
 this.requestAuthorization = new RequestAuthorization();
-this.requestAuthorization.user = this.UserId;
+this.requestAuthorization.userId = this.UserId;
 this.requestAuthorization.type = this.form.value.type;
 this.requestAuthorization.authorisationDate = this.form.value.authorisationDate;
-this.requestAuthorization.statutDemande = "OPEN";
+this.requestAuthorization.status = RequestleaveStatus.OPEN;
+this.requestAuthorization.interneStatus = RequestleaveInterneStatus.OPEN;
 
-console.log(this.requestAuthorization.user)
+console.log(this.requestAuthorization.userId)
       this.loading = true;
       this.authorizationService.create(this.requestAuthorization)
       .pipe(first())

@@ -52,7 +52,14 @@ export class RequestLeavevalidationsComponent {
   }
     retrievRequest(){
 
-
+if (this.currentUser.role == "Rh"){
+  this.requestleaveservice.getAllvalidated()
+  .subscribe({
+    next: (data) => {
+      this.requests = data;
+      console.log(this.requests);
+    }})
+}else {
       this.requestleaveservice.getAllbyTeam(this.currentUser.id)
       .subscribe({
         next: (data) => {
@@ -73,6 +80,7 @@ export class RequestLeavevalidationsComponent {
         error: (e) => console.error(e)
       });
     }
+  }
 
 
 validateRequest( rqleave: Requestleave){

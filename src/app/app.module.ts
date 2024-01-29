@@ -39,6 +39,7 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './auth/_helpers';
+import { EntityService } from './setup/service/entity.service';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,

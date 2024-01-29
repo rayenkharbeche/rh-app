@@ -4,7 +4,7 @@
        
         <c-card class="mb-4">
         
-          <c-card-header>Team Requests </c-card-header>
+          <c-card-header *ngIf="currentUser.role != 'Rh'">Team Requests </c-card-header>
 
           <div  class="divider d-flex justify-content-center">
              <c-col xl="11" md="6" sm="6">
@@ -30,7 +30,7 @@
                   <th>End Date</th>
                   <th >Type</th>
                   <th >status</th> 
-                  <th >Action</th>          
+                  <th  *ngIf="currentUser.role != 'Rh'">Action</th>          
          
                 </tr>
               </thead>
