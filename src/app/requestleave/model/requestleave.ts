@@ -8,7 +8,6 @@ export class Requestleave {
   userId!: User;
   leaveType!: string;
   status!: string;
-  
   interneStatus!: string;
   fileDB!: FileDB;
 
