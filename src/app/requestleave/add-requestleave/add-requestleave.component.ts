@@ -2,7 +2,7 @@ import { Component, Pipe, PipeTransform } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestleaveService } from '../service/requestleave.service';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { User } from '../../auth/model/user';
 import { AuthService } from '../../auth/service/auth.service';
 import { Requestleave } from '../model/requestleave';
@@ -19,17 +19,26 @@ import { HolidayService } from '../service/holiday.service';
 export class AddRequestleaveComponent {
 
   myHolidayDates = [
-    new Date("01/30/2024")
+    new Date("01/01/2024"),
+    new Date("03/11/2024"),
+    new Date("03/20/2024")
+
 ];
+holidays = [
+  new Date("01/30/2024"),
+  new Date("01/31/2024"),
+  new Date("02/5/2024")
 
-
+];
+selectedYear!: number;
+years: Date[] = [];
   form!: FormGroup;
   loading = false;
   submitted = false;
   UserId!:User;
   requestLeave!:Requestleave;
   RequestleaveTypes: any;
-  holidays!: Date[] ;
+  //holidays!: Date[] ;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -49,22 +58,25 @@ export class AddRequestleaveComponent {
   }
 
   ngOnInit() {
-    this.holidayService.getHolidays()
-    .subscribe({
-      next: (data) => {
-        this.holidays = data.items;
-        console.log(data.items);
-        console.log(this.holidays);
+    
 
-      },
-      error: (e) => console.error(e)
+    this.holidayService.getHolidays()
+  
+  .subscribe(response => {
+    this.holidays = response.items.map(item => new Date(item.start.date));
+   
+    this.holidays.forEach((currentValue, index) => {
+    
+
+      if(currentValue.getFullYear() == new Date().getFullYear()) {
+
+        currentValue.setHours(0);
+console.log(currentValue)
+        this.years.push(currentValue);
+      }
     });
-    /*this.holidayService.getHolidays().subscribe((response: { items: any[]; }) => {
-      // Extract holiday dates from the API response
-      this.holidays = response.items.map(item => new Date(item.start.date));
-      //this.myHolidayDates = this.holidays;
-    });*/
-    console.log(this.holidays);
+    
+  });
 
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
     this.RequestleaveTypes = RequestleaveType;
@@ -137,16 +149,15 @@ console.log(this.requestLeave.userId)
       
   }
 
-  dateFilter = (d: Date  |null ): boolean => {
-    
+
+
+ dateFilter = (d: Date | null): boolean => {
+    // Check if the date is a holiday
+    const time=d?.getTime();
     const day = d?.getDay();
-    // THIS FUNCTION CANNOT ACCESS THE VARIABLE 'someDateToBlock'
-    /* day !== 0 && day !== 6;*/
-  const time=d?.getTime();
-    return !this.myHolidayDates.find(x=>x.getTime()==time) && (day !== 0 && day !== 6);
-}
 
 
+    return !this.years?.find(x=>x.getTime()==time) && (day !== 0 && day !== 6);
+  };
 
-myFilter = this.dateFilter.bind(this);
 }
