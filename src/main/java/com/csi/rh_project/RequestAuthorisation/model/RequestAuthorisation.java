@@ -22,6 +22,33 @@ public class RequestAuthorisation {
     @JoinColumn(name = "user_id")
     private User userId;
 
+    @Column(name = "remote_days")
+    private long remoteDays;
+
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "authorisation_startdate")
+    private Date authorisationStartDate;
+
+    @Column(name = "authorisation_enddate")
+    private Date authorisationEndDate;
+
+    @Column(name = "status")
+    private String status;
+    @Column(name = "interne_status")
+    private String interneStatus;
+
+
+    public long getRemoteDays() {
+        return remoteDays;
+    }
+
+    public void setRemoteDays(long remoteDays) {
+        this.remoteDays = remoteDays;
+    }
+
     public String getType() {
         return type;
     }
@@ -30,8 +57,6 @@ public class RequestAuthorisation {
         this.type = type;
     }
 
-    @Column(name = "type")
-    private String type;
 
 
     public User getUserId() {
@@ -43,26 +68,23 @@ public class RequestAuthorisation {
     }
 
 
-    public Date getAuthorisationDate() {
-		return authorisationDate;
-	}
+    public Date getAuthorisationStartDate() {
+        return authorisationStartDate;
+    }
 
-	public void setAuthorisationDate(Date authorisationDate) {
-		this.authorisationDate = authorisationDate;
-	}
+    public void setAuthorisationStartDate(Date authorisationStartDate) {
+        this.authorisationStartDate = authorisationStartDate;
+    }
+
+    public Date getAuthorisationEndDate() {
+        return authorisationEndDate;
+    }
+
+    public void setAuthorisationEndDate(Date authorisationEndDate) {
+        this.authorisationEndDate = authorisationEndDate;
+    }
 
 
-
-
-
-	@Column(name = "authorisation_date")
-    private Date authorisationDate;
-
-
-    @Column(name = "status")
-    private String status;
-    @Column(name = "interne_status")
-    private String interneStatus;
 
     public String getStatus() {
         return status;
@@ -81,13 +103,16 @@ public class RequestAuthorisation {
     }
 
 
-    public RequestAuthorisation(User user_id, String type, Date AuthorisationDate, String status,String interneStatus) {
+    public RequestAuthorisation(User user_id, String type, Date authorisationStartDate,Date authorisationEndDate,  String status,String interneStatus,long remoteDays) {
         super();
         this.userId = user_id;
         this.type = type;
-        this.authorisationDate = AuthorisationDate;
+        this.authorisationStartDate = authorisationStartDate;
+        this.authorisationEndDate = authorisationEndDate;
         this.status = status;
         this.interneStatus = interneStatus;
+        this.remoteDays = remoteDays;
+
 
 
     }
@@ -110,6 +135,7 @@ public class RequestAuthorisation {
                 "[id=" + id + "," +
                 "type" + type + "," +
                 "status" + status + "," +
+
                 "interne_status" + interneStatus +
                 "]";
 

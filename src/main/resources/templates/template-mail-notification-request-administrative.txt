@@ -1,0 +1,1 @@
+<html><head></head><body><p>Hello ${NameSendTo},</p><p> Demande administrative crée par ${consultant} n'a pas été traité depuis 3 jours </p><p>Cordialement</p><p>L'equipe RH</p></body></html>

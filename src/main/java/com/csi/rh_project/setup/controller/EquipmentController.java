@@ -1,6 +1,8 @@
 package com.csi.rh_project.setup.controller;
 
 
+import com.csi.rh_project.auth.models.User;
+import com.csi.rh_project.auth.repositories.UserRepository;
 import com.csi.rh_project.setup.model.Entity;
 import com.csi.rh_project.setup.model.Equipment;
 import com.csi.rh_project.setup.repository.EquipmentRepository;
@@ -21,6 +23,7 @@ public class EquipmentController {
 	@Autowired
 	EquipmentRepository equipmentRepository;
 
+
 	@GetMapping("/Equipments")
 	public ResponseEntity<List<Equipment>> getAllEntities(@RequestParam(required = false) String name) {
 		try {
@@ -40,22 +43,75 @@ public class EquipmentController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	/*@GetMapping("/Equipments/byName/{id}")
+	public ResponseEntity<List<Equipment>> getAllbyUserbyName(@PathVariable("id") Integer id,@RequestParam(required = false) String name) {
+		try {
+			List<Equipment> Equipments = new ArrayList<Equipment>();
+
+				equipmentRepository.findByUserIdAndName(id,name).forEach(Equipments::add);
+
+			if (Equipments.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(Equipments, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}*/
+
+	@GetMapping("/Equipments/byName/{id}")
+	public ResponseEntity<Equipment> getAllbyUserbyName(@PathVariable("id") Integer id,@RequestParam(required = false) String name) {
+
+			List<Equipment> Equipments = new ArrayList<Equipment>();
+
+
+			Optional<Equipment> EquipmentData = 	equipmentRepository.findByUserIdAndName(id,name);
+
+			if (EquipmentData.isPresent()) {
+				Equipment _Equipment = EquipmentData.get();
+
+
+			return new ResponseEntity<>(_Equipment, HttpStatus.OK);
+
+		} return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+	}
+
+	@GetMapping("/Equipments/byReference")
+	public ResponseEntity<List<Equipment>> getAllbyReference(@RequestParam(required = false) String reference) {
+		try {
+			List<Equipment> Equipments = new ArrayList<Equipment>();
+
+			equipmentRepository.findAllByReference(reference).forEach(Equipments::add);
+
+			if (Equipments.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(Equipments, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 
 	@GetMapping("/Equipments/{id}")
-	public ResponseEntity<Equipment> getEntityById(@PathVariable("id") long id) {
-		Optional<Equipment> EquipmentData = equipmentRepository.findById(id);
+	public ResponseEntity<List<Equipment>> getEntityById(@PathVariable("id") Integer id) {
+		//Optional<User> UserData = userRepository.findById(id);
 
-		if (EquipmentData.isPresent()) {
-			return new ResponseEntity<>(EquipmentData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		List<Equipment> Equipments = new ArrayList<Equipment>();
+
+			equipmentRepository.findAllByUserId(id).forEach(Equipments::add);
+
+		return new ResponseEntity<>(Equipments, HttpStatus.OK);
+
 	}
 	@PostMapping("/Equipments")
 	public ResponseEntity<Equipment> createEquipment(@RequestBody Equipment equipment) {
 		try {
 			Equipment _Equipment = equipmentRepository
-					.save(new Equipment(equipment.getName(), equipment.getReference()));
+					.save(new Equipment(equipment.getName(), equipment.getReference(),equipment.getUser()));
 			return new ResponseEntity<>(_Equipment, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

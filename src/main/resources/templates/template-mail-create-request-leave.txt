@@ -1,0 +1,1 @@
+<html><head></head><body><p>Hello ${NameSendTo},</p><p> ${consultant} demande un ${leaveType}  du ${RequestStartDate}  ${RequestEndDate}  Soit ${leaveDays} jours</p><p>Cordialement</p><p>L'equipe RH</p></body></html>

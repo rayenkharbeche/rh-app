@@ -1,0 +1,1 @@
+<html><head></head><body><p>Hello ${NameSendTo},</p><p> ${teamlead} a validé la demande de ${type}  de ${consultant}   du ${RequestStartDate}   ${RequestEndDate}  Soit ${RemoteDays} jours</p><p>Cordialement</p><p>L'equipe RH</p></body></html>

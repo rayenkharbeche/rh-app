@@ -2,6 +2,10 @@ package com.csi.rh_project.AdministrativeRequest.model;
 
 import com.csi.rh_project.auth.models.User;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 @jakarta.persistence.Entity
 @Table(name = "requestAdministrative")
@@ -19,6 +23,13 @@ public class RequestAdministrative {
         this.type = type;
         this.status = status;
         this.interneStatus = interneStatus;
+    }
+    public RequestAdministrative(User userId, String type, String status, String interneStatus,String remarks) {
+        this.userId = userId;
+        this.type = type;
+        this.status = status;
+        this.interneStatus = interneStatus;
+        this.remarks = remarks;
     }
 
     public RequestAdministrative(User userId, String type) {
@@ -48,8 +59,44 @@ public class RequestAdministrative {
     private String type;
     @Column(name = "status")
     private String status;
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Column(name = "remarks")
+    private String remarks;
     @Column(name = "interne_status")
     private String interneStatus;
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
 
     public RequestAdministrative() {
         super();

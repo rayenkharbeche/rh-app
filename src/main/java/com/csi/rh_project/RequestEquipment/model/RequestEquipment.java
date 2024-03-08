@@ -101,6 +101,16 @@ public class RequestEquipment {
     @Column(name = "status")
     private String status;
 
+    public String getInterneStatus() {
+        return interneStatus;
+    }
+
+    public void setInterneStatus(String interneStatus) {
+        this.interneStatus = interneStatus;
+    }
+
+    @Column(name = "interne_status")
+    private String interneStatus;
 
     public Date getCreatedAt() {
         return createdAt;

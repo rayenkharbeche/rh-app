@@ -1,0 +1,1 @@
+<html><head></head><body><p>Hello ${NameSendTo},</p><p> ${consultant} a annulé la demande de ${type} demandé  du ${RequestStartDate}   ${RequestEndDate}  Soit ${RemoteDays} jours</p><p>Cordialement</p><p>L'equipe RH</p></body></html>

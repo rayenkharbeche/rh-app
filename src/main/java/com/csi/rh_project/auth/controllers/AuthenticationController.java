@@ -33,6 +33,7 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
 
+        System.out.println("test");
 
         User registeredUser = authenticationService.signup(registerUserDto);
 
@@ -41,7 +42,6 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
-        System.out.println("test");
 
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
@@ -75,9 +75,11 @@ public class AuthenticationController {
     }
 
     @PutMapping("/reset-password")
-    public String resetPassword(@RequestBody TokenUserDto tokenUserDto) {
+    public ResponseEntity<TokenUserDto>  resetPassword(@RequestBody TokenUserDto tokenUserDto) {
 
-        return authenticationService.resetPassword(tokenUserDto.getToken(), tokenUserDto.getPassword());
+         authenticationService.resetPassword(tokenUserDto.getToken(), tokenUserDto.getPassword());
+        return ResponseEntity.ok(tokenUserDto);
+
     }
 
 }

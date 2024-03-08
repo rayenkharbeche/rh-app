@@ -2,8 +2,11 @@ package com.csi.rh_project.auth.dtos;
 
 import com.csi.rh_project.auth.models.Image;
 import com.csi.rh_project.auth.models.Role;
+import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.setup.model.Department;
 import com.csi.rh_project.setup.model.Entity;
+import com.csi.rh_project.setup.model.Poste;
+import jakarta.persistence.Column;
 
 
 import java.util.Date;
@@ -19,14 +22,78 @@ public class UpdateUserDto {
     private String lastname;
     private Role role;
     private Entity entity;
+    private Poste poste;
+    private User superior;
+
+
 
     private Department department;
+
+
     private Image image;
 
 
     private double leaveCredit;
 
     private double rttCredit;
+
+
+
+    private Boolean assurance;
+
+
+    private String contractType;
+
+    private String telephone;
+
+    private String address;
+
+    private String matricule;
+
+    public User getSuperior() {
+        return superior;
+    }
+
+    public Boolean getAssurance() {
+        return assurance;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public String getFamilySituation() {
+        return familySituation;
+    }
+
+    public Integer getChildNumber() {
+        return childNumber;
+    }
+
+    private String familySituation;
+
+
+    private Integer childNumber;
+
+    public Poste getPoste() {
+        return poste;
+    }
+
+    public void setPoste(Poste poste) {
+        this.poste = poste;
+    }
 
     public double getRttCredit() {
         return rttCredit;
@@ -43,7 +110,7 @@ public class UpdateUserDto {
     }
 
     public void setActif(boolean actif) {
-        actif = actif;
+        this.actif = actif;
     }
 
     public double getLeaveCredit() {

@@ -52,11 +52,7 @@ public class AuthenticationService {
     }
     public User signup(RegisterUserDto input) {
         Optional<Role> role = findById(1);
-        if (role.isEmpty() ) {
-            Role role1 = GenerateRole();
-            role = Optional.ofNullable(role1);
 
-        }
 
 
         var user = new User()

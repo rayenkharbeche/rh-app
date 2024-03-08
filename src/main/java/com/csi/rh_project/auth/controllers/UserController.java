@@ -58,11 +58,11 @@ public class UserController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody UpdateUserDto user) {
+        System.out.println(user.getImage());
 
         if (user.getImage() != null) {
             user.setImage(imageService.findById(user.getImage().getId()));
         }
-
 
         return userService.updateUser(id, user);
 
@@ -100,6 +100,15 @@ public class UserController {
 
     }
 
+    @PutMapping("/resetInfo/{id}")
+    public ResponseEntity<User> resetInfo(@PathVariable("id") Integer id, @RequestBody UpdateUserDto user) {
+
+
+
+        return userService.resetInfo(id, user);
+
+    }
+
     @GetMapping("/department")
     public ResponseEntity<List<User>> allUsersbydepartment(@RequestParam Long departmentId) {
         System.out.println(departmentId);
@@ -129,6 +138,25 @@ public class UserController {
         return new ResponseEntity<>(team, HttpStatus.OK);
 
     }
+    @GetMapping("/usersnumber")
+    public ResponseEntity<Double> usersNumber() {
+        System.out.println("1");
+
+        Double usersnumber = userService.EmployeeNumber();
+        System.out.println("3");
+
+        return ResponseEntity.ok(usersnumber);
+    }
+    @GetMapping("/availableEmployee")
+    public ResponseEntity<Integer> AvailableEmployee() {
+        System.out.println("1");
+
+        int usersnumber = userService.AvailableEmployee();
+        System.out.println(usersnumber);
+
+        return ResponseEntity.ok(usersnumber);
+    }
+
 
 
 

@@ -34,11 +34,12 @@ public class RequestAdministrativeController {
         try {
 
             List<RequestAdministrative> requests = new ArrayList<RequestAdministrative>();
-            /*if (user_id != null){
+            /*
+            if (user_id != null){
             Optional<User> user = userService.findById(user_id);
-                requestAdministrativeRepository.findRequestAdministrativeByUserId(user.get()).forEach(requests::add);
-
-            }*/
+            requestAdministrativeRepository.findRequestAdministrativeByUserId(user.get()).forEach(requests::add);
+            }
+            */
             if (user_id != null){
                 Optional<User> user = userService.findById(user_id);
                 User _User = user.get();
@@ -77,11 +78,16 @@ public class RequestAdministrativeController {
                     requestAdministrativeRepository.findRequestAdministrativestypeITsupport().forEach(requests::add);
 
                 } else  if (Objects.equals(_User.getRole().getRole(), "Rh")) {
-                    requestAdministrativeRepository.findRequestAdministrativestypeITsupport().forEach(requests::add);
+                    requestAdministrativeRepository.findRequestAdministrativesRH().forEach(requests::add);
+                }
+                else  if (Objects.equals(_User.getRole().getRole(), "director")) {
+                    requestAdministrativeRepository.findRequestAdministrativesDG().forEach(requests::add);
+                }
+                else  if (Objects.equals(_User.getRole().getRole(), "finance")) {
+                    requestAdministrativeRepository.findRequestAdministrativesFN().forEach(requests::add);
                 }
             }
             else {
-                System.out.println("test2");
 
                 requestAdministrativeRepository.findAll().forEach(requests::add);
 
@@ -116,11 +122,10 @@ public class RequestAdministrativeController {
     @PostMapping("/RequestAdministrative")
     public ResponseEntity<RequestAdministrative> createEntity(@RequestBody RequestAdministrative request) {
         try {
-            System.out.println(request.getUserId());
-            RequestAdministrative _Request = requestAdministrativeRepository
+             System.out.println(request.getRemarks());
 
-                    .save(new RequestAdministrative(request.getUserId(), request.getType(), request.getStatus(), request.getInterneStatus()));
-           // System.out.println(_Request);
+            RequestAdministrative _Request = requestAdministrativeRepository
+                    .save(new RequestAdministrative(request.getUserId(), request.getType(), request.getStatus(), request.getInterneStatus(),request.getRemarks()));
             System.out.println(request.getType());
             return new ResponseEntity<>(_Request, HttpStatus.CREATED);
 

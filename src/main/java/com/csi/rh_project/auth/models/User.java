@@ -6,6 +6,9 @@ import com.csi.rh_project.setup.model.Department;
 import com.csi.rh_project.setup.model.Poste;
 import com.csi.rh_project.setup.model.Team;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -38,16 +41,99 @@ public class User implements UserDetails {
     private String password;
 
 
+
+    @Column(name = "token")
+    private String token;
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime tokenCreationDate;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+
+
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "entity_id")
+    private Entity entity;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "poste_id")
+    private Poste poste;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "image_id")
+    private Image image;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+
     @Column(name = "is_actif")
     private Boolean actif;
 
+    @Column(name = "assurance")
+    private Boolean assurance;
 
-    public Boolean getActif() {
-        return actif;
+
+    @Column(name = "contract_type")
+    private String contractType;
+
+    @Column(name = "telephone")
+    private String telephone;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "matricule",unique = true)
+    private String matricule;
+
+    @Column(name = "family_situation")
+    private String familySituation;
+
+
+    @Column(name = "child_number")
+    private Integer childNumber;
+
+    @Column(name = "remote_day")
+    private double remoteNbr;
+
+
+    @OneToOne
+    @JoinColumn(name="superiorId")
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    private User superior;
+
+    public User getSuperior() {
+        return superior;
     }
 
-    public void setActif(Boolean actif) {
-        this.actif = actif;
+    public void setSuperior(User superior) {
+        this.superior = superior;
+    }
+
+    public double getRemoteNbr() {
+        return remoteNbr;
+    }
+
+    public void setRemoteNbr(double remoteNbr) {
+        this.remoteNbr = remoteNbr;
+    }
+
+
+    public Integer getChildNumber() {
+        return childNumber;
+    }
+
+    public void setChildNumber(Integer childNumber) {
+        this.childNumber = childNumber;
     }
 
     @CreationTimestamp
@@ -65,6 +151,9 @@ public class User implements UserDetails {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date contractStartDate;
 
+    @Column(name = "contractEnd_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date contactEndDate;
 
 
     @Column(name = "leave_credit")
@@ -73,6 +162,75 @@ public class User implements UserDetails {
 
     @Column(name = "rtt_credit")
     private double rttCredit;
+
+    public Date getContactEndDate() {
+        return contactEndDate;
+    }
+
+    public void setContactEndDate(Date contactEndDate) {
+        this.contactEndDate = contactEndDate;
+    }
+
+    public Boolean getAssurance() {
+        return assurance;
+    }
+
+    public void setAssurance(Boolean assurance) {
+        this.assurance = assurance;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public String getFamilySituation() {
+        return familySituation;
+    }
+
+    public void setFamilySituation(String familySituation) {
+        this.familySituation = familySituation;
+    }
+
+
+
+
+    public Boolean getActif() {
+        return actif;
+    }
+
+    public void setActif(Boolean actif) {
+        this.actif = actif;
+    }
+
+
 
     public double getRttCredit() {
         return rttCredit;
@@ -99,27 +257,6 @@ public class User implements UserDetails {
     }
 
 
-
-    @Column(name = "token")
-    private String token;
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime tokenCreationDate;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-
-
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "entity_id")
-    private Entity entity;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "department_id")
-    private Department department;
-
     public Poste getPoste() {
         return poste;
     }
@@ -127,18 +264,6 @@ public class User implements UserDetails {
     public void setPoste(Poste poste) {
         this.poste = poste;
     }
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "poste_id")
-    private Poste poste;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "image_id")
-    private Image image;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "team_id")
-    private Team team;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -152,7 +277,7 @@ public class User implements UserDetails {
         super();
         this.email=email;
     }
-    public User(String firstname,String lastname, String password,String email,Role role,Image image,Date birthdayDate, Date contractStartDate,Boolean actif){
+    public User(String firstname,String lastname, String password,String email,Role role,Image image,Date birthdayDate, Date contractStartDate,Boolean actif,double remoteNbr){
         super();
         this.firstname=firstname;
         this.lastname=lastname;
@@ -163,6 +288,7 @@ public class User implements UserDetails {
         this.birthdayDate=birthdayDate;
         this.contractStartDate=contractStartDate;
         this.actif=actif;
+        this.remoteNbr = remoteNbr;
 
     }
     public User(String token,LocalDateTime tokenCreationDate){
@@ -171,7 +297,6 @@ public class User implements UserDetails {
         this.tokenCreationDate=tokenCreationDate;
 
     }
-
 
 
     public String getPassword() {
@@ -273,6 +398,7 @@ public class User implements UserDetails {
                 ", role=" + role +
                 ", image=" + image +
                 ", actif=" + actif +
+                ", remoteNbr=" + remoteNbr +
 
                 '}';
     }

@@ -42,15 +42,34 @@ public interface UserRepository extends /*JpaRepository<User, Long> {*/
     @Query(value = "SELECT u from User u WHERE u.team.id = :teamId and u.role.role in ('teamLead', 'manager') ")
     List<User>  findteamLeadandManager(@Param("teamId") long teamId);
 
+    @Query(value = "SELECT u from User u WHERE u.superior.id = :superiorId  ")
+    List<User>  findconsultantbySuperior(@Param("superiorId") long superiorId);
+
+
+    @Query(value = "SELECT u from User u WHERE u.team.id = :teamId and u.role.role = 'teamLead' ")
+    User findteamLead(@Param("teamId") long teamId);
+
     @Query(value = "SELECT u from User u WHERE u.team.id = :teamId and u.role.role = 'manager' ")
     User findmanager(@Param("teamId") long teamId);
+
+    @Query(value = "SELECT count(u) from User u where u.actif = true ")
+    Double EmployeeNumber();
+    @Query(value = "SELECT u from User u where u.actif = true ")
+    List<User> Employees();
     @Transactional
     @Modifying
     @Query("UPDATE User u SET u.team = :team  WHERE u.id = :userId")
     void updateUser(@Param("userId") int userId, @Param("team") Team team);
 
+
     @Transactional
     @Modifying
     @Query("UPDATE User u SET u.leaveCredit = :leaveCredit  WHERE u.id = :userId")
     void addLeaveCredit(@Param("userId") long userId, @Param("leaveCredit") double leaveCredit);
+
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE User u SET u.remoteNbr = 2  WHERE u.id = :userId")
+    void updateRemoteDay(@Param("userId") long userId);
 }

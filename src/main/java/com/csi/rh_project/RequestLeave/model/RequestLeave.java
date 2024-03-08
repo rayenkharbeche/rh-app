@@ -31,9 +31,16 @@ public class RequestLeave {
 
     @Column(name = "leave_type")
     private String leaveType;
-    @Column(name = "leave_balance")
-    private long leaveBalance;
+    @Column(name = "leave_days")
+    private long leaveDays;
 
+    public long getLeaveDays() {
+        return leaveDays;
+    }
+
+    public void setLeaveDays(long leaveDays) {
+        this.leaveDays = leaveDays;
+    }
 
     @UpdateTimestamp
     @Column(name = "update_date")
@@ -63,12 +70,12 @@ public class RequestLeave {
     private FileDB fileDB;
 
 
-    public RequestLeave(User user_id, String leaveType, Date updateDate, long leaveBalance,
+    public RequestLeave(User user_id, String leaveType, Date updateDate, long leaveDays,
                         String status,String interneStatus,Date startDate, Date endDate) {
         super();
         this.userId = user_id;
         this.leaveType = leaveType;
-        this.leaveBalance = leaveBalance;
+        this.leaveDays = leaveDays;
         this.status = status;
         this.interneStatus = interneStatus;
 
@@ -106,13 +113,7 @@ public class RequestLeave {
         this.leaveType = leaveType;
     }
 
-    public long getLeaveBalance() {
-        return leaveBalance;
-    }
 
-    public void setLeaveBalance(long leaveBalance) {
-        this.leaveBalance = leaveBalance;
-    }
 
     public Date getUpdateDate() {
         return updateDate;

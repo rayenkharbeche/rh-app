@@ -5,6 +5,7 @@ import java.util.*;
 import com.csi.rh_project.RequestLeave.model.RequestLeave;
 import com.csi.rh_project.RequestLeave.repository.RequestLeaveRepository;
 
+import com.csi.rh_project.RequestLeave.service.RequestLeaveService;
 import com.csi.rh_project.auth.dtos.UpdateUserDto;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.services.EmailService;
@@ -22,31 +23,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RequestLeaveController {
-    @Autowired
-    RequestLeaveRepository requestRepository;
+
     private final UserService userService;
+    private final RequestLeaveService requestLeaveService;
     private final EmailService emailService;
 
-    public RequestLeaveController(UserService userService,EmailService emailService) {
+    public RequestLeaveController(UserService userService,
+                                  EmailService emailService,
+                                  RequestLeaveService requestLeaveService) {
         this.userService = userService;
         this.emailService = emailService;
+        this.requestLeaveService = requestLeaveService;
 
     }
 
     @GetMapping("/RequestLeave")
     public ResponseEntity<List<RequestLeave>> getAllRequestsByEmployeeId(@RequestParam(required = false) Integer user_id) {
         try {
-            System.out.println(user_id);
 
             List<RequestLeave> requests = new ArrayList<RequestLeave>();
             Optional<User> user = userService.findById(user_id);
-            System.out.println(user);
-
-            requestRepository.findRequestLeavesByUserId(user.get()).forEach(requests::add);
+            requestLeaveService.getAllRequestsByEmployeeId(user.get()).forEach(requests::add);
 
             if (requests.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
+
 
             return new ResponseEntity<>(requests, HttpStatus.OK);
         } catch (Exception e) {
@@ -57,13 +59,10 @@ public class RequestLeaveController {
 
     @GetMapping("/RequestLeave/{id}")
     public ResponseEntity<RequestLeave> getEntityById(@PathVariable("id") long user_id) {
-        Optional<RequestLeave> EntityData = requestRepository.findById(user_id);
-        System.out.println("test");
+        Optional<RequestLeave> EntityData = requestLeaveService.findById(user_id);
         if (EntityData.isPresent()) {
-            System.out.println(EntityData+"another test         **********************************************");
             return new ResponseEntity<>(EntityData.get(), HttpStatus.OK);
         } else {
-            System.out.println("another test 698745        **********************************************");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -72,31 +71,18 @@ public class RequestLeaveController {
     public ResponseEntity<RequestLeave> createEntity(@RequestBody RequestLeave request) {
         try {
             System.out.println(request);
-            RequestLeave _Request = requestRepository
+            RequestLeave _Request  = requestLeaveService.createRequest(request);
 
-                    .save(new RequestLeave(request.getUserId(), request.getLeaveType(), request.getUpdateDate(),
-                            request.getLeaveBalance(), request.getStatus(),request.getInterneStatus(), request.getStartDate(), request.getEndDate()));
-            System.out.println(_Request);
-            String subject = "Request Leave created";
-            List<User> _users = null;
-            if (Objects.equals(request.getUserId().getRole().getRole(), "teamLead")) {
-                User user = userService.getmanager(request.getUserId().getTeam().getId());
 
-                emailService.sendEmailFromTemplate(user, "email-template.txt" , subject,"Leave Request");
-
-            } else  if (Objects.equals(request.getUserId().getRole().getRole(), "consultant"))  {
-                _users = userService.getteamLeadandManager(request.getUserId().getTeam().getId());
-                if (!_users.isEmpty()) {
-                    for (User _user : _users) {
-                        emailService.sendEmailFromTemplate(_user, "email-template.txt" , subject,"Leave Request");
-
-                    }
-                }
+            if (!Objects.equals(request.getUserId().getSuperior(), null)){
+                String subject = "Demande de congé Crée";
+                String mail_template= "template-mail-create-request-leave.txt";
+                emailService.sendEmailRequestLeaveWithData(request.getUserId().getSuperior(),request, subject, mail_template);
 
             }
 
 
-            return new ResponseEntity<>(_Request, HttpStatus.CREATED);
+                return new ResponseEntity<>(_Request, HttpStatus.CREATED);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -105,9 +91,10 @@ public class RequestLeaveController {
     }
 
     @DeleteMapping("/RequestLeave/{id}")
-    public ResponseEntity<HttpStatus> deleteEntity(@PathVariable("id") long user_id) {
+    public ResponseEntity<HttpStatus> deleteRequestLeave(@PathVariable("id") long user_id) {
         try {
-            requestRepository.deleteById(user_id);
+
+            requestLeaveService.deleteById(user_id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,9 +102,9 @@ public class RequestLeaveController {
     }
 
     @DeleteMapping("/RequestLeave")
-    public ResponseEntity<HttpStatus> deleteAllEntities() {
+    public ResponseEntity<HttpStatus> deleteAllRequestLeave() {
         try {
-            requestRepository.deleteAll();
+            requestLeaveService.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -125,23 +112,9 @@ public class RequestLeaveController {
 
     }
     @PutMapping("/RequestLeave/{id}")
-    public ResponseEntity<RequestLeave> updateEntity(@PathVariable("id") long id, @RequestBody RequestLeave requestLeave) {
-        Optional<RequestLeave> EntityData = requestRepository.findById(id);
+    public ResponseEntity<RequestLeave> updateRequestLeave(@PathVariable("id") long id, @RequestBody RequestLeave requestLeave) {
+       return requestLeaveService.updateRequest(id,requestLeave);
 
-        if (EntityData.isPresent()) {
-            RequestLeave _RequestLeave = EntityData.get();
-            _RequestLeave.setStartDate(requestLeave.getStartDate());
-            _RequestLeave.setEndDate(requestLeave.getEndDate());
-            _RequestLeave.setLeaveType(requestLeave.getLeaveType());
-            _RequestLeave.setInterneStatus(requestLeave.getInterneStatus());
-            _RequestLeave.setStatus(requestLeave.getStatus());
-
-            _RequestLeave.setFileDB(requestLeave.getFileDB());
-
-            return new ResponseEntity<>(requestRepository.save(_RequestLeave), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @GetMapping("/RequestLeave/RequestLeavebyteam")
@@ -149,23 +122,49 @@ public class RequestLeaveController {
         try {
 
             List<RequestLeave> requests = new ArrayList<RequestLeave>();
+            List<RequestLeave> requestsTL = new ArrayList<RequestLeave>();
+
             List<User> users;
+            List<User> usersTL;
 
             Optional<User> userData = userService.findById(user_id);
+
             if (userData.isPresent()) {
                 User _User = userData.get();
-                users = userService.getUserByTeam(_User.getTeam().getId());
-
-                for (User user : users) {
-                    if(Objects.equals(_User.getRole().getRole(), "teamLead")) {
-                        requestRepository.findRequestLeavesByConsultantsOnly(user.getId()).forEach(requests::add);
-
-                    } else {
-                        requestRepository.findRequestLeavesByTeamNotmanager(user.getId()).forEach(requests::add);
-                    }
-                    System.out.println(requests);
+                if (Objects.equals(_User.getRole().getRole(), "director")){
+                    requests= requestLeaveService.getRequestLeavesManager();
 
                 }
+                else {
+                    System.out.println(_User.getId());
+
+                    users = userService.findconsultantbySuperior(_User.getId());
+                    System.out.println(users);
+
+                    for (User user : users) {
+                        /*requestLeaveService.getRequestLeavesNotManager(user).forEach(requests::add);*/
+                        requests.addAll(requestLeaveService.getRequestLeavesofConsultant(user));
+                        System.out.println(user.getRole().getRole());
+                        System.out.println(user);
+
+                        if(Objects.equals(user.getRole().getRole(), "teamLead")){
+
+                            usersTL = userService.findconsultantbySuperior(user.getId());
+                            System.out.println(usersTL);
+
+                            for (User _user : usersTL) {
+
+                                requestsTL.addAll(requestLeaveService.getRequestLeavesofConsultant(_user));
+                            }
+                            System.out.println(requestsTL);
+
+                            requests.addAll(requestsTL);
+                        }
+                        System.out.println(requests);
+
+                    }
+                }
+
             }
             System.out.println(requests);
 
@@ -181,28 +180,105 @@ public class RequestLeaveController {
     }
     @PutMapping("/RequestLeave/updateStatus/{id}")
     public ResponseEntity<RequestLeave> updateStatus(@PathVariable("id") long id, @RequestBody RequestLeave requestLeave) {
-        Optional<RequestLeave> EntityData = requestRepository.findById(id);
-        System.out.println(requestLeave);
+        Optional<RequestLeave> EntityData = requestLeaveService.findById(id);
 
         if (EntityData.isPresent()) {
             RequestLeave _RequestLeave = EntityData.get();
-            _RequestLeave.setStatus(requestLeave.getStatus());
-            //_RequestLeave.setUpdateDate(new Date());
 
-            _RequestLeave.setInterneStatus(requestLeave.getInterneStatus());
+            RequestLeave _Request = requestLeaveService.updateStatus(_RequestLeave,requestLeave);
+
+
+            /*Requested Canceled Traitment*/
+            if (Objects.equals(requestLeave.getInterneStatus(), "inactive")) {
+                /*if (Objects.equals(requestLeave.getStatus(), "inactive")) {
+                  String subject = "Demande de congé annulé";
+                    String mail_template= "template-mail-canceled-request-leave.txt";
+                    emailService.sendEmailRequestLeaveWithData(_Request.getUserId().getSuperior(), _Request.getUserId(),_Request, subject, mail_template);
+                }*/
+
+                if (Objects.equals(requestLeave.getStatus(), "ongoing")) {
+
+                    /*Notif TL : request canceled and waiting for validation*/
+                    //String subject = "Request Leave Canceled";
+                    //User _user = userService.getteamLead(_RequestLeave.getUserId().getTeam().getId());
+                    //emailService.sendEmailFromTemplateWithUserInfo(_RequestLeave.getUserId().getSuperior(), requestLeave.getUserId(), "email-template_1.txt", subject, "Leave Request");
+                    //String Mailreference = "RequestLeaveCanceled";
+                    //emailService.sendEmailFromMailTemplate(_RequestLeave.getUserId().getSuperior(), requestLeave.getUserId(),  "email-template.txt" ,Mailreference);
+                    String subject = "Demande de congé annulé";
+                    String mail_template= "template-mail-canceled-request-leave.txt";
+                    emailService.sendEmailRequestLeaveWithData(_Request.getUserId().getSuperior(),_Request, subject, mail_template);
+
+
+                }
+            } else if (Objects.equals(_RequestLeave.getInterneStatus(), "tl_validated_inactive")) {
+                /*Notif TL + manager */
+                    //String subject = "Request Leave Canceled";
+                    //List<User> users = userService.getteamLeadandManager(_RequestLeave.getUserId().getTeam().getId());
+                    List<User> users = new ArrayList<>();
+                    users.add(_RequestLeave.getUserId().getSuperior());
+                    Optional<User> userOptional= userService.findById(_RequestLeave.getUserId().getSuperior().getId());
+                    users.add(userOptional.get());
+                    //String Mailreference = "RequestLeaveCanceled";
+                    String subject = "Demande de congé annulé";
+                    String mail_template= "template-mail-canceled-request-leave.txt";
+
+                for (User user : users) {
+                    //emailService.sendEmailFromTemplateWithUserInfo(user, requestLeave.getUserId(), "email-template_1.txt", subject, "Leave Request");
+
+                    //emailService.sendEmailFromMailTemplate(user, requestLeave.getUserId(),  "email-template.txt" ,Mailreference);
+
+                    emailService.sendEmailRequestLeaveWithData(user,_Request, subject, mail_template);
+
+                }
+
+            }else if (Objects.equals(_RequestLeave.getInterneStatus(), "validated_inactive")) {
+                /*Notif TL + manager */
+                //String subject = "Request Leave Canceled";
+                //String Mailreference = "RequestLeaveCanceled";
+
+                String subject = "Demande de congé annulé";
+
+                List<User> users = new ArrayList<>();
+                users.add(_RequestLeave.getUserId().getSuperior());
+                Optional<User> userOptional= userService.findById(_RequestLeave.getUserId().getSuperior().getId());
+                users.add(userOptional.get());
+                String mail_template= "template-mail-canceled-request-leave.txt";
+
+                for (User user : users) {
+                    //emailService.sendEmailFromTemplateWithUserInfo(user, requestLeave.getUserId(), "email-template_1.txt", subject, "Leave Request");
+                    //emailService.sendEmailFromMailTemplate(user, requestLeave.getUserId(),  "email-template.txt" ,Mailreference);
+                    emailService.sendEmailRequestLeaveWithData(user,_Request, subject, mail_template);
+
+
+                }
+            }
+
 
             if (Objects.equals(requestLeave.getStatus(), "validated")){
-                String subject = "Request Leave validated";
-                emailService.sendEmailFromTemplate(requestLeave.getUserId(), "email-template_1.txt" , subject,"Leave Request");
+                //String Mailreference = "RequestLeavevalidated";
+                String subject = "Demande de congé validé";
+                String mail_template= "template-mail-validated-request-leave.txt";
+
+                //emailService.sendEmailFromTemplate(requestLeave.getUserId(), "email-template_1.txt" , subject,"Leave Request");
+                //emailService.sendEmailFromMailTemplate(requestLeave.getUserId(), requestLeave.getUserId().getSuperior(), "email-template.txt" ,Mailreference);
+                emailService.sendEmailRequestLeaveWithData(_Request.getUserId(),_Request, subject, mail_template);
+
+
             }
             if (Objects.equals(requestLeave.getInterneStatus(), "tl_validated")){
-                String subject = "Request Leave validated by Team Lead ";
-                User manager = userService.getmanager(requestLeave.getUserId().getTeam().getId());
-                emailService.sendEmailFromTemplate(manager, "email-template_2.txt" , subject,"Leave Request");
+                //String Mailreference = "RequestLeaveValidatedByTeamlead ";
+
+                //User manager = userService.getmanager(requestLeave.getUserId().getTeam().getId());
+                //emailService.sendEmailFromTemplate(requestLeave.getUserId().getSuperior(), "email-template_2.txt" , subject,"Leave Request");
+                //emailService.sendEmailFromMailTemplate(requestLeave.getUserId().getSuperior().getSuperior(), requestLeave.getUserId(), "email-template.txt" ,Mailreference);
+                String subject = "Demande de congé validé";
+                String mail_template= "template-mail-validated-by-teamlead-request-leave.txt";
+                System.out.println(_Request.getUserId().getSuperior());
+                emailService.sendEmailRequestLeaveWithData(_Request.getUserId().getSuperior().getSuperior(),_Request, subject, mail_template);
+
             }
 
-
-            return new ResponseEntity<>(requestRepository.save(_RequestLeave), HttpStatus.OK);
+            return new ResponseEntity<>(_Request, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -220,13 +296,20 @@ public class RequestLeaveController {
 
 
     @GetMapping("/RequestLeave/SickLeave/{id}")
-    public ResponseEntity<List<RequestLeave>> getSickLeaveById(@PathVariable("id") long user_id) {
+    public ResponseEntity<List<RequestLeave>> getSickLeaveById(@PathVariable("id") Integer user_id) {
         try {
             System.out.println(user_id);
-
             List<RequestLeave> requests = new ArrayList<RequestLeave>();
 
-            requests = requestRepository.findSickLeavesById(user_id);
+            Optional<User> UserData = userService.findById(user_id);
+            if (UserData.isPresent()) {
+
+               User user = UserData.get();
+
+                requests = requestLeaveService.getSickLeaveById(user);
+
+            }
+
 
             if (requests.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -241,11 +324,10 @@ public class RequestLeaveController {
     @GetMapping("/RequestLeave/requestValidated")
     public ResponseEntity<List<RequestLeave>> getRequestById() {
         try {
-            System.out.println("requests");
 
             List<RequestLeave> requests = new ArrayList<RequestLeave>();
+            requests = requestLeaveService.getRequestLeavesValidated();
 
-            requests = requestRepository.findrequestLeavesValidated();
             System.out.println(requests);
 
             if (requests.isEmpty()) {
@@ -259,5 +341,106 @@ public class RequestLeaveController {
         }
     }
 
+    @GetMapping("/RequestLeave/SickLeaveDays/{id}")
+    public ResponseEntity<Double> getSickLeaveDayById(@PathVariable("id") Integer user_id) {
+        try {
 
+            Optional<User> UserData = userService.findById(user_id);
+            Double requestsday = null;
+            if (UserData.isPresent()) {
+                User user = UserData.get();
+
+                requestsday = requestLeaveService.getSickLeavesDaysById(user);
+
+                System.out.println(requestsday);
+            }
+
+            return new ResponseEntity<>(requestsday, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/RequestLeave/RequestLeaveCanceledbyteam")
+    public ResponseEntity<List<RequestLeave>> getAllCanceledRequestsByTeam(@RequestParam(required = false) Integer user_id) {
+        try {
+
+            List<RequestLeave> requests = new ArrayList<RequestLeave>();
+            //List<User> users;
+
+            Optional<User> userData = userService.findById(user_id);
+            if (userData.isPresent()) {
+                User _User = userData.get();
+                requests = requestLeaveService.getAllCanceledRequestsByTeam(_User);
+            }
+
+            if (requests.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(requests, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/RequestLeave/LeaverequestBymonth/{id}")
+    public ResponseEntity<List<List<Double>> > getLeaverequestBymonth(@PathVariable("id") Integer user_id) {
+        try {
+            List<List<Double>> requests = new ArrayList<List<Double>>();
+            List<Double> requestsdays = new ArrayList<Double>();
+
+            List<String> typeList = Arrays.asList("sickLeave", "annualLeave","unpaidLeave","specialLeave", "rttLeave");
+
+            Optional<User> UserData = userService.findById(user_id);
+            Double requestsday = null;
+            if (UserData.isPresent()) {
+
+                User user = UserData.get();
+                if (Objects.equals(user.getRole().getRole(), "admin") || Objects.equals(user.getRole().getRole(), "director")) {
+                    for (var type : typeList) {
+                        requestsdays = requestLeaveService.requestLeavebytypebymonth(0, type);
+
+                        requests.add(requestsdays);
+                    }
+                } else {
+                    for (var type : typeList) {
+                        requestsdays = requestLeaveService.requestLeavebytypebymonth(user_id, type);
+
+                        requests.add(requestsdays);
+                    }
+
+
+                }
+            }
+
+            return new ResponseEntity<>(requests, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/RequestLeave/LeaverequestBystatus/{id}")
+    public ResponseEntity<List<Double> > LeaverequestBystatus(@PathVariable("id") Integer user_id) {
+        try {
+            List<Double> requestsdays = new ArrayList<Double>();
+
+            Optional<User> UserData = userService.findById(user_id);
+            Double requestsday = null;
+            List<String> statusList = Arrays.asList("open", "ongoing", "validated", "inactive");
+
+            if (UserData.isPresent()) {
+                User user = UserData.get();
+                requestsdays = requestLeaveService.LeaverequestBystatus(user);
+
+                }
+
+            return new ResponseEntity<>(requestsdays, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

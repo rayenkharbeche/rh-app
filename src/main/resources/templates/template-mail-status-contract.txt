@@ -1,0 +1,1 @@
+<html><head></head><body><p>Bonjour ${NameSendTo},</p><p> Le contrat du ${consultant} termine dans quelque jours  </p><p>Cordialement</p><p>L'equipe RH</p></body></html>

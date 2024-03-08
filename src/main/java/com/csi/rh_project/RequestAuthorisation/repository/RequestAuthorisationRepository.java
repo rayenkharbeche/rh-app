@@ -18,5 +18,13 @@ public interface RequestAuthorisationRepository extends JpaRepository<RequestAut
 
 	@Query(value = "SELECT u from RequestAuthorisation u WHERE u.userId.id = :userId and u.userId.role.role <> 'manager' and u.userId.role.role <> 'teamLead'")
 	List<RequestAuthorisation> findRequestLeavesByConsultantsOnly(@Param("userId") long userId);
+	@Query(value = "SELECT sum (u.remoteDays) from RequestAuthorisation u WHERE u.userId.id = :userId and u.type = 'homeoffice' and u.status = 'Validated' ")
+	Double findRemoteDaysById(@Param("userId") long userId);
+	@Query(value = "SELECT sum (u.remoteDays) from RequestAuthorisation u WHERE month(u.authorisationStartDate) = :month and u.userId.id = :userId and u.type = 'homeoffice' and u.status = 'Validated' ")
+	Double findRemoteDaysBymonthbyid(@Param("userId") long userId,@Param("month") long month);
+	@Query(value = "SELECT sum (u.remoteDays) from RequestAuthorisation u WHERE month(u.authorisationStartDate) = :month and u.type = 'homeoffice' and u.status = 'Validated' ")
+	Double findRemoteDaysBymonth(@Param("month") long month);
+	@Query(value = "SELECT u from RequestAuthorisation u WHERE u.userId.role.role in ('manager', 'Infra' , 'Rh' , 'treasurer' ) ")
+	List<RequestAuthorisation> findRequestAuthorizationManager();
 
 }

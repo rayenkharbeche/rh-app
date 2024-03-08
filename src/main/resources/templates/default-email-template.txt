@@ -1,0 +1,1 @@
+<html><head></head><body><p>Hello ${NameSendTo} ,</p><p>   ${template} </p><p>Thanks</p></body></html>

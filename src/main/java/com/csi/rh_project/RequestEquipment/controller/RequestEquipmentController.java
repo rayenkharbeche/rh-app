@@ -1,35 +1,43 @@
 package com.csi.rh_project.RequestEquipment.controller;
 
 import com.csi.rh_project.AdministrativeRequest.model.RequestAdministrative;
+import com.csi.rh_project.RequestEquipment.Dto.RequestEquipmentDto;
 import com.csi.rh_project.RequestEquipment.model.RequestEquipment;
 import com.csi.rh_project.RequestEquipment.repository.RequestEquipmentRepository;
 
+import com.csi.rh_project.RequestEquipment.service.RequestEquipmentService;
 import com.csi.rh_project.auth.models.User;
 import com.csi.rh_project.auth.services.EmailService;
 import com.csi.rh_project.auth.services.UserService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RequestEquipmentController {
-    @Autowired
-    RequestEquipmentRepository requestRepository;
+
     private final UserService userService;
+
+    private final RequestEquipmentService requestEquipmentService;
+
     private final EmailService emailService;
 
-    public RequestEquipmentController(UserService userService, EmailService emailService) {
+    public RequestEquipmentController(UserService userService, EmailService emailService,
+                                      RequestEquipmentService requestEquipmentService) {
         this.userService = userService;
         this.emailService = emailService;
+        this.requestEquipmentService = requestEquipmentService;
 
     }
 
@@ -41,12 +49,10 @@ public class RequestEquipmentController {
             List<RequestEquipment> requests = new ArrayList<RequestEquipment>();
             if (user_id != null) {
                 Optional<User> user = userService.findById(user_id);
-                System.out.println(user);
-
-                requestRepository.findRequestEquipmentByUserId(user.get()).forEach(requests::add);
+                requestEquipmentService.getRequestEquipmentByUserId(user.get());
             }
             else {
-                requestRepository.findAll().forEach(requests::add);
+                requestEquipmentService.allRequestEquipment();
 
             }
             System.out.println(requests);
@@ -64,13 +70,12 @@ public class RequestEquipmentController {
 
     @GetMapping("/RequestEquipment/{id}")
     public ResponseEntity<RequestEquipment> getEntityById(@PathVariable("id") long user_id) {
-        Optional<RequestEquipment> EntityData = requestRepository.findById(user_id);
-        System.out.println("test");
+
+        Optional<RequestEquipment> EntityData = requestEquipmentService.findById(user_id);
+
         if (EntityData.isPresent()) {
-            System.out.println(EntityData+"another test         **********************************************");
             return new ResponseEntity<>(EntityData.get(), HttpStatus.OK);
         } else {
-            System.out.println("another test 698745        **********************************************");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -79,27 +84,27 @@ public class RequestEquipmentController {
     public ResponseEntity<RequestEquipment> createEntity(@RequestBody RequestEquipment request) {
         try {
             System.out.println(request);
-            RequestEquipment _Request = requestRepository
 
-                    //.save(new RequestEquipment(request.getUserId(), request.getType(), request.getStatus()));
-                    .save(new RequestEquipment(request.getUserId(), request.getType(), request.getEquipmentName(), request.getStatus()));
+            RequestEquipment _Request = requestEquipmentService.createRequestEquipment(request);
 
             System.out.println(_Request);
-            String subject = "Request Equipment created";
+            //String subject = "Request Equipment created";
             List<User> _users = null;
-            if (Objects.equals(request.getUserId().getRole().getRole(), "teamLead")) {
-                User user = userService.getmanager(request.getUserId().getTeam().getId());
+            String subject = "Demande d'equipement Crée";
+            String mail_template= "template-mail-create-request-authorisation.txt";
 
-                emailService.sendEmailFromTemplate(user, "email-template.txt" , subject,"Equipment Request");
+            if (Objects.equals(request.getUserId().getRole().getRole(), "teamLead")) {
+                User user = userService.getmanager(request.getUserId().getSuperior());
+                //emailService.sendEmailFromTemplateWithUserInfo(user, request.getUserId(), "email-template.txt" , subject,"Leave Request");
+                emailService.sendEmailRequestEquipmentwithData(user ,request ,subject,  mail_template);
+
 
             } else  if (Objects.equals(request.getUserId().getRole().getRole(), "consultant"))  {
-                _users = userService.getteamLeadandManager(request.getUserId().getTeam().getId());
-                if (!_users.isEmpty()) {
-                    for (User _user : _users) {
-                        emailService.sendEmailFromTemplate(_user, "email-template.txt" , subject,"Equipment Request");
+                //User _user = userService.getteamLead(request.getUserId().getTeam().getId());
+                //emailService.sendEmailFromTemplateWithUserInfo(request.getUserId().getSuperior(), request.getUserId(), "email-template.txt" , subject,"Leave Request");
 
-                    }
-                }
+                emailService.sendEmailRequestEquipmentwithData(request.getUserId().getSuperior(),request ,subject,  mail_template);
+
 
             }
 
@@ -115,7 +120,8 @@ public class RequestEquipmentController {
     @DeleteMapping("/RequestEquipment/{id}")
     public ResponseEntity<HttpStatus> deleteEntity(@PathVariable("id") long user_id) {
         try {
-            requestRepository.deleteById(user_id);
+
+            requestEquipmentService.deleteById(user_id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -125,7 +131,7 @@ public class RequestEquipmentController {
     @DeleteMapping("/RequestEquipment")
     public ResponseEntity<HttpStatus> deleteAllEntities() {
         try {
-            requestRepository.deleteAll();
+            requestEquipmentService.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -134,39 +140,59 @@ public class RequestEquipmentController {
     }
     @PutMapping("/RequestEquipment/{id}")
     public ResponseEntity<RequestEquipment> updateEntity(@PathVariable("id") long id, @RequestBody RequestEquipment request) {
-        Optional<RequestEquipment> EntityData = requestRepository.findById(id);
-
-        if (EntityData.isPresent()) {
-            RequestEquipment _RequestEquipment = EntityData.get();
-            _RequestEquipment.setUserId(request.getUserId());
-            _RequestEquipment.setType(request.getType());
-            _RequestEquipment.setStatus(request.getStatus());
-
-            _RequestEquipment.setEquipmentRef(request.getEquipmentRef());
-
-            return new ResponseEntity<>(requestRepository.save(_RequestEquipment), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        ResponseEntity<RequestEquipment> _RequestEquipment = requestEquipmentService.updateRequestEquipment(id,request);
+        return _RequestEquipment;
     }
 
 
     @PutMapping("/RequestEquipment/updateStatus/{id}")
-    public ResponseEntity<RequestEquipment> updateStatus(@PathVariable("id") long id, @RequestBody RequestEquipment request) {
-        Optional<RequestEquipment> EntityData = requestRepository.findById(id);
+    public ResponseEntity<RequestEquipment> updateStatus(@PathVariable("id") long id, @RequestBody RequestEquipmentDto request) {
+        Optional<RequestEquipment> EquipmentData = requestEquipmentService.findById(id);
 
-        if (EntityData.isPresent()) {
-            RequestEquipment _RequestEquipment = EntityData.get();
-            _RequestEquipment.setStatus(request.getStatus());
+        if (EquipmentData.isPresent()) {
 
 
-            if (Objects.equals(request.getStatus(), "validated")){
-                String subject = "Request Equipment validated";
-                emailService.sendEmailFromTemplate(request.getUserId(), "email-template_1.txt" , subject,"Equipment Request");
+            RequestEquipment _RequestEquipment = EquipmentData.get();
+
+            /*_RequestEquipment.setStatus(request.getStatus());*/
+
+            if (request.getEquipmentRef() != null) {
+                _RequestEquipment.setEquipmentRef(request.getEquipmentRef());
             }
 
 
-            return new ResponseEntity<>(requestRepository.save(_RequestEquipment), HttpStatus.OK);
+
+            if ( (!Objects.equals(request.getStatus(), "validated")) && (Objects.equals(request.getInterneStatus(), "validated"))){
+                _RequestEquipment.setInterneStatus(request.getInterneStatus());
+
+                if (request.getExist() != null && request.getExist()) {
+
+                    String subject = "Demande d'equipement validé";
+                    String mail_template= "template-mail-create-request-equipment.txt";
+                    emailService.sendEmailRequestEquipmentwithData(request.getUserId().getSuperior(),_RequestEquipment ,subject,  mail_template);
+                    //emailService.sendEmailFromTemplate(request.getUserId(), "email-template_4.txt", subject, "Equipment Request");
+
+                } else {
+                    String subject = "Demande d'equipement validée";
+                    String mail_template= "template-mail-create-request-equipment.txt";
+                    emailService.sendEmailRequestEquipmentwithData(request.getUserId().getSuperior(),_RequestEquipment ,subject,  mail_template);
+                    //emailService.sendEmailFromTemplate(request.getUserId(), "email-template_1.txt", subject, "Equipment Request");
+                }
+            }
+            if (Objects.equals(request.getStatus(), "validated")){
+                _RequestEquipment.setStatus(request.getStatus());
+
+                //String subject = "Request Equipment validated";
+                //emailService.sendEmailFromTemplate(request.getUserId(), "email-template_1.txt" , subject,"Equipment Request");
+                String subject = "Demande d'equipement validée";
+                String mail_template= "template-mail-create-request-equipment.txt";
+                emailService.sendEmailRequestEquipmentwithData(request.getUserId().getSuperior(),_RequestEquipment ,subject,  mail_template);
+
+
+            }
+
+
+            return new ResponseEntity<>(requestEquipmentService.save(_RequestEquipment), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -181,20 +207,12 @@ public class RequestEquipmentController {
                 Optional<User> user = userService.findById(user_id);
                 User _User = user.get();
                 System.out.println(_User);
+                requests = requestEquipmentService.getAllRequestvalidationById(_User);
 
-                if (Objects.equals(_User.getRole().getRole(), "Director")) {
-                    requests.addAll(requestRepository.findRequestAdministrativestypeDirector());
-
-                } else {
-                    System.out.println("test");
-
-                    requests.addAll(requestRepository.findRequestAdministrativestypeNothardware());
-                }
             }
             else {
-                System.out.println("test2");
 
-                requestRepository.findAll().forEach(requests::add);
+                requests = requestEquipmentService.allRequestEquipment();
 
             }
 
@@ -210,8 +228,6 @@ public class RequestEquipmentController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 
 
 

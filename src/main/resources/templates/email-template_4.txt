@@ -1,0 +1,3 @@
+<html><head></head><body><p>Hello ${firstName} ${lastName},</p><p> ${request} validated  </p>
+<p>Please provide the equipment you dispose  </p>
+<p>Thanks</p></body></html>
