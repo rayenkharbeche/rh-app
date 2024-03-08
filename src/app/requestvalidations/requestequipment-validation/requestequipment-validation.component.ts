@@ -7,6 +7,9 @@ import { RequestAuthorization } from '../../requestauthorization/model/requestau
 import { Requestequipment } from '../../requestequipment/model/requestequipment';
 import { RequestequipmentService } from '../../requestequipment/service/requestequipment.service';
 import { RequestEquipmentStatut } from '../../requestequipment/model/requestequipmentstatut';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { RequestequipmentanalyseComponent } from '../requestequipmentanalyse/requestequipmentanalyse.component';
 @Component({
   selector: 'app-requestequipment-validation',
   templateUrl: './requestequipment-validation.component.html',
@@ -20,11 +23,13 @@ export class RequestequipmentValidationComponent {
   requests!: Requestequipment[];
   request!: Requestequipment;
   currentUser:any;
+  validatedstatus!: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private requestequipmentService: RequestequipmentService,
 
+    public dialog: MatDialog
 
   ) { }
   
@@ -58,33 +63,45 @@ export class RequestequipmentValidationComponent {
         next: (data) => {
           this.requests = data;
           console.log(this.requests);
-          for (let request of this.requests) {  
-            console.log(request.id);
-            if (request.status == RequestEquipmentStatut.OPEN){
-            request.status = RequestEquipmentStatut.ongoing;
+          if (this.requests != null){
+
+            for (let request of this.requests) {  
+              console.log(request.id);
+              if (request.status == RequestEquipmentStatut.OPEN){
+              request.status = RequestEquipmentStatut.ongoing;
 
 
-            this.requestUpdateStatus(request.id!,request );    
-            }      
+              this.requestUpdateStatus(request.id!,request );    
+              }      
             }
-          
-          
+          }
         },
         error: (e) => console.error(e)
       });
     }
 
 
-validateRequest( rqleave: Requestequipment){
-  console.log(this.currentUser.role)
- 
-  rqleave.status = RequestEquipmentStatut.Validated;
+    openDialog(request:any,name:any): void {
+   
+      const data = {
+        equipmentrequest:request,
+        equipmentName:  name
+      };
+      let dialogRef = this.dialog.open(RequestequipmentanalyseComponent, {
+        width: '600px',
+        data: data ,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.retrievRequest();
+  
+  
+      });
+    }
+  
+    
+    
+  
 
-      this.requestUpdateStatus(rqleave.id!,rqleave );      
-
-      this.retrievRequest();
-
-     }
   
     rejectRequest(rqleave: Requestequipment){
 
@@ -95,6 +112,13 @@ validateRequest( rqleave: Requestequipment){
       this.retrievRequest();
 
       
+
+    }
+    
+    editRequest(rqleave: Requestequipment){
+
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'requestvalidations/detail/'+ rqleave.id ;
+      this.router.navigateByUrl(returnUrl);    
 
     }
     

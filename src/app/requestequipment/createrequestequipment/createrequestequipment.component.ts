@@ -12,6 +12,8 @@ import { Requestequipment } from '../model/requestequipment';
 import { RequestequipmentService } from '../service/requestequipment.service';
 import { RequestEquipmentType } from '../model/requestequipmenttype';
 import { RequestEquipmentStatut } from '../model/requestequipmentstatut';
+import { EquipmentmanagementComponent } from '../../setup/equipmentmanagement/equipmentmanagement.component';
+import { EquipmentName } from '../model/EquipmentName';
 
 @Component({
   selector: 'app-createrequestequipment',
@@ -28,6 +30,7 @@ export class CreaterequestequipmentComponent {
   UserId!:User;
   requestequipment!:Requestequipment;
   requestEquipmentType:any;
+  Equipmentname:any;
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -41,6 +44,7 @@ export class CreaterequestequipmentComponent {
   ngOnInit() {
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
     this.requestEquipmentType = RequestEquipmentType;
+    this.Equipmentname = EquipmentName;
 
     this.form = this.formBuilder.group({
       authorisationDate: ['', Validators.required],
@@ -68,28 +72,21 @@ export class CreaterequestequipmentComponent {
 
 
       console.log(this.UserId) ;
-      // reset alerts on submit
-      /*this.alertService.clear();*/
-
-      // stop here if form is invalid
-      /*if (this.form.invalid) {
-          return;
-      }*/
     
-this.requestequipment = new Requestequipment();
-this.requestequipment.userId = this.UserId;
-this.requestequipment.type = this.form.value.type;
-this.requestequipment.equipmentName = this.form.value.equipmentName;
+      this.requestequipment = new Requestequipment();
+      this.requestequipment.userId = this.UserId;
+      this.requestequipment.type = this.form.value.type;
+      this.requestequipment.equipmentName = this.form.value.equipmentName;
 
-this.requestequipment.status = RequestEquipmentStatut.OPEN;
+      this.requestequipment.status = RequestEquipmentStatut.OPEN;
 
-console.log(this.requestequipment.userId)
+      console.log(this.requestequipment.userId)
       this.loading = true;
       this.requestequipmentService.create(this.requestequipment)
       .pipe(first())
       .subscribe({
           next: () => {
-              this.router.navigate(['/home/requestequipment/requestEquipmentlist'], { relativeTo: this.route });
+              this.router.navigate(['/requestequipment/requestEquipmentlist'], { relativeTo: this.route });
           },
           error: error => {
               /*this.alertService.error(error);*/

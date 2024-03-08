@@ -17,6 +17,14 @@ import { TeamManagmentComponent } from './team-managment/team-managment.componen
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { UpdateTeamComponent } from './update-team/update-team.component';
 import { RolemanagmentComponent } from './rolemanagment/rolemanagment.component';
+import { EmployeProfileComponent } from './employe-profile/employe-profile.component';
+import { EquipmentmanagementComponent } from './equipmentmanagement/equipmentmanagement.component';
+import { TransferEmployeeComponent } from './transfer-employee/transfer-employee.component';
+import { GeneralControlComponent } from './general-control/general-control.component';
+import { UsersImportComponent } from './users-import/users-import.component';
+import { MailTemplateComponent } from './mail-template/mail-template.component';
+import { MailTemplateListComponent } from './mail-template-list/mail-template-list.component';
+import { HolidayManagmentComponent } from './holiday-managment/holiday-managment.component';
 
 
 const routes: Routes = [
@@ -72,10 +80,26 @@ const routes: Routes = [
         
       },
       {
-        path: 'detail/:id',
+        path: 'update/:id',
         component: UpdateprofileComponent,
         data: {
           title: 'Profile List',
+        },
+        
+      },
+      {
+        path: 'detail/:id',
+        component: EmployeProfileComponent,
+        data: {
+          title: 'Detail',
+        },
+        
+      },
+      {
+        path: 'equipmentmanagment/:id',
+        component: EquipmentmanagementComponent,
+        data: {
+          title: 'Equipment managment',
         },
         
       },
@@ -87,14 +111,7 @@ const routes: Routes = [
         },
         
       },
-      /*{
-        path: 'reset/:id',
-        component: ResetpasswordComponent,
-        data: {
-          title: 'Reset List',
-        },
-        
-      },*/
+     
       {
         path: 'addConsulant',
         component: AddConsultantComponent,
@@ -133,6 +150,56 @@ const routes: Routes = [
           title: 'Role Management ',
         },      
       },
+      {
+        path: 'transferEmployee/:id',
+        component: TransferEmployeeComponent,
+        data: {
+          title: 'Transfer Employee ',
+        },      
+      },
+      {
+        path: 'generalcontrol',
+        component: GeneralControlComponent,
+        data: {
+          title: 'Transfer Employee ',
+        },      
+      },
+      {
+        path: 'usersImport',
+        component: UsersImportComponent,
+        data: {
+          title: 'Employees Import ',
+        },      
+      },
+      {
+        path: 'mailTemplate',
+        component: MailTemplateComponent,
+        data: {
+          title: 'Create Template ',
+        },      
+      },
+      {
+        path: 'mailTemplate/:id',
+        component: MailTemplateComponent,
+        data: {
+          title: 'Update Template ',
+        },      
+      },
+      {
+        path: 'mailTemplateList',
+        component: MailTemplateListComponent,
+        data: {
+          title: 'Employees Import ',
+        },      
+      },
+      {
+        path: 'holidaymanagment',
+        component: HolidayManagmentComponent,
+        data: {
+          title: 'Employees Import ',
+        },      
+      },
+  
      
     ],
   },

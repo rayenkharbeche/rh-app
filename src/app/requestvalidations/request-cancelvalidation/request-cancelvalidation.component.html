@@ -1,0 +1,80 @@
+<c-row>
+  <c-col xs>       
+    <c-card class="mb-4">      
+      <c-card-header>Team Requests </c-card-header>
+      <div  class="divider d-flex justify-content-center">
+          <c-col xl="11" md="6" sm="6"></c-col>
+      </div>
+      <c-card-body>
+        <table
+          [hover]="true"
+          [responsive]="true"
+          [striped]="true"
+          align="middle"
+          cTable
+          class="mb-0 border"
+        >           
+          <thead cTableColor="light">
+            <tr>
+                <th>Consultant</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th >status</th> 
+                <th >Action</th>             
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let request of requests; index as i"
+                [class.selected]="request.id === selectedId">
+                      
+                <td>
+                  <div>{{ request.userId.firstname }} {{ request.userId.lastName }}  </div> 
+                </td>  
+                <td>
+
+                  <div class="d-flex justify-content-between">
+                    <div>{{ request.startDate | date: 'dd/MM/yyyy'}}</div>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-between">
+                    <div>{{ request.endDate | date: 'dd/MM/yyyy'}} </div>
+                  </div>
+                </td>     
+              
+                <td>
+                  <div  class="d-flex justify-content-between">
+                    <small class="text-medium-emphasis">
+                    {{ request.status }}
+                    </small>
+                  </div>
+                </td>
+                <td *ngIf="currentUser.role == 'teamLead'">
+                  <button  [disabled]="request.interneStatus != 'inactive'"
+                    cButton shape="sm"  size="sm" (click)="validateCancelRequest(request)" color="primary">Validate
+                  </button>              
+                  <button [disabled]="request.interneStatus != 'inactive'" cButton shape="sm" size="sm" (click)="rejectCancelRequest(request)" color="info">Reject
+                  </button>  
+                </td>
+                <td *ngIf="currentUser.role == 'manager'">
+                  <button  [disabled]="request.interneStatus != 'tl_validated_inactive'"
+                  cButton shape="sm"  size="sm" (click)="validateCancelRequest(request)" color="primary">Validate
+                  </button>              
+                  <button [disabled]="request.interneStatus != 'tl_validated_inactive'" cButton shape="sm" size="sm" (click)="rejectCancelRequest(request)" color="info">Reject
+                  </button>  
+                
+                </td>
+                <td *ngIf="currentUser.role == 'director'">
+                  <button  
+                    cButton shape="sm"  size="sm" (click)="validateCancelRequest(request)" color="primary">Validate
+                  </button>              
+                  <button  cButton shape="sm" size="sm" (click)="rejectCancelRequest(request)" color="info">Reject
+                  </button>            
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

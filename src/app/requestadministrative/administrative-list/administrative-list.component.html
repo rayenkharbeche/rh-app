@@ -1,4 +1,3 @@
-<p>administrative-list works!</p>
 <c-row>
     
     <c-col xs>
@@ -11,7 +10,7 @@
              <c-col xl="11" md="6" sm="6">
         </c-col>
         <c-col xl="3" md="6" sm="6">
-            <button routerLink="/home/requestadministrative/addrequestadministrative" color="light">Create Request
+            <button routerLink="/requestadministrative/addrequestadministrative" color="light">Create Request
             </button>
         </c-col>
 
@@ -27,7 +26,8 @@
             >
             
               <thead cTableColor="light">
-                <tr>           
+                <tr> 
+                  <th >Message</th>          
                   <th >Type</th>
                   <th >status</th> 
                   <th >Action</th>          
@@ -37,6 +37,13 @@
               <tbody>
                 <tr  *ngFor="let request of requests; index as i"
                     [class.selected]="request.id === selectedId">
+                    <td>
+                      <div class="d-flex justify-content-between">
+                        <div class="float-start">
+                        {{ request.remarks }}
+                        </div>
+                      </div>           
+                    </td> 
                   <td>
                     <div class="d-flex justify-content-between">
                       <div class="float-start">

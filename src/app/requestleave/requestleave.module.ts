@@ -21,6 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 
 import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -64,7 +65,9 @@ import { MatRippleModule } from '@angular/material/core';
     MatInputModule,
     MatRippleModule,
     MatDatepickerModule,     
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatDialogModule,
+
      
     
   ],

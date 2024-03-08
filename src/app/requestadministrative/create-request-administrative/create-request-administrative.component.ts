@@ -21,9 +21,10 @@ export class CreateRequestAdministrativeComponent {
   submitted = false;
   UserId!:User;
   requestAdministrativeType: any;
-
+type!:any;
   requestAdministrative!:Requestadministrative;
-  
+  remarks: any;
+
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -69,21 +70,20 @@ export class CreateRequestAdministrativeComponent {
           return;
       }*/
       this.form.value.status = RequestadministrativeStatut.OPEN;
-      
+      this.requestAdministrative = new Requestadministrative();
+      this.requestAdministrative.type = this.form.value.type;
+      this.requestAdministrative.userId = this.UserId;
+      this.requestAdministrative.status = this.form.value.status;
+      this.requestAdministrative.remarks = this.remarks;
 
-this.requestAdministrative = new Requestadministrative();
-this.requestAdministrative.type = this.form.value.type;
-this.requestAdministrative.userId = this.UserId;
-this.requestAdministrative.status = this.form.value.status;
-
-console.log(this.requestAdministrative.userId)
+      console.log(this.requestAdministrative.userId)
       this.loading = true;
       this. requestadministrativeservice.create(this.requestAdministrative)
       .pipe(first())
       .subscribe({
           next: () => {
               /*this.alertService.success('Registration successful', { keepAfterRouteChange: true });*/
-             this.router.navigate(['/home/requestadministrative/requestadministrativelist'], { relativeTo: this.route });
+             this.router.navigate(['/requestadministrative/requestadministrativelist'], { relativeTo: this.route });
           },
           error: error => {
               /*this.alertService.error(error);*/

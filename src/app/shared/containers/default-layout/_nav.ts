@@ -11,11 +11,16 @@ export interface INavData {
 
 }
 export const navItems: INavData[] = [
-  
+    {
+    name: 'dashboard',
+    url: '/dashboard/dashboard',
+    iconComponent: { name: 'cil-speedometer' }
+
+  },
   {
     name: 'Request Leave',
-    url: '/home/requestleave',
-    iconComponent: { name: 'cil-speedometer' },
+    url: '/requestleave',
+    iconComponent: { name: 'cil-star' },
     children: [
       {
         name: 'Create',
@@ -36,8 +41,8 @@ export const navItems: INavData[] = [
     },
     {
       name: 'Request administrative',
-      url: '/home/requestadministrative',
-      iconComponent: { name: 'cil-speedometer' },
+      url: '/requestadministrative',
+      iconComponent: { name: 'cil-description' },
       children: [
         {
           name: 'Create',
@@ -47,9 +52,6 @@ export const navItems: INavData[] = [
           name: 'List',
           url: 'requestadministrative/requestadministrativelist'
         },
-       
-        
-        
         
       ]
       },
@@ -57,8 +59,8 @@ export const navItems: INavData[] = [
   
     {
       name: 'Request Authorization',
-      url: '/home/requestAuthorization',
-      iconComponent: { name: 'cil-speedometer' },
+      url: '/requestAuthorization',
+      iconComponent: { name: 'cil-running' },
       children: [
         {
           name: 'Create',
@@ -74,8 +76,8 @@ export const navItems: INavData[] = [
       },
       {
         name: 'Request equipment',
-        url: '/home/requestequipment',
-        iconComponent: { name: 'cil-speedometer' },
+        url: '/requestequipment',
+        iconComponent: { name: 'cil-devices' },
         children: [
           {
             name: 'Create',

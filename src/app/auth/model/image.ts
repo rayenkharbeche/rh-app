@@ -1,6 +1,6 @@
 ﻿
 
-export class Image {
+export class image {
     id?: string;
     name!: string;
     type!: string;

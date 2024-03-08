@@ -9,11 +9,10 @@
         <c-col xl="11" md="6" sm="6">
         </c-col>
         <c-col xl="3" md="6" sm="6">
-        <button cCol="" routerLink="/home/setup/addConsulant" color="light">Add Consultant
+        <button cCol="" routerLink="/setup/addConsulant" color="light">Add Consultant
             <svg cIcon name="cilPeople"></svg>
         </button>
       </c-col>
-
       </div>
       <c-card-body>
         <table
@@ -33,7 +32,9 @@
               <th>Employe</th>
               <th class="text-center">Entity</th>
               <th >Email</th>
-              <th >Contract Start Date</th>          
+              <th >Contract Start Date</th>
+              <th >Active</th>          
+          
               <th>Activity</th>
             </tr>
           </thead>
@@ -51,6 +52,7 @@
                 <div>{{ user.firstname }} {{ user.lastName }}  </div>
 
               </td>
+              
     
               <td class="text-center">
                 <svg
@@ -79,15 +81,34 @@
               </div>
               </td>
               <td>
-                <button cButton shape="sm" (click)="updateConsultant(user)" size="sm" color="primary">Update
-                </button>              
-                <button cButton shape="sm" (click)="deleteConsultant(user)" size="sm" color="info">Delete
-                </button>              
+
+                <div class="d-flex justify-content-between">
+                  <small class="text-medium-emphasis">
+                    {{ user.actif | yesNo }}  
+                  </small>
+                </div>
+                </td>
+              <td> 
+               
+                <a (click)="updateConsultant(user)" cDropdownItem>update
+                  <svg cIcon class="me-2" name="cil-crop-rotate"></svg>
+                </a>
+                <a (click)="detailConsultant(user)" cDropdownItem>detail
+                  <svg cIcon class="me-2" name="cil-magnifying-glass"></svg>
+                </a>
+                <a (click)="transferConsultant(user)" cDropdownItem>transfer
+                  <svg cIcon class="me-2" name="cil-transfer"></svg>
+                </a>  
+                <a (click)="openDialog(user)" cDropdownItem> Delete
+                  <svg cIcon class="me-2" name="cil-trash"></svg>
+                </a>          
             </td>
             </tr>
           </tbody>
         </table>
+      
       </c-card-body>
+
     </c-card>
   </c-col>
 </c-row>

@@ -10,7 +10,7 @@
   <c-sidebar-brand
     [brandFull]="{
       src: 'assets/img/brand/logo.png',
-      width: 200,
+      width: 150,
       height: 46,
       alt: 'CoreUI Logo'
     }"
@@ -20,7 +20,7 @@
       height: 46,
       alt: 'CoreUI Logo'
     }"
-    routerLink="./"
+    routerLink="./dashboard/dashboard"
   />
 
   <ng-scrollbar pointerEventsMethod="scrollbar">
@@ -39,12 +39,22 @@
     dropdownMode="close"
   />
   <c-sidebar-nav 
+    [navItems]="navItemsTr"     *ngIf="treasurer"
+
+    dropdownMode="close"
+  />
+  <c-sidebar-nav 
   [navItems]="navItemsManager"     *ngIf="isManager"
 
   dropdownMode="close"
 />
 <c-sidebar-nav 
 [navItems]="navItemsRh"     *ngIf="isRh"
+
+dropdownMode="close"
+/>
+<c-sidebar-nav 
+[navItems]="navItemsDG"     *ngIf="isDirector"
 
 dropdownMode="close"
 />

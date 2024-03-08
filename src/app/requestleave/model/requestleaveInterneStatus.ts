@@ -6,5 +6,8 @@ export enum RequestleaveInterneStatus {
   TLRejected = 'tl_rejected',
   Validated = 'validated',
   Rejected = 'rejected',
+  Inactive = 'inactive',
+  tl_validated_inactive ='tl_validated_inactive',
+  validated_inactive ='validated_inactive'
 
 }

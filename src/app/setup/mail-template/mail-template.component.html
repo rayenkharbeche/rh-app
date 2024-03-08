@@ -1,0 +1,61 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+        <c-row class="justify-content-center">
+            <c-col lg="8" md="12" xl="9">
+                <c-card class="mx-8">
+                    <c-card-body class="p-8">
+                        <form cForm  >
+                            <h1>Mail</h1>
+                            <p class="text-medium-emphasis">{{message}}</p>  
+                            <div>   
+                                <label cLabel for="exampleFormControlInput1">Reference</label>
+            
+                                <c-input-group class="mb-3">
+                                    <select   aria-label="Disabled select example" cSelect  [(ngModel)]="reference"  [ngModelOptions]="{standalone: true}" >
+                                        <option [value]="key" *ngFor="let key of getKeys(MailTemplateType)">{{ MailTemplateType[key] }}</option>
+                                    </select>
+                                </c-input-group>
+                            </div>  
+                            <div>   
+                                <label cLabel for="exampleFormControlInput1">subject</label>
+                                <c-input-group class="mb-3">
+                                <input [(ngModel)]="subject" name="subject" autoComplete="subject" cFormControl placeholder="Type subject" [ngModelOptions]="{standalone: true}" />
+                                </c-input-group>
+
+                            </div> 
+                            <div>   
+                                <label cLabel for="exampleFormControlInput1">template Mail</label>
+
+                                <c-input-group class="mb-3">
+
+                                <textarea [(ngModel)]="templateMail" name="templateMail" rows="12" autoComplete="templateMail" cFormControl placeholder="Type template Mail" [ngModelOptions]="{standalone: true}" ></textarea>
+                                </c-input-group>             
+                            </div> 
+                            <div >
+                                <button *ngIf="created" [disabled]="loading" type="submit" class="btn btn-primary" (click)="CreateTemplate()">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                                Create
+                                </button>
+                                <button *ngIf="!created" [disabled]="loading" type="submit" class="btn btn-primary" (click)="UpdateTemplate()">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                                    Update
+                                    </button>
+                                <button [disabled]="loading"   type="submit" class="btn btn-primary" (click)="Draft()">
+                                <span  *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                                Draft
+                                </button>
+                                <button [disabled]="loading"  type="submit" class="btn btn-primary" (click)="Discard()">
+                                <span  *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                                Discard
+                                </button>
+                                
+                            </div>
+                        </form>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+    </c-container>
+</div>
+      
+      

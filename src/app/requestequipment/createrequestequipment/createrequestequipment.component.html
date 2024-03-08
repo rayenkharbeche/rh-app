@@ -5,27 +5,31 @@
           <c-card class="mx-4">
             <c-card-body class="p-4">
               <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
-                <h1>Request Equipment</h1>
-                <p class="text-medium-emphasis">Create Request</p>
-                
+                <h1>Demande d'équipement</h1>
+                <p class="text-medium-emphasis">Créer demande d'équipement </p>
+                  <div>
+                    <label>Type de la demande </label> 
+                  </div> 
                     <c-input-group class="mb-3">
                       <select  aria-label="Disabled select example" cSelect  formControlName="type" >
                         <option [value]="key" *ngFor="let key of getKeys(requestEquipmentType)">{{ requestEquipmentType[key] }}</option>
                         
                       </select>
                     </c-input-group>   
-                    <c-input-group class="mb-3">
-                      <input aria-label="Disabled input example"
-                      cFormControl
-                      formControlName="equipmentName"
-                      placeholder="Equipment name"
-                      type="text">
-                      </c-input-group>
+                
+                    <div>
+                      <label>Type de l'équipement </label> 
+                    </div>
+                      <c-input-group class="mb-3"> 
+                        <select   aria-label="Disabled select example" cSelect  formControlName="equipmentName" >
+                          <option [value]="key" *ngFor="let key of getKeys(Equipmentname)">{{ Equipmentname[key] }}</option>
+                        </select>
+                      </c-input-group> 
                     
                 <div class="d-grid">
                   <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                    Add
+                    Créer
                 </button>
                 </div>
               </form>

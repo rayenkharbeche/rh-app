@@ -12,13 +12,15 @@ export interface INavData {
 }
 export const navItemsInfra: INavData[] = [
   
- 
-   
-     
-  
+      {
+        name: 'dashboard',
+        url: '/dashboard/dashboard',
+        iconComponent: { name: 'cil-speedometer' }
+
+      },
       {
         name: 'Request Validations',
-        url: '/home/requestvalidations',
+        url: '/requestvalidations',
         iconComponent: { name: 'cil-speedometer' },
         children: [
           {

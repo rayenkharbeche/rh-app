@@ -10,6 +10,8 @@ import { ForgetPasswordComponent } from './auth/forget-password/forget-password.
 import { Role } from './auth/model/role';
 import { SettingsComponent } from './setup/settings/settings.component';
 import { ResetpasswordComponent } from './setup/resetpassword/resetpassword.component';
+import { UpdateprofileComponent } from './setup/updateprofile/updateprofile.component';
+import { EmployeProfileComponent } from './setup/employe-profile/employe-profile.component';
 
 
 const routes: Routes = [
@@ -45,21 +47,46 @@ const routes: Routes = [
     
   },
 
-
   {
     path: 'dashboard',
     redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: '',
     component: DefaultLayoutComponent,
     data: {
       title: 'Home'
     },
     canActivate: [AuthGuard],
     children: [
-        
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+          canActivate: [AuthGuard],
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','admin','director'] }
+
+      },
+      {
+        path: 'reset/:id',
+        component: ResetpasswordComponent,
+        data: {
+          title: 'Reset List',
+          roles: ['consultant' , 'teamLead', 'manager']
+
+        },     
+      },
+
+      {
+        path: 'detail/:id',
+        component: UpdateprofileComponent,
+        data: {
+          title: 'Profile List',
+          roles: ['consultant' , 'teamLead', 'manager']
+
+        },   
+      },     
       {
         path: 'setup',
         loadChildren: () =>
@@ -79,7 +106,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestleave/requestleave.module').then((m) => m.RequestleaveModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
 
       },
       {
@@ -97,11 +124,18 @@ const routes: Routes = [
         }
       },
       {
+        path: 'profile/:id',
+        component: EmployeProfileComponent,
+        data: {
+          title: 'Login Page'
+        }
+      },
+      {
         path: 'requestAuthorization',
         loadChildren: () =>
           import('./requestauthorization/requestauthorization.module').then((m) => m.RequestauthorizationModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
 
       },
       {
@@ -109,7 +143,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestvalidations/requestvalidations.module').then((m) => m.RequestvalidationsModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer', 'director'] }
 
       },
       {
@@ -117,7 +151,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestadministrative/requestadministrative.module').then((m) => m.RequestadministrativeModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
 
       },
       {
@@ -125,7 +159,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestequipment/requestequipment.module').then((m) => m.RequestequipmentModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager','Rh'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
 
       },
       

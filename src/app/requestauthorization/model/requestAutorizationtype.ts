@@ -1,6 +1,5 @@
 
 export enum RequestAuthorizationType {
-    ExitPermit = 'exitpermit',
-    HomeOffice = 'homeoffice',
-    
+  exitpermit = 'Authorisation de sortie',
+  homeoffice = 'Télétravail',
   }

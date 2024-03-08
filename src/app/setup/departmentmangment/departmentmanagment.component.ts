@@ -70,5 +70,15 @@ export class DepartmentmanagmentComponent implements OnInit {
   }
 
 
-
+    
+    removeDepartments(poste:any): void {
+      this.DepartmentService.delete(poste)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.retrieveDepartments();
+          },
+          error: (e) => console.error(e)
+        });
+    }
 }

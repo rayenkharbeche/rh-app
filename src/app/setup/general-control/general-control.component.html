@@ -1,0 +1,35 @@
+<div >
+    <c-container>
+      <c-row class="justify-content-center">
+        <c-col lg="12" md="12" xl="12">
+          <c-card class="mx-12">
+            <c-card-body class="p-4">
+                <p class="text-medium-emphasis">General Control</p>
+   
+              <c-input-group class="mb-6">
+                <label>Maximum authorization hours / day  </label>
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <input [(ngModel)]="authorizationMaxNbr" name="authorizationMaxNbr" autoComplete="authorizationMaxNbr" cFormControl placeholder={{generalControlData?.authorizationMaxNbr}} [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+  
+              <c-input-group class="mb-3">
+                <label>Maximum Remote Day / month </label>
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <input [(ngModel)]="RemoteDayMax" name="RemoteDayMax" autoComplete="RemoteDayMax" cFormControl placeholder={{generalControlData?.remoteDayMax}} [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+  
+            
+                <div class="d-grid">
+                    <button cButton shape="sm" (click)="create()"   size="sm" color="info">Submit
+                    </button> 
+                </div>
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
+    </c-container>
+  </div>
+  
+  

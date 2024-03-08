@@ -7,5 +7,7 @@ export class Requestadministrative {
   type!: string;
   status!: string; 
   interneStatus!: string;
+  remarks!: string;
+
 
 }

@@ -1,36 +1,74 @@
-     
+       
 <div>
-    <div class="submit-form">
-      <div *ngIf="!submitted">
-        <div class="form-group">
-          <label for="title">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            required
-            [(ngModel)]="department.name"
-            name="title"
-          />
-        </div>
+   
+  <c-row>
   
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>Poste List</c-card-header>
+          <c-card-body>
+
+          <div class="submit-form">
+            <div *ngIf="!submitted">
+              <div class="form-group">
+                <label for="title">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  required
+                  [(ngModel)]="department.name"
+                  name="title"
+                />
+                <button (click)="saveDepartment()" class="btn border-start-danger">Submit</button>
+
+              </div>
+        
+            </div>
+          </div>
+          </c-card-body>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                   <th>Poste name </th>
+                  <th >Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let department of departments" >
+                <td>{{ department.name  }}</td>
+                 <td>           
+                  <a (click)="removeDepartments(department.id)" cDropdownItem>
+                    <svg cIcon class="me-2" name="cil-trash"></svg>
   
-        <button (click)="saveDepartment()" class="btn btn-success">Submit</button>
-      </div>
-    </div>
-    <div class="col-md-6">
-        <h4>department List</h4>
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            *ngFor="let department of departments; let i = index"       >
-            {{ department.name }}
-          </li>
-        </ul>
+                  </a>
+                 </td>   
+               </tr>
+              </tbody>
+            </table>
+          </c-card-body>
+          <c-card-body class="p-4">
+            <button cButton shape="sm" (click)="removeAllDepartments()"   size="sm" color="info">
+              Remove All
+              </button> 
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+</div>
+
+
+
     
-        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllDepartments()">
-          Remove All
-        </button>
-      </div>
-  </div>
       

@@ -5,5 +5,4 @@ export enum RequestleaveStatus {
   Validated = 'validated',
   Rejected = 'rejected',
   Inactive = 'inactive',
-
 }

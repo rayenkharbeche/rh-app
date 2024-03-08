@@ -6,9 +6,11 @@ import { AuthService } from '../../auth/service/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Poste } from '../model/poste';
 import { Department } from '../model/department';
-import { Image } from '../../auth/model/image';
+import { image } from '../../auth/model/image';
 import { IconSetService } from '@coreui/icons-angular';
 import { brandSet, flagSet, freeSet } from '@coreui/icons';
+import { DeleteEmployeeComponent } from '../delete-employee/delete-employee.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface IUser {
     id?: string;
@@ -22,7 +24,7 @@ interface IUser {
     poste?: Poste;
     department?: Department;
     token?: string;
-    image?:Image;
+    image?:image;
     actif?:boolean
     country?:string;
     imagedb?:string;
@@ -39,6 +41,7 @@ interface IUser {
   styleUrl: './profilelist.component.css'
 })
 export class ProfilelistComponent {
+
   status!: string;
   dbImage: any;
   postResponse: any;
@@ -52,7 +55,8 @@ export class ProfilelistComponent {
     private router: Router,
     private userService: AuthService,
     private httpClient: HttpClient,
-    public iconSet: IconSetService
+    public iconSet: IconSetService,
+    public dialog: MatDialog
 
   ) { 
     iconSet.icons = { ...freeSet, ...brandSet, ...flagSet };
@@ -86,16 +90,29 @@ export class ProfilelistComponent {
 
           this.users = data;
           this.users.map(x =>  {
+
           if (x.image! == null ){
           this.defaultimg! = true;
+
           x.imagedb = './assets/img/defautimage.jpg';
 
           }else { 
+            this.httpClient.get('http://localhost:8080/get/' + x.image.id)
+            .subscribe(
+              res => {
+                this.postResponse = res;
+                x.imagedb = 'data:image/jpeg;base64,' + this.postResponse.image;
+
+              }
+            );
+
+            
+
           this.defaultimg! = false;
             x.imagedb = 'data:image/jpeg;base64,' + x.image.image;
           }
+
            if ( x.actif == false) {
-            console.log(x.actif);
 
             x.status = "info";
            } else {
@@ -109,9 +126,14 @@ export class ProfilelistComponent {
         error: (e) => console.error(e)
       });
     }
-
+    
+    detailConsultant( user: User){
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'setup/detail/'+ user.id ;
+      this.router.navigateByUrl(returnUrl);   
+     }
+  
     updateConsultant( user: User){
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/detail/'+ user.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'setup/update/'+ user.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   
@@ -138,18 +160,28 @@ export class ProfilelistComponent {
           }
         );
     }
-    getImage(id:any) {
- 
-      this.httpClient.get('http://localhost:8080/get/' + id)
-        .subscribe(
-          res => {
-            this.postResponse = res;
-            this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
-          }
-        );
-    
+   
+  
+
+    openDialog(user:any): void {
+   
+     
+      let dialogRef = this.dialog.open(DeleteEmployeeComponent, {
+        width: '600px',
+        data: user ,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.retrieveConsultant();
+  
+  
+      });
     }
     
+    transferConsultant(user: User) {
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'setup/transferEmployee/'+ user.id ;
+      this.router.navigateByUrl(returnUrl);   
+
+    }
   
   
   

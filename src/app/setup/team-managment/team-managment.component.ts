@@ -130,7 +130,7 @@ export class TeamManagmentComponent {
                 }})
               }
 
-              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
+              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'setup/teamManagment' ;
               this.router.navigateByUrl(returnUrl);   
 
         }
@@ -138,7 +138,7 @@ export class TeamManagmentComponent {
           this.Teamervice.delete(team.id)
           .subscribe({
             next: (res) => {
-              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
+              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'setup/teamManagment' ;
               this.router.navigateByUrl(returnUrl);   
                         },
             error: (e) => console.error(e)
@@ -146,7 +146,7 @@ export class TeamManagmentComponent {
         }
         updateTeam(team: Team) {
     
-        const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/updateteam/'+ team.id ;
+        const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'setup/updateteam/'+ team.id ;
         this.router.navigateByUrl(returnUrl);   
 
         }

@@ -15,6 +15,12 @@ import { RequestAdministrativeValidationComponent } from './request-administrati
 import { RequestadministrativeService } from '../requestadministrative/service/requestadministrative.service';
 import { RequestequipmentValidationComponent } from './requestequipment-validation/requestequipment-validation.component';
 import { RequestequipmentService } from '../requestequipment/service/requestequipment.service';
+import { RequestequipmentanalyseComponent } from './requestequipmentanalyse/requestequipmentanalyse.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import { RequestequipmenteditComponent } from './requestequipmentedit/requestequipmentedit.component';
+import { RequestsickvalidationComponent } from './requestsickvalidation/requestsickvalidation.component';
+import { RequestCancelvalidationComponent } from './request-cancelvalidation/request-cancelvalidation.component';
 
 
 
@@ -23,7 +29,11 @@ import { RequestequipmentService } from '../requestequipment/service/requestequi
   declarations: [RequestLeavevalidationsComponent,
                 RequestAuthorizationValidationComponent,
                 RequestAdministrativeValidationComponent,
-                RequestequipmentValidationComponent
+                RequestequipmentValidationComponent,
+                RequestequipmentanalyseComponent,
+                RequestequipmenteditComponent,
+                RequestsickvalidationComponent,
+                RequestCancelvalidationComponent
               ],
   imports: [
     CommonModule,
@@ -51,7 +61,14 @@ import { RequestequipmentService } from '../requestequipment/service/requestequi
     ListGroupModule,
     IconModule,
     CommonModule,
-    RequestvalidationsRoutingModule
+    RequestvalidationsRoutingModule,
+
+
+    MatInputModule, 
+    MatButtonModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    MatStepperModule, 
   ],
   providers: [RequestleaveService,
     AuthorizationService,

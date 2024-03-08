@@ -6,6 +6,9 @@ import { RequestLeavevalidationsComponent } from './request-leavevalidations/req
 import { RequestAuthorizationValidationComponent } from './request-authorization-validation/request-authorization-validation.component';
 import { RequestAdministrativeValidationComponent } from './request-administrative-validation/request-administrative-validation.component';
 import { RequestequipmentValidationComponent } from './requestequipment-validation/requestequipment-validation.component';
+import { RequestequipmenteditComponent } from './requestequipmentedit/requestequipmentedit.component';
+import { RequestsickvalidationComponent } from './requestsickvalidation/requestsickvalidation.component';
+import { RequestCancelvalidationComponent } from './request-cancelvalidation/request-cancelvalidation.component';
 
 
 
@@ -31,6 +34,22 @@ const routes: Routes = [
         },
       },
       {
+        path: 'requestsickvalidation',
+        component: RequestsickvalidationComponent,
+        data: {
+          title: 'Request Equipment validations',
+          roles: ['Rh','manager']
+        },
+      },
+      {
+        path: 'RequestCancelvalidation',
+        component: RequestCancelvalidationComponent,
+        data: {
+          title: 'Request Cancel validation',
+        },
+
+      },
+      {
         path: 'requestAuthorizationvalidations',
         component: RequestAuthorizationValidationComponent,
         data: {
@@ -51,9 +70,27 @@ const routes: Routes = [
         component: RequestequipmentValidationComponent,
         data: {
           title: 'Request Equipment validations',
-          roles: ['Rh']
+          roles: ['Rh','treasurer']
         },
       },
+      
+      {
+        path: 'RequestequipmentanalyseComponent',
+        component: RequestequipmentValidationComponent,
+        data: {
+          title: 'Request Equipment validations',
+          roles: ['treasurer']
+        },
+      },
+      {
+        path: 'detail/:id',
+        component: RequestequipmenteditComponent,
+        data: {
+          title: 'Profile List',
+        },
+        
+      },
+      
       
 
     ],

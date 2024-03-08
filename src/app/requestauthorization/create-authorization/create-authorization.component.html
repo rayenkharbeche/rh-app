@@ -1,4 +1,3 @@
-<p>create-authorization works!</p>
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
     <c-container>
       <c-row class="justify-content-center">
@@ -6,27 +5,58 @@
           <c-card class="mx-4">
             <c-card-body class="p-4">
               <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
-                <h1>Request Leave</h1>
-                <p class="text-medium-emphasis">Create Request</p>
-                
-             
-                <c-input-group class="mb-3">
-                    <input aria-label="Disabled input example"
-                    cFormControl
-                    formControlName="authorisationDate"
-                    placeholder="authorisation Date "
-                    type="datetime-local">
-                    </c-input-group>
-                
-                    <c-input-group class="mb-3">
-                      <select  aria-label="Disabled select example" placeholder="type" cSelect  formControlName="type" >
-                        <option [value]="key" *ngFor="let key of getKeys(RequestauthorisationTypes)">{{ RequestauthorisationTypes[key] }}</option>
-                        </select>
-                    </c-input-group>
+                <h1>Demande d'authorisation</h1>
+                <p class="text-medium-emphasis">Créer une demande d'authorisation</p>
+            
+                <div>
+                <mat-form-field>
+                  <mat-select aria-label="Default select example" placeholder="type" [(ngModel)]="type" 
+                  (selectionChange)="onChange()" [ngModelOptions]="{standalone: true}"  name = "type">
+                    <mat-option [value]="key" *ngFor="let key of getKeys(RequestauthorisationTypes)">{{ RequestauthorisationTypes[key] }}</mat-option>              
+                  </mat-select>
+                  </mat-form-field>
+                </div>
+                     <mat-form-field>
+                      <input matInput  (dateInput)="getStartDate($event)" 
+                      [matDatepicker]="picker" [matDatepickerFilter]="dateFilter"
+                     placeholder="Date de debut">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="ishomeoffice"> 
+                      <input matInput [matDatepicker]="picker1"
+                      placeholder="Date de fin"
+                      (dateInput)="getEndDate($event)" 
+                      [min]="form.get('StartDate')?.value" 
+                      [matDatepickerFilter]="dateFilter"
+                     >
+                      <mat-datepicker-toggle  matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1 ></mat-datepicker>
+                    </mat-form-field>
+                    <c-input-group class="mb-3" *ngIf="isexitpermit">
+                      <input aria-label="Disabled input example"
+                      cFormControl
+                      [(ngModel)]="authorizationstarttime"
+                      
+                      [ngModelOptions]="{standalone: true}"  
+                      type="time" >
+
+                      <input aria-label="Disabled input example"
+                      cFormControl
+                      [(ngModel)]="authorizationendtime"
+                      [ngModelOptions]="{standalone: true}"  
+                      type="time" >
+
+                      </c-input-group>
+                  
+                      <div class="d-grid">
+                        <div *ngIf="messageError != ''" > {{ messageError}}</div>
+                      </div>
                 <div class="d-grid">
                   <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                    Add
+                    Créer
                 </button>
                 </div>
               </form>

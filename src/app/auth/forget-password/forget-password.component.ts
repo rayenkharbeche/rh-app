@@ -34,9 +34,6 @@ export class ForgetPasswordComponent {
   onSubmit() {
       this.submitted = true;
 
-      // reset alerts on submit
-      /*this.alertService.clear();*/
-      console.log(this.form.invalid)
       const data = {
         email:this.form.value.email,
       };
@@ -44,7 +41,6 @@ export class ForgetPasswordComponent {
       if (this.form.invalid) {
           return;
       }
-console.log(this.form)
       this.loading = true;
       this.accountService.forgotpassword(data)
           .pipe(first())
@@ -55,7 +51,6 @@ console.log(this.form)
                   this.router.navigateByUrl(returnUrl);
               },
               error: error => {
-                  /*this.alertService.error(error);*/
                   this.loading = false;
               }
           });

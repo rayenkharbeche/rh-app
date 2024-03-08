@@ -66,7 +66,7 @@ export class AuthorizationRequestlistComponent {
 
     updateRequest( rqleave: RequestAuthorization){
       console.log(rqleave);
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/requestauthorization/detail/'+ rqleave.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'requestauthorization/detail/'+ rqleave.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   

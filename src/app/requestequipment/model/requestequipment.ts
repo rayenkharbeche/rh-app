@@ -5,7 +5,10 @@ export class Requestequipment {
   userId!: User;
   type!: string;
   status!: string;
-  equipmentName!: string;
+  interneStatus!: string;
 
+  
+  equipmentName!: string;
+  equipmentRef!: string;
 
 }

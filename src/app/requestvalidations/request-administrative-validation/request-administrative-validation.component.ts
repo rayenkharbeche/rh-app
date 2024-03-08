@@ -50,7 +50,7 @@ export class RequestAdministrativeValidationComponent {
       .subscribe({
         next: (data) => {
           this.requests = data;
-          console.log(this.requests);
+          if (this.requests != null){
           for (let request of this.requests) {  
             console.log(request.id);
             if (request.status == RequestleaveStatus.OPEN){
@@ -61,7 +61,7 @@ export class RequestAdministrativeValidationComponent {
             this.requestUpdateStatus(request.id!,request );    
             }      
             }
-          
+          }
         },
         error: (e) => console.error(e)
       });

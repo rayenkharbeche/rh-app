@@ -1,0 +1,75 @@
+<p>mail-template-list works!</p>
+     
+<div>
+   
+    <h4>Entities List</h4>
+
+    <c-row>
+    
+      <c-col xs>
+         
+          <c-card class="mb-4">
+          
+            <c-card-header>Users</c-card-header>
+            <div  class="divider d-flex justify-content-center">       
+                <c-col xl="11" md="6" sm="6">
+                </c-col>
+                <c-col xl="3" md="6" sm="6">
+                <button cCol="" routerLink="/setup/mailTemplate" color="light">Add Mail Template
+                    <svg cIcon name="cil-envelope-letter"></svg>
+                </button>
+              </c-col>
+              </div>
+            <c-card-body>
+              <table
+                [hover]="true"
+                [responsive]="true"
+                [striped]="true"
+                align="middle"
+                cTable
+                class="mb-0 border"
+              >
+              
+                <thead cTableColor="light">
+                  <tr>
+                    <th>Reference</th>
+                    <th>Subject</th>
+                    <th>Template</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let mail of mailTemplates" >
+                  <td>{{ mail.reference }}</td>
+                      
+                  <td>{{ mail.subject }}</td>
+                  <td>{{ mail.template }}</td>
+                  <td>{{ mail.status }}</td>
+                  <td>
+                      <a (click)="removeTemplate(mail.id)" cDropdownItem>
+                        Delete <svg cIcon class="me-2" name="cil-trash"></svg>
+                      </a>
+                      <a (click)="updateTemplate(mail)" cDropdownItem>
+                        Update <svg cIcon class="me-2" name="cil-crop-rotate"></svg>
+                      </a>
+                     </td>  
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </c-card-body>
+            <c-card-body class="p-4">
+              <button cButton shape="sm" (click)="removeAllTemplates()"   size="sm" color="info">
+                Remove All
+                </button> 
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
+</div>
+
+
+
+      

@@ -1,11 +1,10 @@
-<p>request-authorization-validation works!</p>
 <c-row>
     
     <c-col xs>
        
         <c-card class="mb-4">
         
-          <c-card-header>Team Requests </c-card-header>
+          <c-card-header>Equipment Requests </c-card-header>
 
           <div  class="divider d-flex justify-content-center">
              <c-col xl="11" md="6" sm="6">
@@ -66,11 +65,10 @@
                
                 <td >
                   <button 
-                    cButton shape="sm"  size="sm" (click)="validateRequest(request)" color="primary">Validate
+                    cButton shape="sm" [disabled]="request.status == 'validated'"  size="sm" (click)="openDialog(request,request.equipmentName)" color="primary">Validate
                   </button>              
-                  <button cButton shape="sm" size="sm" (click)="rejectRequest(request)" color="info">Reject
-
-                  </button>  
+                  <button *ngIf="request.interneStatus == 'validated'"  cButton shape="sm" size="sm" (click)="editRequest(request)" color="info">Edit Request
+                  </button> 
               
               </td>
                 </tr>

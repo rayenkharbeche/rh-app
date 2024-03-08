@@ -23,7 +23,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public newMessages = new Array(4)
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
-
+  currentUser : any;
   constructor(private classToggler: ClassToggleService, 
     private accountService: AuthService,
     private route: ActivatedRoute,
@@ -36,8 +36,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
 
   ngOnInit() {
-
-this.retrieveConsultant();
+     this.currentUser  = JSON.parse(localStorage.getItem('user')!);
+    this.retrieveConsultant();
   }
 
   logout() {
@@ -46,13 +46,20 @@ this.retrieveConsultant();
 
 settings(){
 
-  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/settings' ;
+  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'settings' ;
   this.router.navigateByUrl(returnUrl);  
 }
-retrieveConsultant(){
-  var currentUser  = JSON.parse(localStorage.getItem('user')!);
 
-  this.accountService.getById(currentUser.id)
+profile() {
+
+  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'profile/'+ this.currentUser.id ;
+  this.router.navigateByUrl(returnUrl); 
+
+}
+  
+retrieveConsultant(){
+
+  this.accountService.getById(this.currentUser.id)
   .subscribe({
     next: (data) => {
       this.user = data;
@@ -60,12 +67,11 @@ retrieveConsultant(){
         this.defaultimg! = true;
         this.defaultimage! = './assets/img/defautimage.jpg';
         
-                }else { 
-                  this.defaultimg! = false;
+      }else { 
+        this.defaultimg! = false;
+        this.getImage(this.user.image.id);
+      }
 
-    this.getImage(this.user.image.id);
-                }
-      
     },
     error: (e) => console.error(e)
   });

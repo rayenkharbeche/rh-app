@@ -38,10 +38,8 @@ export class CreateentityComponent   {
       this.entityService.create(data)
         .subscribe({
           next: (res) => {
-            console.log(res); 
             this.submitted = true;
-         this.onCancel();
-  
+            this.onCancel(); 
           },
           error: (e) => console.error(e)
         });

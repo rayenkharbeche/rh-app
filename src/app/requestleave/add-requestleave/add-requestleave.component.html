@@ -1,32 +1,36 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
     <c-container>
+      <ng-template #alertDialog>
+        <h2 matDialogTitle>{{messageError}}!</h2>
+        <p matDialogContent><em>Please Re-enter.</em></p>
+        <mat-dialog-actions align="end">
+          <button mat-button matDialogClose>Dismiss</button>
+        </mat-dialog-actions>
+      </ng-template>
       <c-row class="justify-content-center">
         <c-col lg="7" md="9" xl="6">
           <c-card class="mx-4">
             <c-card-body class="p-4">
-              <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
-                <h1>Request Leave</h1>
-                <p class="text-medium-emphasis">Create Request</p>
-                
-             
-              
-
+              <form cForm [formGroup]="form" (ngSubmit)="onSubmit(alertDialog)" >
+                <h1>Demande de congé</h1>
+                <p class="text-medium-emphasis">Créer demande de congé</p>
                     <mat-form-field>
-                      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter"
+                      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter"
                       formControlName="StartDate"
  
-                     placeholder="Choose start date">
+                     placeholder="Date de debut">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker ></mat-datepicker>
                     </mat-form-field>
 
                     <mat-form-field>
                       <input matInput [matDatepicker]="picker1" 
+                      [min]="form.get('StartDate')?.value" 
 
-                      [matDatepickerFilter]="myFilter"
+                      [matDatepickerFilter]="dateFilter"
                       formControlName="EndDate"
  
-                     placeholder="Choose end date">
+                     placeholder="Date de fin">
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1 ></mat-datepicker>
                     </mat-form-field>
@@ -35,16 +39,15 @@
 
                 <c-input-group class="mb-3">
                   <select  aria-label="Disabled select example" cSelect  formControlName="type" >
-                    <option >Choose Leave Type</option>
+                    <option >Type de la demande</option>
                     <option [value]="key" *ngFor="let key of getKeys(RequestleaveTypes)">{{ RequestleaveTypes[key] }}</option>
                     </select>
                 </c-input-group>
-
-               
+                
                 <div class="d-grid">
                   <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                    Add
+                    Créer
                 </button>
                 </div>
               </form>

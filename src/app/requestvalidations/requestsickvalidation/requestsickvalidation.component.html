@@ -1,0 +1,84 @@
+<c-row>
+    
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>Team Requests </c-card-header>
+
+          <div  class="divider d-flex justify-content-center">
+             <c-col xl="11" md="6" sm="6">
+        </c-col>
+
+
+          </div>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                    <th>Consultant</th>
+
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th >status</th> 
+                  <th >Action</th>          
+         
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let request of requests; index as i"
+                    [class.selected]="request.id === selectedId">
+                          
+                    <td>
+                        <div>{{ request.userId.firstname }} {{ request.userId.lastName }}  </div>
+        
+                      </td>  
+                  <td>
+
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.startDate | date: 'dd/MM/yyyy'}}</div>
+
+                    </div>
+
+                  </td>
+                   <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.endDate | date: 'dd/MM/yyyy'}} </div>
+                    </div>
+
+                    </td>     
+                 
+                  <td>
+    
+                  <div  class="d-flex justify-content-between">
+
+                    <small class="text-medium-emphasis">
+                      {{ request.status }}
+                    </small>
+                  </div>
+                  </td>
+                  <td>
+            
+                    <button *ngIf="request.fileDB != null" cButton shape="sm" (click)="downloadFile(request.fileDB.data,request.fileDB.name,request.fileDB.type)" size="sm" color="info">download File
+                    </button> 
+                    
+                    <button cButton shape="sm" (click)="rejectRequest(request)"  size="sm" color="info">Reject Request
+                    </button>  
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
