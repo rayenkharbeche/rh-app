@@ -11,11 +11,16 @@ export interface INavData {
 
 }
 export const navItemsManager: INavData[] = [
-  
+  {
+    name: 'dashboard',
+    url: '/dashboard/dashboard',
+    iconComponent: { name: 'cil-speedometer' }
+
+  },
   {
     name: 'Request Leave',
-    url: '/home/requestleave',
-    iconComponent: { name: 'cil-speedometer' },
+    url: '/requestleave',
+    iconComponent: { name: 'cil-star' },
     children: [
       {
         name: 'Create',
@@ -34,8 +39,8 @@ export const navItemsManager: INavData[] = [
     },
     {
       name: 'Request Authorization',
-      url: '/home/requestAuthorization',
-      iconComponent: { name: 'cil-speedometer' },
+      url: '/requestAuthorization',
+      iconComponent: { name: 'cil-running' },
       children: [
         {
           name: 'Create',
@@ -51,8 +56,8 @@ export const navItemsManager: INavData[] = [
       },
       {
         name: 'Request administrative',
-        url: '/home/requestadministrative',
-        iconComponent: { name: 'cil-speedometer' },
+        url: '/requestadministrative',
+        iconComponent: { name: 'cil-description' },
         children: [
           {
             name: 'Create',
@@ -70,8 +75,8 @@ export const navItemsManager: INavData[] = [
         },
         {
           name: 'Request equipment',
-          url: '/home/requestequipment',
-          iconComponent: { name: 'cil-speedometer' },
+          url: '/requestequipment',
+          iconComponent: { name: 'cil-devices' },
           children: [
             {
               name: 'Create',
@@ -90,17 +95,22 @@ export const navItemsManager: INavData[] = [
   
       {
         name: 'Request Validations',
-        url: '/home/requestvalidations',
-        iconComponent: { name: 'cil-speedometer' },
+        url: '/requestvalidations',
+        iconComponent: { name: 'cil-task' },
         children: [
           {
             name: 'Request Leave Validation',
             url: 'requestvalidations/requestLeavevalidations'
           },
           {
+            name: 'Request Leave Cancel Validation',
+            url: 'requestvalidations/RequestCancelvalidation'
+          },
+          {
             name: 'Request Authorization Validation',
             url: 'requestvalidations/requestAuthorizationvalidations'
           },
+        
           
         ]
       },  

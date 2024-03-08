@@ -1,0 +1,106 @@
+<p>requestequipmentedit works!</p>
+
+<c-row>
+<c-col xs="12">
+    <c-card class="mb-8">
+      <c-card-header>
+        <strong>Employe Profile</strong>
+      </c-card-header>
+      <c-card-body>
+
+          <c-row [gutter]="{g: 1}" [md]="8" [xs]="1">
+        
+            <c-col>
+                <c-card>
+                  <c-card-body>
+                    <h5 cCardTitle>Profile Information</h5>
+                    <p cCardText>
+                    
+                   
+                    <tr >
+                        <th>Equipment : </th>
+                        <td >
+                            <li *ngFor="let equipment of equipments; let i = index"  >
+                            {{ equipment.name }} <small> <br> Reference : {{ equipment.reference }}</small> </li>
+                        </td>
+                    </tr>
+
+                </p>
+                  </c-card-body>
+
+                  <c-card-body>
+                    <table
+                      [hover]="true"
+                      [responsive]="true"
+                      [striped]="true"
+                      align="middle"
+                      cTable
+                      class="mb-0 border"
+                    >
+                    
+                      <thead cTableColor="light">
+                        <tr>
+                        <th>Equipment Name</th>
+                          <th >reference</th>
+                          <th >status</th> 
+                          <th >Action</th>          
+                 
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                                  
+                            <td>
+                            
+                                <div class="d-flex justify-content-between">
+            
+                                <div>{{ request.equipmentName}} </div>
+            
+                                </div>
+            
+                              </td>      
+                          
+                       
+                          <td>
+                            <div class="d-flex justify-content-between">
+                              <div class="float-start">
+                                <strong>{{ request.equipmentRef }}</strong>
+                              </div>
+                            </div>           
+                          </td>
+                          <td>
+            
+                          <div  class="d-flex justify-content-between">
+        
+                            <small class="text-medium-emphasis">
+                              {{ request.status }}
+                            </small>
+                          </div>
+                          </td>
+                       
+                        <td >
+                          <button 
+                            cButton [disabled]="request.status == 'validated'" shape="sm"  size="sm" (click)="validateRequest(request)"  color="primary">Validate
+                          </button>              
+                         
+                      
+                      </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </c-card-body>
+           
+                  <c-card-footer>
+                    <small class="text-medium-emphasis">Last updated 3 mins ago</small>
+                  </c-card-footer>
+                </c-card>
+              </c-col>
+          </c-row>
+          
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+
+  
+</c-row>

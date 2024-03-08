@@ -33,16 +33,12 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
-        console.log(email);
-        console.log(password);
 
         return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
-
                 this.userSubject.next(user);
-                console.log(user);
 
                 return user;
             }));
@@ -56,15 +52,12 @@ export class AuthService {
     }
 
     register(user: User) {
-        console.log(user);
         return this.http.post(`${environment.apiUrl}/auth/signup`, user);
     }
     addUser(user: User) {
-        console.log(user);
         return this.http.post(`${environment.apiUrl}/users/addUser`, user);
     }
     forgotpassword(user: User) {
-        console.log(user);
         return this.http.post(`${environment.apiUrl}/auth/forgot-password`, user);
     }
 
@@ -81,23 +74,18 @@ export class AuthService {
 
 
     }
-    update(id: string, params: any) {
-        console.log("params");
-        console.log(params);
 
-        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+    resetInfo(id: string, params: any) {
+      
+
+        return this.http.put(`${environment.apiUrl}/users/resetInfo/${id}`, params)
             .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue?.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
+           
                 return x;
             }));
+    }
+    update(id: string, params: any) {
+        return this.http.put(`${environment.apiUrl}/users/${id}`, params);
     }
 
     delete(id: any) {
@@ -121,18 +109,6 @@ export class AuthService {
       
       updateteamlead(id: string, params: any) {
         return this.http.put(`${environment.apiUrl}/users/teamlead/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue?.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
     }
     getAllbyDepartmentByteam(departmentId:any, teamId:any) { {
         return this.http.get<User[]>(`${environment.apiUrl}/users/team?departmentId=`+ departmentId +"&teamId=" + teamId );
@@ -140,38 +116,26 @@ export class AuthService {
 
       }
     }
+    
+    getEmployeeNumber() { {
 
+        return this.http.get<any>(`${environment.apiUrl}/users/usersnumber`);
+
+      }
+    }
+    getAvailableEmployeeNumber() { {
+
+        return this.http.get<number>(`${environment.apiUrl}/users/availableEmployee`);
+
+      }
+    }
       
     updateteamleadStatus(id: string, params: any) {
        
         return this.http.put(`${environment.apiUrl}/users/teamleadstatus/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue?.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
     }
     updatemanagerStatus(id: string, params: any) {
        
         return this.http.put(`${environment.apiUrl}/users/managerstatus/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue?.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
     }
 }

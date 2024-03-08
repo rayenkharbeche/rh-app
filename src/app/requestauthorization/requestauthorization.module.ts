@@ -9,6 +9,13 @@ import { AccordionModule, AvatarModule, BadgeModule, BreadcrumbModule, ButtonGro
 import { IconModule } from '@coreui/icons-angular';
 import { AuthorizationService } from './service/authorization.service';
 import { AuthorizationRequestlistComponent } from './authorizationrequestlist/authorizationrequestlist.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { GeneralcontrolService } from '../setup/service/generalcontrol.service';
 
 
 @NgModule({
@@ -41,8 +48,19 @@ import { AuthorizationRequestlistComponent } from './authorizationrequestlist/au
     SharedModule,
     ListGroupModule,
     IconModule,
+    IconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatDatepickerModule,     
+    MatNativeDateModule,
+    MatSelectModule,
+    MatDialogModule,
+     
   ],
-  providers: [AuthorizationService
+  providers: [AuthorizationService,
+    GeneralcontrolService
     
   ],
 })

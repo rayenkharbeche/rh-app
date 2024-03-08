@@ -10,7 +10,7 @@
              <c-col xl="11" md="6" sm="6">
         </c-col>
         <c-col xl="3" md="6" sm="6">
-            <button routerLink="/home/requestleave/addrequestleave" color="light">Create Request
+            <button routerLink="/requestAuthorization/addAuthorizationleave" color="light">Create Request
             </button>
         </c-col>
 
@@ -29,9 +29,12 @@
                 <tr>
            
                   <th >type</th>
-                  <th >authorisationDate</th> 
+                  <th >authorisation Start Date</th> 
+                  <th >authorisation End Date</th> 
+
                   <th >statutDemande</th>          
-         
+                  <th >Action</th>          
+
                 </tr>
               </thead>
               <tbody>
@@ -48,12 +51,21 @@
                   <td>
                     <div class="d-flex justify-content-between">
 
-                    <div>{{ request.authorisationDate | date: 'dd/MM/yyyy'}}</div>
+                    <div>{{ request.authorisationStartDate | date: 'dd/MM/yyyy'}}</div>
 
                     </div>
 
+
                   </td>
-                     
+                  <td>
+                    <div class="d-flex justify-content-between">
+
+                    <div>{{ request.authorisationEndDate | date: 'dd/MM/yyyy'}}</div>
+
+                    </div>
+
+
+                  </td> 
                   
                   <td>
     

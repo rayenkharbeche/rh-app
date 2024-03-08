@@ -64,6 +64,10 @@ export class RequestleaveService {
       return this.http.get<Requestleave[]>(`${baseUrl}/RequestLeavebyteam?user_id=${user_id}`);
 
     }
+    getAllCanceledbyTeam(user_id: any): Observable<Requestleave[]> {
+      return this.http.get<Requestleave[]>(`${baseUrl}/RequestLeaveCanceledbyteam?user_id=${user_id}`);
+
+    }
     updateStatus(id: any, data: any): Observable<any> {
       console.log(data)
       return this.http.put(`${baseUrl}/updateStatus/${id}`, data);
@@ -77,6 +81,20 @@ export class RequestleaveService {
     getAllSickLeavebyuser(id: any):  Observable<Requestleave[]> {
       return this.http.get<Requestleave[]>(`${baseUrl}/SickLeave/${id}`);
     }
+    getSickLeaveDaysbyuser(id: any):  Observable<number> {
+      return this.http.get<number>(`${baseUrl}/SickLeaveDays/${id}`);
+    }
+
+      getleaveBymonthbyuser(id: any): Observable<Array<any>> {
+
+      return this.http.get<any[]>(`${baseUrl}/LeaverequestBymonth/${id}`);
+    }
+    getleaveBystatusbyuser(id: any): Observable<Array<any>> {
+
+      return this.http.get<any[]>(`${baseUrl}/LeaverequestBystatus/${id}`);
+    }
+
+
     
     getFileDB(id: any): Observable<FileDB> {
       return this.http.get<FileDB>(`${baseUrl}/files/${id}`);

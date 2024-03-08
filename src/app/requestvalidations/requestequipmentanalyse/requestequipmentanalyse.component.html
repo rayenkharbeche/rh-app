@@ -1,0 +1,62 @@
+
+  <h1>Equipment </h1> 
+    <mat-horizontal-stepper #stepper linear> 
+        <mat-step> 
+                <ng-template matStepLabel> 
+            User's   {{ data.equipmentName }}                 </ng-template> 
+                  <div *ngIf="message">  None of Equipment :  {{ data.equipmentName }} found  </div>
+                  <td >
+                    <li >
+                    {{ equipment.name }} <small> <br> Reference : {{ equipment.reference }}</small> 
+                  </li>
+      
+                </td>
+                <div> 
+                    <button mat-button matStepperNext> 
+                          Next 
+                      </button> 
+                </div> 
+        </mat-step> 
+        <mat-step [stepControl]="FormGroup"> 
+            <form [formGroup]="FormGroup"> 
+                <ng-template matStepLabel> 
+                      Enter Equipment reference
+                  </ng-template> 
+                <mat-form-field> 
+                    <input matInput placeholder="Equipment Reference" 
+                       formControlName="equipmentRef" required /> 
+                </mat-form-field> 
+                <div class="content" *ngIf="refExist"> Reference already assigned</div>
+
+                <div> 
+                    <button mat-button matStepperPrevious> 
+                          Back 
+                      </button> 
+                    <button mat-button matStepperNext> 
+                          Next 
+                      </button> 
+                </div> 
+            </form> 
+        </mat-step> 
+        <mat-step> 
+            <ng-template matStepLabel> 
+                  Done 
+              </ng-template> 
+
+
+              <button 
+              cButton shape="sm"  size="sm" (click)="validateRequest(data.equipmentrequest)" color="primary">Validate
+            </button>              
+            <button cButton shape="sm" size="sm" (click)="rejectRequest(data.equipmentrequest)" color="info">Reject
+  
+            </button>              <div> 
+                <button mat-button matStepperPrevious> 
+                      Back 
+                  </button> 
+                <button mat-button (click)="stepper.reset()"> 
+                      Reset 
+                  </button> 
+            </div> 
+        </mat-step> 
+    </mat-horizontal-stepper> 
+      

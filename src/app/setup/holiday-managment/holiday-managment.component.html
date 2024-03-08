@@ -1,0 +1,99 @@
+<p>holiday-managment works!</p>
+<c-row>
+    
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>Users</c-card-header>
+          <div  class="divider d-flex justify-content-center"> 
+                  
+            <c-col xl="5" md="6" sm="6">
+                <label cLabel for="exampleFormControlInput1">Country</label>
+
+                <c-input-group class="mb-3">
+
+                    <select (click)="selectCountry()"   [(ngModel)]="countrySelected" aria-label="Disabled select example" cSelect  [ngModelOptions]="{standalone: true}" >
+                        <option value="tn" >Tunisia</option>
+                        <option value="fr" >France</option>
+                    </select>
+                  </c-input-group>
+            </c-col>
+            <c-col xl="3" md="3" sm="3">
+            </c-col>
+            <c-col xl="3" md="3" sm="3">
+            <button  cCol="" routerLink="/setup/entitymanagment" color="light">Ajouter date non ouvrable
+                <svg cIcon name=""></svg>
+            </button>
+          </c-col>
+          </div>
+          <c-card-body >
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                 
+                 
+                  <th >Date</th>
+              
+                  <th>Activity</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="tunisiaHoliday">
+                <tr   *ngFor="let year of yearsTn; index as i"
+                  >
+                
+                  <td>
+                    <div>{{ year.date }}   </div>
+    
+                  </td>
+                  <td> 
+               
+                    <a (click)="updateHoliday(user)" cDropdownItem>update
+                      <svg cIcon class="me-2" name="cil-crop-rotate"></svg>
+                    </a>
+                    <a (click)="DeleteHoliday(user)" cDropdownItem>delete
+                      <svg cIcon class="me-2" name="cil-trash"></svg>
+                    </a>       
+                    </td>
+  
+                </tr>
+               
+              </tbody>
+              <tbody *ngIf="frenchHoliday">
+                <tr   *ngFor="let year of yearsFr; index as i"
+                  >
+                
+                  <td>
+                    <div>{{ year.date }}   </div>
+    
+                  </td>
+                  <td> 
+               
+                    <a (click)="updateHoliday(user)" cDropdownItem>update
+                      <svg cIcon class="me-2" name="cil-crop-rotate"></svg>
+                    </a>
+                    <a (click)="DeleteHoliday(user)" cDropdownItem>delete
+                      <svg cIcon class="me-2" name="cil-trash"></svg>
+                    </a>       
+                    </td>
+  
+                </tr>
+               
+              </tbody>
+            </table>
+          
+          </c-card-body>
+       
+        </c-card>
+      </c-col>
+    </c-row>
+
+

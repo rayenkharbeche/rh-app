@@ -91,6 +91,7 @@ onChangeManager() {
   var teams : User[];
 teams = this.managers;
   for (let user of teams) {
+    console.log(this.manager && this.manager.id !== user.id);
     if (this.manager && this.manager.id !== user.id) {
       console.log(teams)
         this.teamleads= teams.splice(teams.indexOf(user));
@@ -113,10 +114,14 @@ console.log(this.teamleads)
 
     for (let user of teams) {
       console.log(this.teamlead);
-      
+      console.log(this.teamlead.id);
+      console.log(user.id);
+
       if (this.teamlead && this.teamlead.id !== user.id) {
           this.users= teams.splice(teams.indexOf(user));
-  
+          console.log(this.users)
+          console.log(teams.splice(teams.indexOf(user)))
+
           break;
       }
       
@@ -205,7 +210,7 @@ updateTeamleadStatus(id:any,data:any){
       this.userService.updateteamleadStatus(id,data)
       .subscribe({
         next: (data) => {
-          const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
+          const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'setup/teamManagment' ;
           this.router.navigateByUrl(returnUrl);  
         },
         error: (e) => console.error(e)
@@ -217,7 +222,7 @@ updateTeamleadStatus(id:any,data:any){
         this.userService.updatemanagerStatus(id,data)
         .subscribe({
           next: (data) => {
-            const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/teamManagment' ;
+            const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'setup/teamManagment' ;
             this.router.navigateByUrl(returnUrl);  
           },
           error: (e) => console.error(e)

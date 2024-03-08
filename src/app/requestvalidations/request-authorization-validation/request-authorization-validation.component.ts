@@ -55,9 +55,11 @@ export class RequestAuthorizationValidationComponent {
         next: (data) => {
           this.requests = data;
           console.log(this.requests);
+          if (this.requests != null) {
+
           for (let request of this.requests) {  
             console.log(request.id);
-            if (request.status == RequestleaveStatus.OPEN){
+            if (request.status == RequestleaveStatus.OPEN && request.interneStatus == RequestleaveStatus.OPEN){
             request.status = RequestleaveStatus.ongoing;
             request.interneStatus = RequestleaveInterneStatus.ongoing;
 
@@ -65,6 +67,7 @@ export class RequestAuthorizationValidationComponent {
             this.requestUpdateStatus(request.id!,request );    
             }      
             }
+          }
           
         },
         error: (e) => console.error(e)

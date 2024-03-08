@@ -1,4 +1,4 @@
-<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+<div class="bg-light min-vh-100 d-flex flex-row">
   <c-container>
     <c-row class="justify-content-center">
       <c-col lg="12" md="12" xl="12">
@@ -17,7 +17,7 @@
 
           <mat-form-field>
           <mat-select placeholder="Departments" [(ngModel)]="department" name="action" 
-          (selectionChange)="onChange()" [ngModelOptions]="{standalone: true}" >
+            (selectionChange)="onChange()" [ngModelOptions]="{standalone: true}" >
                 <mat-option *ngFor="let department of departments" [value]="department">{{department.name}}</mat-option>
             </mat-select>
           </mat-form-field>

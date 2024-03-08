@@ -67,7 +67,7 @@ export class RequestequipmentlistComponent {
 
     updateRequest( requestequipment: Requestequipment){
       console.log(requestequipment);
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/requestauthorization/detail/'+ requestequipment.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'requestauthorization/detail/'+ requestequipment.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   

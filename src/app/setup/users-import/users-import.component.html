@@ -1,0 +1,29 @@
+<c-row>
+    
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-header>Import users </c-card-header>
+
+          <div  class="divider d-flex justify-content-center">
+             <c-col xl="11" md="6" sm="6">
+            
+            </c-col>
+
+
+          </div>
+          <c-card-body>
+            <form  cForm [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+
+                <input 
+                formControlName="file"
+                id="file" 
+                type="file" 
+                class="form-control"
+                (change)="onFileChange($event)">
+                </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>

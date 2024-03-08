@@ -12,6 +12,7 @@ export class LoginComponent {
   form!: FormGroup;
   loading = false;
   submitted = false;
+dbImage: any;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -22,6 +23,7 @@ export class LoginComponent {
   ) { }
 
   ngOnInit() {
+    this.dbImage = "assets/img/brand/logo.png"
       this.form = this.formBuilder.group({
           email: ['', Validators.required],
           password: ['', Validators.required]
@@ -48,7 +50,7 @@ export class LoginComponent {
           .subscribe({
               next: () => {
                   // get return url from query parameters or default to home page
-                  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+                  const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard/dashboard';
                   this.router.navigateByUrl(returnUrl);
               },
               error: error => {

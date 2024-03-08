@@ -58,7 +58,8 @@ user!: User;
       };
       this.accountService.resetpassword(data).subscribe({
         next: (res) => {
-          console.log(res);
+          
+          this.router.navigate(['/login'], { relativeTo: this.route });
 
         },
         error: (e) => console.error(e)

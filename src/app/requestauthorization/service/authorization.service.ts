@@ -68,6 +68,14 @@ export class AuthorizationService {
     return this.http.put(`${baseUrl}/updateStatus/${id}`, data);
   }
 
+  getRemoteDaysbyuser(id: any):  Observable<number> {
+    return this.http.get<number>(`${baseUrl}/remoteDays/${id}`);
+  }
+  
+  
+  getRemoteBymonthbyuser(id: any): Observable<Array<any>> {
 
+    return this.http.get<any[]>(`${baseUrl}/AuthorisationrequestBymonth/${id}`);
+  }
 }
 

@@ -1,0 +1,136 @@
+
+<ng-template #imgPlaceholderTemplate let-orientation>
+  
+    <img [src]="dbImage" >
+
+  </ng-template>
+
+<c-row>
+<c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Employe Profile</strong>
+      </c-card-header>
+      <c-card-body>
+
+          <c-row [gutter]="{g: 1}" [md]="3" [xs]="1">
+           
+            <c-col>
+              <c-card>
+                <ng-container *ngTemplateOutlet="imgPlaceholderTemplate"></ng-container>
+                <c-card-body>
+                  <button *ngIf="user?.role?.role == 'admin'" cButton shape="sm" (click)="equipmentManagment(user)" size="sm" color="info">Equipment Managment
+                </button> 
+                </c-card-body>            
+              </c-card>
+            </c-col>
+            <c-col>
+                <c-card>
+                  <c-card-body>
+                    <h5 cCardTitle>Profile Information</h5>
+                    <p cCardText>
+                      <tr>
+                        <th>Firstname :  </th>
+                        <td> {{firstName}}</td>
+
+                      </tr> 
+                      <tr>
+                        <th>Lastname : </th>
+                        <td> {{lastName}}</td>
+                    </tr> 
+                    <tr>
+                        <th>Email : </th>
+                        <td> {{email}}</td>
+
+                    </tr> 
+                    <tr>
+                        <th>Contract Start Date :  </th>
+                        <td> {{contractStartDate}}</td>
+
+                    </tr> 
+                    <tr>
+                      <th>Superior  :  </th>
+                      <td> {{superior}}</td>
+
+                  </tr>   
+                    <tr>
+                        <th>Entity : </th>
+                        <td> {{entity}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>department : </th>
+                        <td> {{department}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>Poste : </th>
+                        <td> {{poste}}</td>
+                    </tr>
+                    <tr>
+                        <th> Birthday Date : </th>
+                        <td> {{birthdayDate}}</td>
+                    </tr>
+                    <tr>
+                        <th> Leave Credit : </th>
+                        <td> {{leaveCredit}}</td>
+                    </tr>
+
+                    <tr *ngIf="rtt">
+                        <th>  RttCredit : </th>
+                        <td> {{rttCredit}}</td>
+                    </tr>
+                    <tr >
+                      <th>  assurance : </th>
+                      <td> {{assurance | yesNo }}</td>
+                    </tr>
+
+                    <tr >
+                      <th>  contractType : </th>
+                      <td> {{contractType}}</td>
+                    </tr>
+                    <tr >
+                        <th>  telephone : </th>
+                        <td> {{telephone}}</td>
+                    </tr>
+                    <tr >
+                      <th>  address : </th>
+                      <td> {{address}}</td>
+                    </tr>
+                    <tr >
+                      <th>  matricule : </th>
+                      <td> {{matricule}}</td>
+                  </tr>
+                  <tr >
+                    <th>  Family Situation : </th>
+                    <td> {{familySituation}}</td>
+                  </tr>
+                  <tr >
+                    <th>  Children Number : </th>
+                    <td> {{childNumber}}</td>
+                  </tr>
+                   
+                    <tr >
+                        <th>Equipment : </th>
+                        <td >
+                            <li *ngFor="let equipment of equipments; let i = index"  >
+                            {{ equipment.name }} <small> <br> Reference : {{ equipment.reference }}</small> </li>
+                        </td>
+                    </tr>
+
+                </p>
+                  </c-card-body>
+                  <c-card-footer>
+                    <small class="text-medium-emphasis">{{updatedAt|dateAgo}}</small>
+                  </c-card-footer>
+                </c-card>
+              </c-col>
+          </c-row>
+          
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+
+  
+</c-row>

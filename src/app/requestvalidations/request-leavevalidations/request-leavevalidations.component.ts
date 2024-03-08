@@ -36,11 +36,16 @@ export class RequestLeavevalidationsComponent {
       this.retrievRequest();
 
     }
-  requestUpdateStatus(requestId:any,status:any) {
-    this.requestleaveservice.updateStatus(requestId,status)
+  requestUpdateStatus(requestId:any,request:any) {
+
+    if ( (request.status == RequestleaveStatus.Validated ) &&
+      (new Date(request.startDate).getMonth() !== new Date().getMonth())) {
+      request.interneStatus = RequestleaveStatus.ongoing;
+    }
+    this.requestleaveservice.updateStatus(requestId,request)
     .subscribe({
       next: (data) => {
-        if (data.status == RequestleaveStatus.Validated){
+        if (data.status == RequestleaveStatus.Validated &&  (request.startDate.getMonth == new Date().getMonth)){
           this.requestleaveservice.updateCredit(data)
           .subscribe({
             next: (data) => {
@@ -52,22 +57,24 @@ export class RequestLeavevalidationsComponent {
   }
     retrievRequest(){
 
-if (this.currentUser.role == "Rh"){
-  this.requestleaveservice.getAllvalidated()
-  .subscribe({
-    next: (data) => {
-      this.requests = data;
-      console.log(this.requests);
-    }})
-}else {
+    
+      if (this.currentUser.role == "Rh"){
+      this.requestleaveservice.getAllvalidated()
+      .subscribe({
+        next: (data) => {
+          this.requests = data;
+          console.log(this.requests);
+        }})
+    }else {
       this.requestleaveservice.getAllbyTeam(this.currentUser.id)
       .subscribe({
         next: (data) => {
           this.requests = data;
           console.log(this.requests);
-          for (let request of this.requests) {  
+          if (this.requests != null) {
+           for (let request of this.requests) {  
             console.log(request.id);
-            if (request.status == RequestleaveStatus.OPEN){
+            if (request.status == RequestleaveStatus.OPEN && request.interneStatus == RequestleaveStatus.OPEN){
             request.status = RequestleaveStatus.ongoing;
             request.interneStatus = RequestleaveInterneStatus.ongoing;
 
@@ -75,7 +82,7 @@ if (this.currentUser.role == "Rh"){
             this.requestUpdateStatus(request.id!,request );    
             }      
             }
-          
+          }
         },
         error: (e) => console.error(e)
       });

@@ -1,0 +1,108 @@
+<c-row>
+    <c-col xs>
+      <c-card class="mb-4">
+        <c-card-header>Traffic {{ "&" }} Sales</c-card-header>
+        <c-card-body>
+          <c-row>
+            <c-col md="6" xl="6" xs="12" *ngIf="!adminIsConnected">
+              <c-row>
+                <c-col sm="6">
+                  <div
+                    class="border-start border-start-4 border-start-info py-1 px-3 mb-3"
+                  >
+                    <div class="text-medium-emphasis small">Available Sick Days</div>
+                    <div class="fs-5 fw-semibold">{{sickDays}}</div>
+                  </div>
+                </c-col>
+                <c-col sm="6">
+                  <div
+                    class="border-start border-start-4 border-start-danger py-1 px-3 mb-3"
+                  >
+                    <div class="text-medium-emphasis small">
+                        Available Remote Days
+                    </div>
+                    <div class="fs-5 fw-semibold">{{remoteDays}}</div>
+                  </div>
+                </c-col>
+              </c-row>
+              <hr class="mt-0" />
+            </c-col>
+            <c-col md="6" xl="6" xs="12" *ngIf="adminIsConnected">
+                <c-row>
+                  <c-col sm="6">
+                    <div
+                      class="border-start border-start-4 border-start-info py-1 px-3 mb-3"
+                    >
+                      <div class="text-medium-emphasis small">Employees Number</div>
+                      <div class="fs-5 fw-semibold">{{employeeNumber}}</div>
+                    </div>
+                  </c-col>
+                  <c-col sm="6">
+                    <div
+                      class="border-start border-start-4 border-start-danger py-1 px-3 mb-3"
+                    >
+                      <div class="text-medium-emphasis small">
+                          Today Available Employees
+                      </div>
+                      <div class="fs-5 fw-semibold">{{availableEmployee}}</div>
+                    </div>
+                  </c-col>
+                </c-row>
+                <hr class="mt-0" />
+              </c-col>
+            <c-col md="6" xl="6" xs="12">
+              <c-row>
+                <c-col sm="6">
+                  <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
+                    <div class="text-medium-emphasis small">Max Remote day </div>
+                    <div class="fs-5 fw-semibold">{{remoteday}}</div>
+                  </div>
+                </c-col>
+                <c-col sm="6">
+                  <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
+                    <div class="text-medium-emphasis small">Authorization Max hours</div>
+                    <div class="fs-5 fw-semibold">{{authorizationMaxNbr}} H</div>
+                  </div>
+                </c-col>
+              </c-row>
+              <hr class="mt-0" />        
+            </c-col>
+          </c-row>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+<c-row>
+<c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        leave Days number per month
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="bar" [data]="chartBarData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        Remote Days number per month
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="bar" [data]="chartBarData1"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+          </c-row>
+          <c-col xs="12" lg="6">
+            <c-card class="mb-4">
+              <c-card-header>
+                Request Leave number by Status
+              </c-card-header>
+              <c-card-body>
+                <c-chart type="pie" [data]="StatusPieData"></c-chart>
+              </c-card-body>
+            </c-card>
+          </c-col>
+
+

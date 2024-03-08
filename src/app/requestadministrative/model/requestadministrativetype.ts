@@ -1,16 +1,16 @@
 
 export enum RequestAdministrativeType {
-  workCertificate = 'work certificate',
-  salaryCertificate = 'Salary Certificate',
-  payslip = 'Payslip',
-  DirectDebitWages  = 'Direct debit wages',
-  salaryAdvance = 'Salary advance',
-  loan = 'loan',
-  reimbursementExpenses = 'Reimbursement Expenses',
-  missionExpenses = 'Mission Expenses',
-  OncallReimbursement = 'On call Reimbursement',
-  insurancePrint = 'Insurance Print',
-  ITsupport = 'IT Support',
-  autre = 'Autres',
+  workCertificate = 'Attestation de Travail',
+  salaryCertificate = 'Attestation de salaire',
+  payslip = 'Fiche de paie avec cachet',
+  DirectDebitWages  = 'Domiciliation de Salaire',
+  insurancePrint = 'Imprimé assurance',
+  ITsupport = 'Intervention informatique',
+  salaryAdvance = 'Avance sur salaire',
+  loan = 'Avance sur salaire',
+  reimbursementExpenses = 'Remboursement de Frais',
+  missionExpenses = 'Frais de mission',
+  OncallReimbursement = 'Remboursement astreinte',
+  other = 'Autres',
 
 }

@@ -63,6 +63,21 @@ import { RoleService } from '../auth/service/role.service';
 import { CreateentityComponent } from './createentity/createentity.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { EquipmentService } from './service/equipment.service';
+import { EmployeProfileComponent } from './employe-profile/employe-profile.component';
+import { EquipmentmanagementComponent } from './equipmentmanagement/equipmentmanagement.component';
+import { YesNoPipe } from '../pipe/yes-no.pipe';
+import { TransferEmployeeComponent } from './transfer-employee/transfer-employee.component';
+import { GeneralControlComponent } from './general-control/general-control.component';
+import { GeneralcontrolService } from './service/generalcontrol.service';
+import { UsersImportComponent } from './users-import/users-import.component';
+import { DateAgoPipe } from '../pipe/TimeAgoExtendsPipe.pipe';
+import { MailTemplateComponent } from './mail-template/mail-template.component';
+import { MailTemplateService } from './service/mailTemplate.service';
+import { MailTemplateListComponent } from './mail-template-list/mail-template-list.component';
+import { HolidayManagmentComponent } from './holiday-managment/holiday-managment.component';
+import { HolidayService } from '../requestleave/service/holiday.service';
+import { HolidayDataService } from './service/holiday-data.service';
 
 @NgModule({
   imports: [
@@ -100,8 +115,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     PaginationModule,
     PopoverModule,
     MatSelectModule,
-  MatDialogModule,
-  MatFormFieldModule,
+    MatDialogModule,
+    MatFormFieldModule,
 
   ],
   declarations: [
@@ -115,7 +130,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CreateTeamComponent,
     UpdateTeamComponent,
     RolemanagmentComponent,
-    CreateentityComponent
+    CreateentityComponent,
+    EmployeProfileComponent,
+    EquipmentmanagementComponent,
+    TransferEmployeeComponent,
+    GeneralControlComponent,
+    UsersImportComponent,
+    YesNoPipe,
+    DateAgoPipe,
+    MailTemplateComponent,
+    MailTemplateListComponent,
+    HolidayManagmentComponent
     
   ],
 
@@ -124,7 +149,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
               PosteService,
               DepartmentService,
               TeamService,
-              RoleService
+              RoleService,
+              EquipmentService,
+              GeneralcontrolService,
+              MailTemplateService,
+              HolidayService, /*asuppr*/
+              HolidayDataService
             ],
 
 

@@ -1,7 +1,7 @@
 ﻿import { Department } from "../../setup/model/department";
 import { Entity } from "../../setup/model/entity";
 import { Poste } from "../../setup/model/poste";
-import { Image } from "./image";
+import { image } from "./image";
 import { Role } from "./role";
 
 export class User {
@@ -17,7 +17,7 @@ export class User {
     poste?: Poste;
     department?: Department;
     token?: string;
-    image?:Image;
+    image?:image;
     actif?:boolean
     country?:string
     isManager?:boolean
@@ -26,5 +26,17 @@ export class User {
     teamLead?: boolean;
     leaveCredit?: number;
     rttCredit?: number;
+    contractType?: string;
+    assurance?: boolean;
+    telephone?: string;
+    address?: string;
+    matricule?:string;
+    familySituation?:string;
+    childNumber?:string;
+    remoteNbr?:number;
+    updatedAt?:Date;
+    superior?:User;
+
+    
 
 }

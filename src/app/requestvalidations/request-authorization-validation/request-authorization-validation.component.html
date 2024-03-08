@@ -1,4 +1,3 @@
-<p>request-authorization-validation works!</p>
 <c-row>
     
     <c-col xs>
@@ -51,7 +50,11 @@
                    <td>
                     <div class="d-flex justify-content-between">
 
-                    <div>{{ request.authorisationDate | date: 'dd/MM/yyyy'}} </div>
+                      <div>{{ request.authorisationStartDate | date: 'dd/MM/yyyy'}} </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+
+                      <div>{{ request.authorisationEndDate | date: 'dd/MM/yyyy'}} </div>
                     </div>
 
                     </td>     
@@ -89,6 +92,15 @@
                   </button>  
               
               </td>
+              <td *ngIf="currentUser.role == 'director'">
+                <button  
+                  cButton shape="sm"  size="sm" (click)="validateRequest(request)" color="primary">Validate
+                </button>              
+                <button  cButton shape="sm" size="sm" (click)="rejectRequest(request)" color="info">Reject
+
+                </button>  
+            
+            </td>
                 </tr>
               </tbody>
             </table>

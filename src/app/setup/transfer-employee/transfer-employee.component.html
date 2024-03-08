@@ -1,0 +1,65 @@
+<p>transfer-employee works!</p>
+
+
+<c-row>
+<c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Employe Profile</strong>
+      </c-card-header>
+      <c-card-body>
+
+          <c-row [gutter]="{g: 1}" [md]="3" [xs]="1">    
+            <c-col>
+                <c-card>
+                  <c-card-body>
+                    <h5 cCardTitle>Profile Information</h5>
+                    <p cCardText>
+                      <tr>
+                        <th>Firstname :  </th>
+                        <td> {{firstName}}</td>
+
+                      </tr> 
+                      <tr>
+                        <th>Lastname : </th>
+                        <td> {{lastName}}</td>
+                    </tr> 
+                   
+                    <tr>
+                        <th>Entity Name : </th>
+                        <td> {{entity.name}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>Entity Country : </th>
+                        <td> {{entity.countryCode}}</td>
+
+                    </tr>
+                    <c-input-group class="mb-12">
+                 
+                        <mat-form-field>
+                          <mat-select     aria-label="Default select example" placeholder="entities" [(ngModel)]="entityTo" 
+                          [ngModelOptions]="{standalone: true}"  name = "entity">
+                                <mat-option *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </c-input-group>  
+                    <button cButton shape="sm" (click)="onSubmit()"   size="sm" color="info">Transfer 
+                    </button> 
+
+                </p>
+                  </c-card-body>
+                  <c-card-footer>
+                    <small class="text-medium-emphasis">Last updated 3 mins ago</small>
+                  </c-card-footer>
+                </c-card>
+              </c-col>
+          </c-row>
+          
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+
+  
+</c-row>

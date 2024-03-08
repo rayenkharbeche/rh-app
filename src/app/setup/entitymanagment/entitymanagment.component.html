@@ -14,7 +14,7 @@
               <c-col xl="11" md="6" sm="6">
               </c-col>
               <c-col xl="3" md="6" sm="6">
-              <button cCol=""  (click)="openDialog()" color="light">Add Consultant
+              <button cCol=""  (click)="openDialog()" color="light">Add Entity
                   <svg cIcon name="cilPeople"></svg>
               </button>
             </c-col>
@@ -50,22 +50,25 @@
                       size="xl"
                       title="{{ entity?.countryCode }}"
                     ></svg>
+                    <td>           
+                      <a (click)="removeEntities(entity.id)" cDropdownItem>
+                        <svg cIcon class="me-2" name="cil-trash"></svg>
+      
+                      </a>
+                     </td>  
                     
-                    <td>
-                            
-                      <button cButton shape="sm" (click)="removeEntities(entity.id)" size="sm" color="info">Delete
-                      </button>              
-                  </td>
                   </tr>
                 </tbody>
               </table>
             </c-card-body>
+            <c-card-body class="p-4">
+              <button cButton shape="sm" (click)="removeAllEntities()"   size="sm" color="info">
+                Remove All
+                </button> 
+            </c-card-body>
           </c-card>
         </c-col>
       </c-row>
-    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEntities()">
-      Remove All
-    </button>
 </div>
 
 

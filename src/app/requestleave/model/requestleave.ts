@@ -10,6 +10,6 @@ export class Requestleave {
   status!: string;
   interneStatus!: string;
   fileDB!: FileDB;
-
+  leaveDays!:number
 
 }

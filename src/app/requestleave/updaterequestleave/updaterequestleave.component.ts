@@ -101,7 +101,7 @@ this.requestleaveService.get(id!)
         .subscribe({
           next: (res) => {
             console.log(res);
-            const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/requestleave/requestleavelist' ;
+            const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'requestleave/requestleavelist' ;
             this.router.navigateByUrl(returnUrl);   
                     },
           error: (e) => console.error(e)

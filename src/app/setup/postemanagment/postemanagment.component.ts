@@ -28,7 +28,6 @@ export class PostemanagmentComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.postes = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });
@@ -46,6 +45,8 @@ export class PostemanagmentComponent implements OnInit {
         next: (res) => {
           console.log(res); 
           this.submitted = true;
+          this.retrievePostes();
+
         },
         error: (e) => console.error(e)
       });
@@ -60,6 +61,16 @@ export class PostemanagmentComponent implements OnInit {
   }
   removeAllPostes(): void {
     this.posteService.deleteAll()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.retrievePostes();
+        },
+        error: (e) => console.error(e)
+      });
+  }
+  removePoste(poste:any): void {
+    this.posteService.delete(poste)
       .subscribe({
         next: (res) => {
           console.log(res);

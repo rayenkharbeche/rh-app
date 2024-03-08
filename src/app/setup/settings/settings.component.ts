@@ -22,18 +22,15 @@ export class SettingsComponent implements OnInit{
   detail(){
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
     console.log(currentUser.id);
-
-    console.log(localStorage.getItem('user'));
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/detail/'+ currentUser.id ;
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'detail/'+ currentUser.id ;
     this.router.navigateByUrl(returnUrl);  
   }
 
   reset(){
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
-    console.log(currentUser.id);
 
     console.log(localStorage.getItem('user'));
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/setup/reset/'+ currentUser.id ;
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'reset/'+ currentUser.id ;
     this.router.navigateByUrl(returnUrl);  
   }
 }

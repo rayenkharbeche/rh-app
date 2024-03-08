@@ -1,103 +1,154 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
-    <c-container>
-      <c-row class="justify-content-center">
-        <c-col lg="7" md="9" xl="6">
-          <c-card class="mx-4">
-            <c-card-body class="p-4">
-              <form cForm (ngSubmit)="onSubmit()" >
-                <h1>Profile</h1>
-                <p class="text-medium-emphasis">Edit Profile</p>
-                <c-input-group  *ngIf="isUserConnected" class="mb-3">
-                  <div class="form-group">
-                    <div *ngIf=dbImage>
-                      <img [src]="dbImage" width="300" height="400">
-                  </div>
-                    <input  [(ngModel)]="image" name="image" type="file" (change)="onImageUpload($event)"  value="Upload Image" [ngModelOptions]="{standalone: true}"class="btn1">        
-                  </div>         
-                   </c-input-group>
-                <c-input-group class="mb-3">
-                  <input [(ngModel)]="firstName" name="firstName" autoComplete="firstName" cFormControl placeholder="firstName" [ngModelOptions]="{standalone: true}" />
-                </c-input-group>
-                <c-input-group class="mb-3">
-                  <input [(ngModel)]="lastName" name="lastName" autoComplete="lastName" cFormControl placeholder="lastName" [ngModelOptions]="{standalone: true}" />
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form cForm (ngSubmit)="onSubmit()" >
+              <h1>Profile</h1>
+              <p class="text-medium-emphasis">Edit Profile</p>
+              
+              <c-input-group class="mb-3">
+                <input [(ngModel)]="firstName" name="firstName" autoComplete="firstName" cFormControl placeholder="firstName" [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <input [(ngModel)]="lastName" name="lastName" autoComplete="lastName" cFormControl placeholder="lastName" [ngModelOptions]="{standalone: true}" />
 
-                </c-input-group>
-                <c-input-group class="mb-3">
-                  <input [(ngModel)]="email" name="email" autoComplete="email" cFormControl placeholder="email" [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <input [(ngModel)]="email" name="email" autoComplete="email" cFormControl placeholder="email" [ngModelOptions]="{standalone: true}" />
 
-                </c-input-group>
-                <c-input-group class="mb-3">
-                <input aria-label="Disabled input example"
-                cFormControl
-                [(ngModel)]="birthdayDate" 
-                name="birthdayDate" 
+              </c-input-group>
+              <c-input-group class="mb-3">
+              <input aria-label="Disabled input example"
+              cFormControl
+              [(ngModel)]="birthdayDate" 
+              name="birthdayDate" 
 
-                placeholder="Birthday Date"
-                type="date"
-                [ngModelOptions]="{standalone: true}"
+              placeholder="Birthday Date"
+              type="date"
+              [ngModelOptions]="{standalone: true}"
 
-                >
-                </c-input-group>
-             
-                <c-input-group class="mb-12">  
-                <mat-form-field>
-                <mat-select aria-label="Default select example" placeholder="entities" [(ngModel)]="entity" 
-                (selectionChange)="onChange()" [ngModelOptions]="{standalone: true}"  name = "entity">
-                  <mat-option *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
-                </mat-select>
-                </mat-form-field>
-
-                <c-input-group class="mb-3" *ngIf="rtt">
-                  <input [(ngModel)]="rttCredit" name="rttCredit" autoComplete="rttCredit" cFormControl placeholder="Rtt Credit" [ngModelOptions]="{standalone: true}" />
-                </c-input-group>
-                </c-input-group>           
-                <c-input-group class="mb-3">
-                    <input aria-label="Disabled input example"
-                    cFormControl
-                    [(ngModel)]="contractStartDate" 
-                    name="cotractStartDate" 
-
-                    placeholder="Birthday Date"
-                    type="date"
-                    [ngModelOptions]="{standalone: true}"
-                    >
-                    </c-input-group>
-                <c-input-group class="mb-3">
-                  
-                <mat-form-field>
-                <mat-select placeholder="postes" [(ngModel)]="poste" name="poste" 
-                [ngModelOptions]="{standalone: true}" >
-                <mat-option *ngFor="let poste of postes" [value]="poste">{{poste.name}}</mat-option>
-                </mat-select>
-                </mat-form-field>
-
-                </c-input-group>
-
-                <c-input-group class="mb-3">
+              >
+              </c-input-group>
+           
+              <c-input-group class="mb-12">
+                 
                   <mat-form-field>
-                    <mat-select placeholder="Departments" [(ngModel)]="department" name="department" 
-                    [ngModelOptions]="{standalone: true}" >
-                          <mat-option *ngFor="let department of departments" [value]="department">{{department.name}}</mat-option>
+                    <mat-select     (selectionChange)="onChange()" aria-label="Default select example" placeholder="entities" [(ngModel)]="entity" 
+                    [ngModelOptions]="{standalone: true}"  name = "entity">
+                          <mat-option *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
-                
-                </c-input-group>
-                <c-input-group class="mb-3">
-                  <input [(ngModel)]="leaveCredit" name="leaveCredit" autoComplete="lastName" cFormControl placeholder="leaveCredit" [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-3" *ngIf="rtt">
+                <input [(ngModel)]="rttCredit" name="rttCredit" autoComplete="lastName" cFormControl placeholder="Rtt Credit" [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                  <input aria-label="Disabled input example"
+                  cFormControl
+                  [(ngModel)]="contractStartDate" 
+                  name="cotractStartDate" 
 
-                </c-input-group>
+                  placeholder="Birthday Date"
+                  type="date"
+                  [ngModelOptions]="{standalone: true}"
+                  >
+                  </c-input-group>
+
+       
+
+              <c-input-group class="mb-3">
+                
+                  <mat-form-field>
+                    <mat-select placeholder="postes" [(ngModel)]="poste" name="poste" 
+                    [ngModelOptions]="{standalone: true}" >
+                          <mat-option *ngFor="let poste of postes" [value]="poste">{{poste.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+              </c-input-group>
+
+              <c-input-group class="mb-3">
+                <mat-form-field>
+                  <mat-select placeholder="Departments" [(ngModel)]="department" name="department" 
+                  (selectionChange)="onChangeDepartment()" [ngModelOptions]="{standalone: true}" >
+                        <mat-option *ngFor="let department of departments" [value]="department">{{department.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <input [(ngModel)]="leaveCredit" name="leaveCredit" autoComplete="lastName" cFormControl placeholder="leaveCredit" [ngModelOptions]="{standalone: true}" />
+
+              </c-input-group>
+
+              
+              <c-input-group class="mb-12">
+                 
+                <mat-form-field>
+                  <mat-select aria-label="Default select example" placeholder="roles" [(ngModel)]="role" 
+                  (selectionChange)="onChangeRole()" [ngModelOptions]="{standalone: true}"  name = "role" >
+                        <mat-option *ngFor="let role of roles" [value]="role">{{role.role}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </c-input-group>
+
+            <c-input-group class="mb-12" *ngIf="chooseSuperior" >    
+
+              <mat-form-field>
+                <mat-select placeholder="consultant" [(ngModel)]="consultant" name="action" 
+                (selectionChange)="onChangeconsultant()" [ngModelOptions]="{standalone: true}" >
+                <mat-option *ngFor="let user of consultants" [value]="user">{{user.firstname}} {{user.lastName}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+              </c-input-group>  
+              <c-input-group class="mb-3">
                
-                <div class="d-grid">
-                  <button [disabled]="loading" type="submit" class="btn btn-primary">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                    Update
-                </button>
-                </div>
-              </form>
-            </c-card-body>
-          </c-card>
-        </c-col>
-      </c-row>
-    </c-container>
-  </div>
+                <select  [(value)]="contractTypeValue" aria-label="Large select example" cSelect class="mb-3" sizing="md"
+                [(ngModel)]="contractType"   name="contractType" [ngModelOptions]="{standalone: true}"
+               >
+                  <option hidden value="" disabled >Select contract type </option>
+
+                  <option  [value]="key" *ngFor="let key of getKeys(ContractType)">{{ ContractType[key] }}</option>
+                </select>
+              </c-input-group>
+
+            <c-input-group class="mb-3">
+              <input [(ngModel)]="telephone" name="telephone" autoComplete="telephone" cFormControl placeholder="telephone" [ngModelOptions]="{standalone: true}" />
+            </c-input-group>
+
+            <c-input-group class="mb-3">
+              <input [(ngModel)]="address" name="address" autoComplete="address" cFormControl placeholder="address" [ngModelOptions]="{standalone: true}" />
+            </c-input-group>
+            <c-form-check>
+              <input [(ngModel)]="assurance" cFormCheckInput  id="assurance"  type="checkbox" [ngModelOptions]="{standalone: true}" />
+              <label cFormCheckLabel for="assurance">Assurance group</label>
+            </c-form-check>
+ 
+            <c-input-group class="mb-3">
+              <input [(ngModel)]="matricule" name="matricule" autoComplete="matricule" cFormControl placeholder="matricule" [ngModelOptions]="{standalone: true}" />
+            </c-input-group>
+
+            <c-input-group class="mb-3">
+              <input [(ngModel)]="familySituation" name="familySituation" autoComplete="familySituation" cFormControl placeholder="familySituation" [ngModelOptions]="{standalone: true}" />
+            </c-input-group>
+
+            <c-input-group class="mb-3">
+              <input [(ngModel)]="childNumber" name="childNumber" autoComplete="childNumber" cFormControl placeholder="childNumber" [ngModelOptions]="{standalone: true}" />
+            </c-input-group>
+             
+              <div class="d-grid">
+                <button [disabled]="loading" type="submit" class="btn btn-primary">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                  Update
+              </button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
 

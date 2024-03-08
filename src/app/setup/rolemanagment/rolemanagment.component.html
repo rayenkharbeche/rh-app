@@ -1,49 +1,78 @@
-     
-<div>
-    <div class="submit-form">
-      <div>
-        <div class="form-group">
-          <label for="title">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            required
-            [(ngModel)]="role.role"
-            name="title"
-          />
-        </div>
-  
-        <button (click)="saveRole()" class="btn btn-success">Submit</button>
-      </div>
-    </div>
-    <div class="col-md-12">
 
-    <h4>Roles List</h4>
 
-    <table class="table">
-      <thead>
-          <tr>
+       
+<div>   
+  <c-row> 
+    <c-col xs>
+        <c-card class="mb-4">
+          <c-card-header>Role List</c-card-header>
+          <c-card-body>
+          <div class="submit-form">
+            <div *ngIf="!submitted">
+              <div class="form-group">
+                <label for="title">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  required
+                  [(ngModel)]="role.role"
+                  name="title"
+                />
+                <button (click)="saveRole()" class="btn border-start-danger">Submit</button>
+
+              </div>
+        
+            </div>
+          </div>
+          </c-card-body>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
             
-              <th>name</th>
-              <th >Action</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr class="click" *ngFor="let role of roles">
-            <td>{{ role.role }}</td>
+              <thead cTableColor="light">
+                <tr>
+                   <th>Poste name </th>
+                  <th >Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let role of roles" >
+                <td>{{ role.role  }}</td>
+                 <td>           
+                  <a (click)="removeRole(role.id)" cDropdownItem>
+                    <svg cIcon class="me-2" name="cil-trash"></svg>
+  
+                  </a>
+                 </td>   
+               </tr>
+              </tbody>
+            </table>
+          </c-card-body>
 
-            <td>
-                <button class="btn btn-danger" (click)="removeRole(role.id)" ><span  
-                        class="glyphicon glyphicon-trash"></span>&nbsp; Remove</button>
-            </td>
-        </tr>
-      </tbody>
-    </table>
-    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllRole()">
-      Remove All
-    </button>
+          <c-card-body class="p-4">
+            <button cButton shape="sm" (click)="removeAllRole()"   size="sm" color="info">
+              Remove All
+              </button> 
+          </c-card-body>
+ 
+        </c-card>
+      </c-col>
+    </c-row>
+
+
 </div>
+
+
+
+    
+      
 
 
 

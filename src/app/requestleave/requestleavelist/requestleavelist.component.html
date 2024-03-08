@@ -10,7 +10,7 @@
              <c-col xl="11" md="6" sm="6">
         </c-col>
         <c-col xl="3" md="6" sm="6">
-            <button routerLink="/home/requestleave/addrequestleave" color="light">Create Request
+            <button routerLink="/requestleave/addrequestleave" color="light">Create Request
             </button>
         </c-col>
 
@@ -74,8 +74,9 @@
                   <td>
                     <button [disabled]="request.status == 'Validated' || request.status == 'Rejected' " cButton shape="sm"  size="sm" (click)="updateRequest(request)" color="primary">Update                    
                     </button>              
-                    <button [disabled]="request.status == 'Validated' || request.status == 'Rejected' "  cButton shape="sm" size="sm" (click)="deleteRequest(request)" color="info">Delete
-                    </button>  
+                    
+                    <button   cButton shape="sm" size="sm" (click)="CancelRequest(request)" color="info">Cancel
+                    </button>
                 
                 </td>
                 </tr>

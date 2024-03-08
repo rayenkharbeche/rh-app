@@ -5,13 +5,31 @@
           <c-card class="mx-4">
             <c-card-body class="p-4">
               <form cForm [formGroup]="form" (ngSubmit)="onSubmit()" >
-                <h1>Request Leave</h1>
-                <p class="text-medium-emphasis">Create Request</p>
-                <c-input-group class="mb-3">
-                  <select  aria-label="Disabled select example" cSelect  formControlName="type" >
+                <h1>Demande administrative</h1>
+                <p class="text-medium-emphasis">Créer demande administrative</p>
+                <div>
+                  <label>Type de la demande </label> 
+                </div> 
+                <c-input-group class="mb-3"> 
+                  <select   aria-label="Disabled select example" cSelect  formControlName="type" >
+                    <option >Type de la demande</option>
                     <option [value]="key" *ngFor="let key of getKeys(requestAdministrativeType)">{{ requestAdministrativeType[key] }}</option>
-                    </select>
-                </c-input-group>         
+                  </select>
+                </c-input-group> 
+           
+                
+                <c-input-group class="mb-3">
+                  
+                <textarea type="text"
+                class="form-control"
+                id="title"
+                placeholder="Insérer commentaire"
+                [(ngModel)]="remarks"
+                name="title"
+                [ngModelOptions]="{standalone: true}"
+                ></textarea>
+              
+                </c-input-group>
                 <div class="d-grid">
                   <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>

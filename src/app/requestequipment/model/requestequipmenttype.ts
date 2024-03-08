@@ -1,7 +1,7 @@
 
 export enum RequestEquipmentType {
-  officesupplies = 'office supplies',
-  computerAccessories = 'Computer Accessories',
-  hardware = 'Hardware',
+  officesupplies = 'Fourniture de bureau',
+  computerAccessories = 'Accessoires informatique',
+  hardware = 'Matériel informatinque',
 
 }

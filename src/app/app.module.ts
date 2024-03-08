@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
 
@@ -37,9 +38,16 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './auth/_helpers';
 import { EntityService } from './setup/service/entity.service';
+import { DepartmentService } from './setup/service/department.service';
+import { PosteService } from './setup/service/poste.service';
+import { EquipmentService } from './setup/service/equipment.service';
+import { RequestequipmentService } from './requestequipment/service/requestequipment.service';
+import { YesNoPipe } from './pipe/yes-no.pipe';
+import { HolidayService } from './requestleave/service/holiday.service';
+import { HolidayDataService } from './setup/service/holiday-data.service';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -48,7 +56,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS ]  ,
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -80,6 +88,11 @@ const APP_CONTAINERS = [
 
   ],
   providers: [
+    DepartmentService,
+    PosteService,
+    EntityService,
+    EquipmentService,
+    RequestequipmentService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
@@ -87,9 +100,15 @@ const APP_CONTAINERS = [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 
     IconSetService,
+    HolidayService,
+    HolidayDataService,
     Title
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

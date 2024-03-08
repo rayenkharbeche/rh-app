@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
 import { User } from '../../auth/model/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Image } from '../../auth/model/image';
 import { first, firstValueFrom } from 'rxjs';
 import { DepartmentService } from '../service/department.service';
 import { PosteService } from '../service/poste.service';
@@ -14,6 +13,7 @@ import { Poste } from '../model/poste';
 import { Department } from '../model/department';
 import { Role } from '../../auth/model/role';
 import { RoleService } from '../../auth/service/role.service';
+import { ContractType } from '../../auth/model/ContractType';
 
 @Component({
   selector: 'app-add-consultant',
@@ -30,7 +30,6 @@ export class AddConsultantComponent {
 
   postResponse: any;
   successResponse!: string;
-  /*image: any;*/
   i!: number;
   users!: User[];
   isUserConnected!: boolean;
@@ -56,10 +55,21 @@ leaveCredit:any;
 role: any;
 rttCredit: any;
 rtt: any;
+contractType: any;
+telephone: any;
+address: any;
+assurance: any;
+matricule: any;
+familySituation: any;
+childNumber: any;
+currentUser:any;
+  ContractType: any;
+ teamleads! : User[];
+ consultants: User[] = [];
+ consultant: any;
+  chooseSuperior!: boolean;
 
     constructor(
-        private formBuilder: FormBuilder,
-        private httpClient: HttpClient,
         private router: Router,
         private _activatedroute:ActivatedRoute,
         private accountService: AuthService,
@@ -72,8 +82,9 @@ rtt: any;
     ) { }
   
     ngOnInit() {
-      var currentUser  = JSON.parse(localStorage.getItem('user')!);
-      
+      this.currentUser  = JSON.parse(localStorage.getItem('user')!);
+      this.ContractType = ContractType;
+
       this.entityService.getAll()
       .subscribe({
         next: (data) => {
@@ -123,6 +134,9 @@ rtt: any;
 
     onSubmit() {
       this.submitted = true;
+
+      console.log(this.consultant)
+    
       this.user = new User;
       this.user.poste = this.poste;
       this.user.department = this.department;
@@ -140,7 +154,15 @@ rtt: any;
       this.user.actif = true;
 
       this.user.password = "Csi@2019";
-
+      this.user.contractType = this.contractType;
+      this.user.telephone = this.telephone;
+      this.user.address = this.address; 
+      this.user.assurance = this.assurance; 
+      this.user.matricule = this.matricule;
+      this.user.familySituation = this.familySituation;
+      this.user.childNumber = this.childNumber; 
+      this.user.superior = this.consultant; 
+      console.log(this.user)
 
       this.loading = true;
       this.accountService.addUser(this.user)
@@ -148,7 +170,7 @@ rtt: any;
       .subscribe({
           next: () => {
               /*this.alertService.success('Registration successful', { keepAfterRouteChange: true });*/
-              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'home/setup/profileList' ;
+              const returnUrl = this._activatedroute.snapshot.queryParams['returnUrl'] || 'setup/profileList' ;
               this.router.navigateByUrl(returnUrl); 
                       },
           error: error => {
@@ -158,4 +180,55 @@ rtt: any;
       });
       
   }
+  getKeys(obj: any) { return Object.keys(obj); }
+
+  onChangeDepartment() {    
+    this.retrieveUsersbyDepartment(this.department.id)
+    }
+    retrieveUsersbyDepartment(department: any){
+        this.accountService.getAlluserbyDepartment(department)
+        .subscribe({
+          next: (data) => {
+            this.users = data;
+            console.log(this.role)
+            if(this.role.role == "consultant"){
+              //this.teamleads = this.users;
+              console.log(this.users)
+
+              for (let user of this.users) {
+                if (user.role?.role == "teamLead") {
+                     this.consultants.push(user);    
+  
+                }
+              }
+            } else  if(this.role.role == "teamLead"){
+
+              for (let user of this.users) {
+                console.log(user)
+
+                if (user.role?.role == "manager") {
+                this.consultants.push(user);    
+                }
+              }
+            } 
+
+  
+          },
+          error: (e) => console.error(e)
+        });
+      
+        }
+        onChangeconsultant() {
+          console.log(this.consultant)
+          
+          }
+          onChangeRole() {
+            console.log(this.role)
+            this.chooseSuperior = false;
+            if (this.role.role == "director" || this.role.role == "admin" ){
+              this.chooseSuperior = false;
+            }else {
+              this.chooseSuperior = true;
+            }
+            }
 }

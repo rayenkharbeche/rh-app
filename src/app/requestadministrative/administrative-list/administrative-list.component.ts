@@ -68,7 +68,7 @@ export class AdministrativeListComponent {
 
     updateRequest( rqleave: Requestadministrative){
       console.log(rqleave);
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home/requestadministrative/detail/'+ rqleave.id ;
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'requestadministrative/detail/'+ rqleave.id ;
       this.router.navigateByUrl(returnUrl);   
      }
   

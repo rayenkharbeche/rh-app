@@ -95,8 +95,15 @@
                   <button [disabled]="request.interneStatus != 'tl_validated'" cButton shape="sm" size="sm" (click)="rejectRequest(request)" color="info">Reject
 
                   </button>  
-              
               </td>
+              <td *ngIf="currentUser.role == 'director'">
+                <button  
+                  cButton shape="sm"  size="sm" (click)="validateRequest(request)" color="primary">Validate
+                </button>              
+                <button  cButton shape="sm" size="sm" (click)="rejectRequest(request)" color="info">Reject
+
+                </button>  
+            </td>
                 </tr>
               </tbody>
             </table>
