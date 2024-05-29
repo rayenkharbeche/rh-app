@@ -11,7 +11,9 @@
           <c-card-body>
 
           <div class="submit-form">
-            <div *ngIf="!submitted">
+            <div >
+              <form cForm [formGroup]="form" (ngSubmit)="saveDepartment()" >
+
               <div class="form-group">
                 <label for="title">Name</label>
                 <input
@@ -19,13 +21,17 @@
                   class="form-control"
                   id="title"
                   required
-                  [(ngModel)]="department.name"
+                  formControlName="departmentname"
                   name="title"
                 />
-                <button (click)="saveDepartment()" class="btn border-start-danger">Submit</button>
+
+                <div *ngIf='!validForm '>
+                  department name is required
+                </div>
+                <button  class="btn border-start-danger">Submit</button>
 
               </div>
-        
+              </form>
             </div>
           </div>
           </c-card-body>

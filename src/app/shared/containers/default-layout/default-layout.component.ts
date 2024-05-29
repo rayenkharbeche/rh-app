@@ -9,6 +9,7 @@ import { navItemsInfra } from './_navInfra';
 import { navItemsTr } from './_nav_Treasurer';
 import { navItemsDG } from './_navDirector';
 import { TranslateService } from '@ngx-translate/core';
+import { navItemsFinance } from './_navFinance';
 
 
 @Component({
@@ -25,21 +26,26 @@ export class DefaultLayoutComponent implements OnInit {
   public navItemsInfra= navItemsInfra;
   public navItemsTr = navItemsTr;
   public navItemsDG = navItemsDG;
+  public navItemsFinance = navItemsFinance;
 
   isAdmin!: boolean;
   isConsultant!: boolean;
   isTeamLead!: boolean;
-isManager: any;
-isRh:any;
-isInfra:any;
-treasurer:any;
-isDirector: any;
+  isManager: any;
+  isRh:any;
+  isInfra:any;
+  treasurer:any;
+  isDirector: any;
+  isFinance: any;
   constructor() {
 
 
   }
    ngOnInit() : void {
     var currentUser  = JSON.parse(localStorage.getItem('user')!);
+    console.log(currentUser.role )
+    console.log(currentUser )
+
     if (currentUser.role === "admin") {
     this.isAdmin = true;
     } else  if (currentUser.role === "consultant")  {
@@ -60,6 +66,9 @@ isDirector: any;
 
   }   if (currentUser.role === "director")  {
     this.isDirector = true;
+
+  }  if (currentUser.role === "finance")  {
+    this.isFinance = true;
 
   }
   

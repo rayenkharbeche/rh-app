@@ -1,45 +1,93 @@
-<p>equipmentmanagement works!</p>
-     
-<div>
-    <div class="submit-form">
-      <div *ngIf="!submitted">
-        <div class="form-group">
-          <label for="title">Name</label>
+
+  <div>
+  <c-row>
+  
+    <c-col xs>
+       
+        <c-card class="mb-4">
+        
+          <c-card-body>
+
+          <div class="submit-form">
+            <div >
+              <form cForm [formGroup]="form" (ngSubmit)="saveEquipment()" >
+
+              <div class="form-group">
+                <label for="name">Name</label>
           <input
             type="text"
             class="form-control"
-            id="title"
+            id="name"
             required
-            [(ngModel)]="name"
+            formControlName="name"
             name="title"
           />
+          <label for="reference">Reference</label>
+
           <input
           type="text"
           class="form-control"
-          id="title"
+          id="reference"
           required
-          [(ngModel)]="reference"
+          formControlName="reference"
           name="title"
         />
-        </div>
+              
+
+                <div *ngIf='!validForm '>
+                  department name is required
+                </div>
+                <button  class="btn border-start-danger">Submit</button>
+
+              </div>
+              </form>
+            </div>
+          </div>
+          </c-card-body>
+          <c-card-body>
+            <table
+              [hover]="true"
+              [responsive]="true"
+              [striped]="true"
+              align="middle"
+              cTable
+              class="mb-0 border"
+            >
+            
+              <thead cTableColor="light">
+                <tr>
+                   <th>Equipment name </th>
+                   <th>Equipment reference </th>
+
+                  <th >Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let equipment of equipments" >
+                <td>{{ equipment.name  }}</td>
+                <td>{{ equipment.reference  }}</td>
+
+                 <td>           
+                  <a (click)="removeEquipment(equipment.id)" cDropdownItem>
+                    <svg cIcon class="me-2" name="cil-trash"></svg>
   
-  
-        <button (click)="saveEquipment()" class="btn btn-success">Submit</button>
-      </div>
-    </div>
-    <div class="col-md-6">
-        <h4>equipment List</h4>
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            *ngFor="let equipment of equipments; let i = index"       >
-            {{ equipment.name }}
-          </li>
-        </ul>
+                  </a>
+                 </td>   
+               </tr>
+              </tbody>
+            </table>
+          </c-card-body>
+          <c-card-body class="p-4">
+            <button cButton shape="sm" (click)="removeAllEquipments()"   size="sm" color="info">
+              Remove All
+              </button> 
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+</div>
+
+
+
     
-        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEquipments()">
-          Remove All
-        </button>
-      </div>
-  </div>
       

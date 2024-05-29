@@ -73,6 +73,7 @@ contractType="";
 contractTypeValue :any;
 
   roleold?:Role;
+  superior: User | undefined;
     constructor(
         private formBuilder: FormBuilder,
         private httpClient: HttpClient,
@@ -169,9 +170,21 @@ contractTypeValue :any;
           this.leaveCredit = this.user.leaveCredit;
           this.rttCredit = this.user.rttCredit;
           this.role = this.user.role;
-          if (this.role.role == "director" || this.role.role == "admin" ){
-            this.chooseSuperior = false;
-          }         
+          this.telephone = this.user.telephone;
+          this.matricule = this.user.matricule;
+          this.contractType = this.user.contractType!;
+          this.assurance = this.user.assurance;
+          this.address = this.user.address;
+          this.familySituation = this.user.familySituation;
+          this.childNumber = this.user.childNumber;
+          this.consultant = this.user.superior;
+
+          
+          console.log(this.role.role)
+
+              if (this.role.role == "director" || this.role.role == "admin" ){
+                this.chooseSuperior = false;
+              }         
           this.roleold = this.user.role;
           console.log(this.roleold)
           if (this.department != null)
@@ -366,7 +379,16 @@ onChangeDepartment() {
               this.consultants.push(user);    
               }
             }
-          } 
+          } else  if((this.role.role !== "consultant") || this.role.role == "teamLead" ){
+
+            for (let user of this.users) {
+              console.log(user)
+
+              if (user.role?.role == "director") {
+              this.consultants.push(user);    
+              }
+            }
+          }
 
 
         },

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,7 +39,7 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { JwtInterceptor } from './auth/_helpers';
+import { ErrorInterceptor, JwtInterceptor } from './auth/_helpers';
 import { EntityService } from './setup/service/entity.service';
 import { DepartmentService } from './setup/service/department.service';
 import { PosteService } from './setup/service/poste.service';
@@ -48,6 +48,9 @@ import { RequestequipmentService } from './requestequipment/service/requestequip
 import { YesNoPipe } from './pipe/yes-no.pipe';
 import { HolidayService } from './requestleave/service/holiday.service';
 import { HolidayDataService } from './setup/service/holiday-data.service';
+import { AuthInterceptor } from './_helpers/authconfig.interceptor';
+import { AuthService } from './auth/service/auth.service';
+import { appInitializer } from './auth/_helpers/app.initializer';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -97,8 +100,9 @@ const APP_CONTAINERS = [
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
+    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     IconSetService,
     HolidayService,
     HolidayDataService,

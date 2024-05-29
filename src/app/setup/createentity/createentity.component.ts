@@ -3,13 +3,16 @@ import { Entity } from '../model/entity';
 import { EntityService } from '../service/entity.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { countries } from '../../shared/components/country-data-store';
 @Component({
   selector: 'app-createentity',
   templateUrl: './createentity.component.html',
   styleUrl: './createentity.component.css'
 })
 export class CreateentityComponent   {
-  
+  public countries:any = countries
+  countrySelected!: any;
+
     entity: Entity = {
       id: 0,
       name: '',
@@ -29,6 +32,7 @@ export class CreateentityComponent   {
  
   
     saveEntity(): void {
+    this.entity.countryCode = this.titleCaseWord(this.countrySelected.code)
       const data = {
         name: this.entity.name,
         countryCode: this.entity.countryCode
@@ -54,5 +58,9 @@ export class CreateentityComponent   {
         name: '',
         countryCode: '',
       };
+    }
+     titleCaseWord(word: string) {
+      if (!word) return word;
+      return word[0].toUpperCase() + word.substr(1).toLowerCase();
     }
   }

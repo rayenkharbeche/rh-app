@@ -31,8 +31,11 @@
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input formControlName="password" autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                <input formControlName="confirmPassword" autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
               </c-input-group>
+              <div *ngIf='!passwordsMatching && form.controls["confirmPassword"].dirty '>
+                Passwords did not match
+            </div>
               <div class="d-grid">
                 <button [disabled]="loading" class="btn btn-primary">
                   <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>

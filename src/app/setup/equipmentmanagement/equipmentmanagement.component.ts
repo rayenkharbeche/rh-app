@@ -4,6 +4,7 @@ import { EquipmentService } from '../service/equipment.service';
 import { User } from '../../auth/model/user';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-equipmentmanagement',
@@ -11,6 +12,7 @@ import { AuthService } from '../../auth/service/auth.service';
   styleUrl: './equipmentmanagement.component.css'
 })
 export class EquipmentmanagementComponent implements OnInit {
+  form!: FormGroup;
 
   equipment! : Equipment;
   submitted = false;
@@ -18,14 +20,25 @@ export class EquipmentmanagementComponent implements OnInit {
 name: any;
 reference: any;
 user!:User;
+validForm: any;
   constructor(private equipmentService: EquipmentService,
     private _activatedroute:ActivatedRoute,
-    private accountService: AuthService
+    private accountService: AuthService,
+    private formBuilder: FormBuilder,
+
     ) { }
 
   
   ngOnInit(): void {
+    this.validForm = true;
+
     const id = this._activatedroute.snapshot.paramMap.get("id");
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      reference: ['', Validators.required],
+
+
+  });
     this.accountService.getById(id!)
     .subscribe({
       next: (data) => {
@@ -53,9 +66,18 @@ user!:User;
 
 
   saveEquipment(): void {
+
+    if (this.form.invalid) {
+      this.validForm = false;
+      return;
+    }
+
+    console.log(this.name)
+    console.log(this.reference)
+
     const data = {
       name: this.name,
-      reference:this.reference,
+      reference: this.reference,
       user:   this.user
     };
 
@@ -77,6 +99,18 @@ user!:User;
         next: (res) => {
           console.log(res);
           //this.retrieveEquipments(id);
+        },
+        error: (e) => console.error(e)
+      });
+  }
+  removeEquipment(equipment: any): void {
+    const id = this._activatedroute.snapshot.paramMap.get("id");
+
+    this.equipmentService.delete(equipment)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.retrieveEquipments(id);
         },
         error: (e) => console.error(e)
       });

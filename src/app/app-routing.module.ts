@@ -65,7 +65,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','admin','director'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','admin','director','finance'] }
 
       },
       {
@@ -73,7 +73,7 @@ const routes: Routes = [
         component: ResetpasswordComponent,
         data: {
           title: 'Reset List',
-          roles: ['consultant' , 'teamLead', 'manager']
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','admin','director','finance'] }
 
         },     
       },
@@ -83,7 +83,7 @@ const routes: Routes = [
         component: UpdateprofileComponent,
         data: {
           title: 'Profile List',
-          roles: ['consultant' , 'teamLead', 'manager']
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','admin','director','finance'] }
 
         },   
       },     
@@ -106,7 +106,8 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestleave/requestleave.module').then((m) => m.RequestleaveModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','finance'] }
+
 
       },
       {
@@ -135,7 +136,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestauthorization/requestauthorization.module').then((m) => m.RequestauthorizationModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','finance'] }
 
       },
       {
@@ -143,7 +144,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestvalidations/requestvalidations.module').then((m) => m.RequestvalidationsModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer', 'director'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer', 'director','finance'] }
 
       },
       {
@@ -151,7 +152,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./requestadministrative/requestadministrative.module').then((m) => m.RequestadministrativeModule),
           canActivate: [AuthGuard],
-          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer'] }
+          data: { roles: ['consultant' , 'teamLead', 'manager', 'Rh', 'Infra', 'treasurer','finance'] }
 
       },
       {

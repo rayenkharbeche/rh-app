@@ -7,43 +7,55 @@
             <form cForm (ngSubmit)="onSubmit()" >
               <h1>Profile</h1>
               <p class="text-medium-emphasis">Edit Profile</p>
-              
+              <label for="firstName">firstName</label>
               <c-input-group class="mb-3">
-                <input [(ngModel)]="firstName" name="firstName" autoComplete="firstName" cFormControl placeholder="firstName" [ngModelOptions]="{standalone: true}" />
+                <input [(ngModel)]="firstName" id="firstName" name="firstName" autoComplete="firstName" cFormControl placeholder="firstName" [ngModelOptions]="{standalone: true}" />
               </c-input-group>
+              <label for="lastName">lastName</label>
+
               <c-input-group class="mb-3">
-                <input [(ngModel)]="lastName" name="lastName" autoComplete="lastName" cFormControl placeholder="lastName" [ngModelOptions]="{standalone: true}" />
+                <input [(ngModel)]="lastName" id="lastName" name="lastName" autoComplete="lastName" cFormControl placeholder="lastName" [ngModelOptions]="{standalone: true}" />
 
               </c-input-group>
+              <label for="email">email</label>
+
               <c-input-group class="mb-3">
-                <input [(ngModel)]="email" name="email" autoComplete="email" cFormControl placeholder="email" [ngModelOptions]="{standalone: true}" />
+                <input [(ngModel)]="email" id="email" name="email" autoComplete="email" cFormControl placeholder="email" [ngModelOptions]="{standalone: true}" />
 
               </c-input-group>
+              <label for="birthdayDate">birthdayDate</label>
+
               <c-input-group class="mb-3">
+
               <input aria-label="Disabled input example"
               cFormControl
               [(ngModel)]="birthdayDate" 
               name="birthdayDate" 
-
+              id="birthdayDate"
               placeholder="Birthday Date"
               type="date"
               [ngModelOptions]="{standalone: true}"
 
               >
               </c-input-group>
-           
+              <label for="entity">entity</label>
+
               <c-input-group class="mb-12">
                  
                   <mat-form-field>
                     <mat-select     (selectionChange)="onChange()" aria-label="Default select example" placeholder="entities" [(ngModel)]="entity" 
                     [ngModelOptions]="{standalone: true}"  name = "entity">
-                          <mat-option *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
+                          <mat-option id="entity" *ngFor="let entity of entities" [value]="entity">{{entity.name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
               </c-input-group>
+              <label *ngIf="rtt" for="rttCredit">rttCredit</label>
+
               <c-input-group class="mb-3" *ngIf="rtt">
                 <input [(ngModel)]="rttCredit" name="rttCredit" autoComplete="lastName" cFormControl placeholder="Rtt Credit" [ngModelOptions]="{standalone: true}" />
               </c-input-group>
+              <label  for="contractStartDate">contractStartDate</label>
+
               <c-input-group class="mb-3">
                   <input aria-label="Disabled input example"
                   cFormControl
@@ -57,6 +69,7 @@
                   </c-input-group>
 
        
+                  <label  for="poste">poste</label>
 
               <c-input-group class="mb-3">
                 
@@ -68,6 +81,7 @@
                     </mat-form-field>
 
               </c-input-group>
+              <label  for="department">department</label>
 
               <c-input-group class="mb-3">
                 <mat-form-field>
@@ -78,12 +92,15 @@
                   </mat-form-field>
               
               </c-input-group>
+              <label  for="leaveCredit">leaveCredit</label>
+
               <c-input-group class="mb-3">
                 <input [(ngModel)]="leaveCredit" name="leaveCredit" autoComplete="lastName" cFormControl placeholder="leaveCredit" [ngModelOptions]="{standalone: true}" />
 
               </c-input-group>
 
-              
+              <label  for="role">role</label>
+
               <c-input-group class="mb-12">
                  
                 <mat-form-field>
@@ -93,6 +110,7 @@
                     </mat-select>
                   </mat-form-field>
             </c-input-group>
+            <label *ngIf="chooseSuperior"  for="superior">Superior</label>
 
             <c-input-group class="mb-12" *ngIf="chooseSuperior" >    
 
@@ -103,6 +121,8 @@
                 </mat-select>
                 </mat-form-field>
               </c-input-group>  
+              <label  for="contractType">contractType</label>
+
               <c-input-group class="mb-3">
                
                 <select  [(value)]="contractTypeValue" aria-label="Large select example" cSelect class="mb-3" sizing="md"
@@ -113,26 +133,32 @@
                   <option  [value]="key" *ngFor="let key of getKeys(ContractType)">{{ ContractType[key] }}</option>
                 </select>
               </c-input-group>
+              <label  for="telephone">telephone</label>
 
             <c-input-group class="mb-3">
               <input [(ngModel)]="telephone" name="telephone" autoComplete="telephone" cFormControl placeholder="telephone" [ngModelOptions]="{standalone: true}" />
             </c-input-group>
+            <label  for="address">address</label>
 
             <c-input-group class="mb-3">
               <input [(ngModel)]="address" name="address" autoComplete="address" cFormControl placeholder="address" [ngModelOptions]="{standalone: true}" />
             </c-input-group>
+
             <c-form-check>
               <input [(ngModel)]="assurance" cFormCheckInput  id="assurance"  type="checkbox" [ngModelOptions]="{standalone: true}" />
               <label cFormCheckLabel for="assurance">Assurance group</label>
             </c-form-check>
- 
+            <label  for="matricule">matricule</label>
+
             <c-input-group class="mb-3">
               <input [(ngModel)]="matricule" name="matricule" autoComplete="matricule" cFormControl placeholder="matricule" [ngModelOptions]="{standalone: true}" />
             </c-input-group>
+            <label  for="familySituation">familySituation</label>
 
             <c-input-group class="mb-3">
               <input [(ngModel)]="familySituation" name="familySituation" autoComplete="familySituation" cFormControl placeholder="familySituation" [ngModelOptions]="{standalone: true}" />
             </c-input-group>
+            <label  for="childNumber">childNumber</label>
 
             <c-input-group class="mb-3">
               <input [(ngModel)]="childNumber" name="childNumber" autoComplete="childNumber" cFormControl placeholder="childNumber" [ngModelOptions]="{standalone: true}" />

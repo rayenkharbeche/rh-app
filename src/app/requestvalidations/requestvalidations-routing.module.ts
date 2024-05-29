@@ -37,7 +37,7 @@ const routes: Routes = [
         path: 'requestsickvalidation',
         component: RequestsickvalidationComponent,
         data: {
-          title: 'Request Equipment validations',
+          title: 'Request sick validations',
           roles: ['Rh','manager']
         },
       },
@@ -70,7 +70,7 @@ const routes: Routes = [
         component: RequestequipmentValidationComponent,
         data: {
           title: 'Request Equipment validations',
-          roles: ['Rh','treasurer']
+          roles: ['Rh','treasurer','infra']
         },
       },
       

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { first } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,6 +13,9 @@ export class RegisterComponent {
   form!: FormGroup;
   loading = false;
   submitted = false;
+passwordsMatching: any;
+isConfirmPasswordDirty: boolean = false;
+confirmPasswordClass: string = 'form-control';
 
   constructor(
       private formBuilder: FormBuilder,
@@ -21,20 +24,33 @@ export class RegisterComponent {
       private accountService: AuthService,
       /*private alertService: AlertService*/
   ) { }
-
+  
   ngOnInit() {
+
       this.form = this.formBuilder.group({
           firstName: ['', Validators.required],
           lastName: ['', Validators.required],
           email: ['', Validators.required],
-          password: ['', [Validators.required, Validators.minLength(6)]]
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+
       });
+      this.form.controls['confirmPassword'].valueChanges.subscribe((val) => {
+        if (this.form.controls['password'].value === val) {
+          this.passwordsMatching = true;
+          this.confirmPasswordClass = 'form-control is-valid';
+        } else {
+          this.passwordsMatching = false;
+          this.confirmPasswordClass = 'form-control is-invalid'
+        }
+      })
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
-
+  
   onSubmit() {
+
       this.submitted = true;
       // reset alerts on submit
       /*this.alertService.clear();*/
@@ -58,4 +74,7 @@ export class RegisterComponent {
               }
           });
   }
+ 
+
+  
 }

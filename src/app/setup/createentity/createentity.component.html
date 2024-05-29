@@ -15,16 +15,16 @@
           name="title"
         />
       </div>
-
+    
+     
       <div class="form-group">
-        <label for="description">Country Code</label>
-        <input
-          class="form-control"
-          id="description"
-          required
-          [(ngModel)]="entity.countryCode"
-          name="description"
-        />
+        <label for="country">Country</label>
+        <c-input-group class="mb-3"> 
+          <select   aria-label="Disabled select example" cSelect  [(ngModel)]="countrySelected"  >
+            <option value="" disabled selected>Select Country</option>
+            <option *ngFor="let country of countries"   [ngValue]="country" >{{country.name}}</option>
+          </select>
+        </c-input-group> 
       </div>
       <button (click)="saveEntity()" class="btn btn-success">Submit</button>
     </div>

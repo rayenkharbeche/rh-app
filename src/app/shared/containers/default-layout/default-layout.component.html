@@ -39,6 +39,11 @@
     dropdownMode="close"
   />
   <c-sidebar-nav 
+  [navItems]="navItemsFinance"     *ngIf="isFinance"
+
+  dropdownMode="close"
+/>
+  <c-sidebar-nav 
     [navItems]="navItemsTr"     *ngIf="treasurer"
 
     dropdownMode="close"

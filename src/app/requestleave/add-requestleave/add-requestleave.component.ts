@@ -106,7 +106,7 @@ export class AddRequestleaveComponent {
   onSubmit(ref: TemplateRef<any>) {
 
       this.submitted = true;
-      this.messageError == ""
+      this.messageError = ""
 
       console.log(this.UserId) ;
   
@@ -134,6 +134,12 @@ export class AddRequestleaveComponent {
       var currentrequestDay= this.calcBusinessDays(currentDate,this.requestLeave.startDate) 
 
       this.requestLeave.leaveDays = diffEndStartRequest;
+console.log(this.requestLeave.leaveType)
+console.log(currentrequestDay)
+console.log(diffEndStartRequest)
+console.log(this.messageError)
+
+
 
       if (this.requestLeave.leaveType == "annualLeave"){
         if ( currentrequestDay < ( diffEndStartRequest * 2 ))
@@ -158,17 +164,16 @@ export class AddRequestleaveComponent {
         }})
 
       }
-      console.log(this.messageError)
-      console.log(this.messageError != "")
+    
 
       if (this.messageError != "") {
-        console.log("ee")
 
       this.dialog.open(ref);
       } else
       if (this.messageError == "") {
         console.log("data")
         this.loading = true;
+        console.log(this.requestLeave)
 
       this.requestleaveservice.create(this.requestLeave)
       .pipe(first())

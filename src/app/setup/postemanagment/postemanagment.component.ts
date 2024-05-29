@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Poste } from '../model/poste';
 import { PosteService } from '../service/poste.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-postemanagment',
@@ -9,6 +10,7 @@ import { PosteService } from '../service/poste.service';
   styleUrl: './postemanagment.component.css'
 })
 export class PostemanagmentComponent implements OnInit {
+  form!: FormGroup;
 
   poste: Poste = {
     id: 0,
@@ -16,10 +18,21 @@ export class PostemanagmentComponent implements OnInit {
   };
   submitted = false;
   postes?: Poste[];
-  constructor(private posteService: PosteService) { }
+  validForm: any;
+  constructor(private posteService: PosteService,
+    private formBuilder: FormBuilder,
+
+  ) { }
 
   
   ngOnInit(): void {
+    this.validForm = true;
+
+    this.form = this.formBuilder.group({
+      poste: ['', Validators.required ],
+      
+
+  });
     this.retrievePostes();
   }
 
@@ -36,15 +49,20 @@ export class PostemanagmentComponent implements OnInit {
 
   savePoste(): void {
     const data = {
-      name: this.poste.name,
+      name: this.form.value.poste,
     };
+console.log(this.form.invalid)
 
-
+if (this.form.invalid) {
+  this.validForm = false;
+  return;
+}
     this.posteService.create(data)
       .subscribe({
         next: (res) => {
           console.log(res); 
           this.submitted = true;
+          this.form.value.poste = "";
           this.retrievePostes();
 
         },
