@@ -62,6 +62,7 @@ public class AuthenticationService {
                 .setPassword(passwordEncoder.encode(input.getPassword()))
                 .setRole(role.get())
                 ;
+        user.setRemoteNbr(0);
         System.out.println(user);
 
         return userRepository.save(user);
@@ -95,6 +96,14 @@ public class AuthenticationService {
         System.out.println(userRepository.findByEmail(input.getEmail()));
 
         return userRepository.findByEmail(input.getEmail()).orElseThrow();
+    }
+    public LoginUserDto getUserInfo(String token) {
+
+        User user = userRepository.findByToken(token);
+        LoginUserDto loginUserDto = new LoginUserDto();
+        loginUserDto.setEmail(user.getEmail());
+        loginUserDto.setPassword(user.getPassword());
+        return loginUserDto;
     }
 
     public List<User> allUsers() {

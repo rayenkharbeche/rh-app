@@ -47,7 +47,7 @@ public class RequestLeave {
     private Date updateDate;
 
     @Column(name = "start_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     @Column(name = "end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

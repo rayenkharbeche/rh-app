@@ -129,18 +129,43 @@ public class EmailServiceImpl implements EmailService {
             String data = "";
             data = input.nextLine();
             System.out.println(requestLeave.getUserId());
+            System.out.println(requestLeave.getUserId().getSuperior());
+
             if(Objects.equals(requestLeave.getUserId().getRole().getRole(), "consultant")){
-                data = data.replace("${consultant}", requestLeave.getUserId().getFirstname() + requestLeave.getUserId().getSuperior().getLastName());
-                data = data.replace("${teamlead}", requestLeave.getUserId().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getLastName());
-                data = data.replace("${manager}", requestLeave.getUserId().getSuperior().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getSuperior().getLastName());
+                var consultantinfo = requestLeave.getUserId().getFirstname() + requestLeave.getUserId().getLastName();
+                data = data.replace("${consultant}", consultantinfo);
+                if (requestLeave.getUserId().getSuperior() != null) {
+                    var teamleadinfo = requestLeave.getUserId().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getLastName();
+                    data = data.replace("${teamlead}", teamleadinfo);
+
+                }
+                if (requestLeave.getUserId().getSuperior().getSuperior() != null) {
+                    var managerinfo = requestLeave.getUserId().getSuperior().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getSuperior().getLastName();
+                    data = data.replace("${manager}", managerinfo);
+
+                }
+
 
             }else if(Objects.equals(requestLeave.getUserId().getRole().getRole(), "teamLead")){
-                data = data.replace("${consultant}", requestLeave.getUserId().getFirstname() + requestLeave.getUserId().getLastName());
-                data = data.replace("${manager}", requestLeave.getUserId().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getLastName());
+                var consultantinfo = requestLeave.getUserId().getFirstname() + requestLeave.getUserId().getLastName();
 
+                data = data.replace("${consultant}", consultantinfo);
+                if (requestLeave.getUserId().getSuperior() != null) {
+                    var managerinfo = requestLeave.getUserId().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getLastName();
+                    data = data.replace("${manager}", managerinfo);
+
+                }
             } else if(Objects.equals(requestLeave.getUserId().getRole().getRole(), "manager")){
-                data = data.replace("${director}", requestLeave.getUserId().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getLastName());
-            }
+                if (requestLeave.getUserId().getSuperior() != null) {
+                    var directorinfo = requestLeave.getUserId().getSuperior().getFirstname() + requestLeave.getUserId().getSuperior().getLastName();
+                    data = data.replace("${director}", directorinfo);
+            } else {
+                    data = data.replace("${director}", "");
+
+                }
+
+
+        }
             data = data.replace("${NameSendTo}", usertoSend.getFirstname() + usertoSend.getLastName());
             data = data.replace("${leaveType}",translateTypeFR(requestLeave.getLeaveType()));
             data = data.replace("${leaveDays}",Long.toString(requestLeave.getLeaveDays()));

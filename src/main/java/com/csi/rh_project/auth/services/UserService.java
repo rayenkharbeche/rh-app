@@ -97,6 +97,7 @@ public class UserService {
                 _User.setMatricule(user.getMatricule());
                 _User.setAssurance(user.getAssurance());
                 _User.setAddress(user.getAddress());
+                _User.setRole(user.getRole());
 
 
                 if ( _User.getTeam() != null
@@ -364,6 +365,7 @@ public class UserService {
             return superior;
         } else return superior.getSuperior();
     }
+
     public Double EmployeeNumber() {
         System.out.println("2");
 

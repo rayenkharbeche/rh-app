@@ -35,14 +35,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-            /*http
-                    .csrf().disable()
-                    .authorizeHttpRequests((requests) -> requests
-                            .requestMatchers(HttpMethod.OPTIONS).permitAll() // allow CORS option calls for Swagger UI
-                            .requestMatchers("/*").permitAll()
-                            .anyRequest().authenticated())
-                    .httpBasic();
-            return http.build();*/
+
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
@@ -73,15 +66,7 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**",configuration);
 
         return source;
-        /*CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "content-type"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-type"));
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;*/
     }
 
 }

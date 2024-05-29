@@ -72,4 +72,7 @@ public interface UserRepository extends /*JpaRepository<User, Long> {*/
     @Modifying
     @Query("UPDATE User u SET u.remoteNbr = 2  WHERE u.id = :userId")
     void updateRemoteDay(@Param("userId") long userId);
+
+    @Query(value = "SELECT u from User u WHERE u.token = :token ")
+    User findUserByToken(@Param("token") String token);
 }

@@ -22,4 +22,5 @@ public interface RequestAdministrativeRepository extends JpaRepository<RequestAd
 	List<RequestAdministrative> findRequestAdministrativesDG();
 	@Query(value = "SELECT u from RequestAdministrative u WHERE  u.type in ('missionExpenses','OncallReimbursement','reimbursementExpenses') ")
 	List<RequestAdministrative> findRequestAdministrativesFN();
+
 }
